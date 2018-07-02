@@ -2,9 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/login_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Login">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#00b0ff">
+
+        <ImageView
+            android:id="@+id/login_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/camaleon1" />
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -12,52 +30,88 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal">
-
-           <TextView
-               android:id="@+id/tv_usuario"
-               android:layout_width="106dp"
-               android:layout_height="wrap_content"
-               android:text="Usuario:" />
-
-           <EditText
-               android:id="@+id/et_dataUsuario"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:text=""
-               />
-       </LinearLayout>
-
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="250dp"
 
-            <TextView
-                android:id="@+id/tv_password"
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:text="Password" />
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="?attr/colorBackgroundFloating"
+            app:contentPadding="@dimen/cardview_default_radius"
+            app:cardCornerRadius="8dp"
+            app:cardMaxElevation="8dp"
+            app:cardElevation="5dp">
 
-            <EditText
-                android:id="@+id/et_dataPassword"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/prompt_password"
-                />
-        </LinearLayout>
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Ingresar" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="20dp">
 
+
+                    <EditText
+                        android:id="@+id/et_dataUsuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Usuario"
+                        android:drawableRight="@drawable/ic_account_grey600_36dp"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <EditText
+                        android:id="@+id/et_dataPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Password"
+                        android:drawableRight="@drawable/ic_lock_open_outline"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/bt_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/btn_login_round"
+                        android:text="Ingresar"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
+
+
+
 </LinearLayout>

@@ -35,15 +35,14 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login2);
 
 
-        TextView tvUsuario;
+        //TextView tvUsuario;
         final EditText etDataUsuario;
-        TextView tvPassword;
+        //TextView tvPassword;
         final EditText etDataPassword;
         Button btLogin;
 
-        tvUsuario =  findViewById(R.id.tv_usuario);
+
         etDataUsuario =  findViewById(R.id.et_dataUsuario);
-        tvPassword =  findViewById(R.id.tv_password);
         etDataPassword =  findViewById(R.id.et_dataPassword);
         btLogin =  findViewById(R.id.bt_login);
 
@@ -57,10 +56,10 @@ public class Login extends AppCompatActivity {
                 Log.d("Usuario" , String.valueOf(usuarioD));
                 Log.d("Password" , String.valueOf(paswordD));
 
-                HashMap datauser = new HashMap();
+               /* HashMap datauser = new HashMap();
                 datauser.put("metodo", servicioLogin);
                 datauser.put("username", usuarioD);
-                datauser.put("password", paswordD);
+                datauser.put("password", paswordD);*/
 
                 JSONObject jsonData = new JSONObject();
                 try {
