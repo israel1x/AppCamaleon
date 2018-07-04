@@ -9,13 +9,16 @@ public class Cliente {
     public String direccion;
     public String telefono;
 
-    public Cliente(int id_cliente, String ruc, int id_persona, String nombre, String direccion, String telefono) {
-        this.id_cliente = id_cliente;
+
+    public Cliente(String ruc, String nombre, String direccion) {
         this.ruc = ruc;
-        this.id_persona = id_persona;
         this.nombre = nombre;
         this.direccion = direccion;
-        this.telefono = telefono;
+    }
+
+
+
+    public Cliente(Cliente cliente) {
     }
 
     public int getId_cliente() {

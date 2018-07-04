@@ -3,11 +3,11 @@ package com.example.pasantias.appcamaleon;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Menuprincipal extends AppCompatActivity {
+public class MenuPrincipal extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menuprincipal);
+        setContentView(R.layout.activity_menu_principal);
     }
 }

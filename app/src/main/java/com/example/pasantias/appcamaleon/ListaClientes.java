@@ -3,6 +3,8 @@ package com.example.pasantias.appcamaleon;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -12,7 +14,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pasantias.appcamaleon.Pojos.Cliente;
-import com.example.pasantias.appcamaleon.Pojos.Usuario;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,21 +21,68 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MenuDash extends AppCompatActivity {
+import iammert.com.expandablelib.ExpandCollapseListener;
+import iammert.com.expandablelib.ExpandableLayout;
+import iammert.com.expandablelib.Section;
+
+public class ListaClientes extends AppCompatActivity {
 
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
+
+    
+    ArrayList<Cliente> clientes = new ArrayList<>();
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_dash);
+        setContentView(R.layout.activity_lista_clientes);
 
+        clientes.add(new Cliente("0988829914", "Israel Zurita", "La troncal"));
+        clientes.add(new Cliente("0988888888", "Pedro Figueroa", "Guayaquil"));
+        clientes.add(new Cliente("0999999999", "Luis Lainez", "Quito"));
+
+
+        ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
+
+        sectionLinearLayout.setRenderer(new ExpandableLayout.Renderer<Cliente, Cliente>() {
+            @Override
+            public void renderParent(View view, Cliente model, boolean isExpanded, int parentPosition) {
+                ((TextView) view.findViewById(R.id.tv_parent_nameCliente)).setText(model.nombre);
+                 view.findViewById(R.id.arrow).setBackgroundResource(isExpanded ? R.drawable.arrow_up : R.drawable.arrow_down);
+            }
+
+            @Override
+            public void renderChild(View view, Cliente model, int parentPosition, int childPosition) {
+                ((TextView) view.findViewById(R.id.tv_child_ci)).setText(model.ruc);
+                ((TextView) view.findViewById(R.id.tv_child_dir)).setText(model.direccion);
+            }
+        });
+
+
+        conjuntoDeSecciones(clientes,sectionLinearLayout);
+        //sectionLinearLayout.addSection(getSection());
+        //sectionLinearLayout.addSection(getSection());
+        //sectionLinearLayout.addSection(getSection());
+
+
+        sectionLinearLayout.setExpandListener(new ExpandCollapseListener.ExpandListener<Cliente>() {
+            @Override
+            public void onExpanded(int parentIndex, Cliente parent, View view) {
+                //Layout expanded
+            }
+        });
+
+        sectionLinearLayout.setCollapseListener(new ExpandCollapseListener.CollapseListener<Cliente>() {
+            @Override
+            public void onCollapsed(int parentIndex, Cliente parent, View view) {
+                //Layout collapsed
+            }
+        });
 
 
     }
-
-
 
     public void consultarWSListaClientes(String token){
 
@@ -100,5 +148,39 @@ public class MenuDash extends AppCompatActivity {
         //return data_productos;
     }
 
+
+    public Section<Cliente, Cliente> getSection(int i) {
+
+        Section<Cliente, Cliente> section = new Section<>();
+        Cliente padre = clientes.get(i);
+        Cliente ruc = clientes.get(i);
+        //Cliente direccion = clientes.get(0);
+
+        section.parent = padre;
+        section.children.add(ruc);
+        //section.children.add(direccion);
+        section.expanded = false;
+
+        return section;
+    }
+
+    public void conjuntoDeSecciones(ArrayList<Cliente> clientes, ExpandableLayout sectionLinearLayout ) {
+
+        for (int i = 0; i < clientes.size(); i++) {
+
+            Section<Cliente, Cliente> section = new Section<>();
+            Cliente padre = clientes.get(i);
+            Cliente ruc = clientes.get(i);
+            //Cliente direccion = clientes.get(0);
+
+            section.parent = padre;
+            section.children.add(ruc);
+            //section.children.add(direccion);
+            section.expanded = false;
+
+            sectionLinearLayout.addSection(section);
+        }
+
+    }
 
 }
