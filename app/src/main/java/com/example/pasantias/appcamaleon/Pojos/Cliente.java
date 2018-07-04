@@ -17,6 +17,12 @@ public class Cliente {
     }
 
 
+    public Cliente(String ruc, String nombre, String direccion, String telefono) {
+        this.ruc = ruc;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
 
     public Cliente(Cliente cliente) {
     }

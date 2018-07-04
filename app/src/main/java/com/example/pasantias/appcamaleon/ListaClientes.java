@@ -29,7 +29,7 @@ public class ListaClientes extends AppCompatActivity {
 
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
 
-    
+
     ArrayList<Cliente> clientes = new ArrayList<>();
 
 
@@ -39,9 +39,9 @@ public class ListaClientes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_clientes);
 
-        clientes.add(new Cliente("0988829914", "Israel Zurita", "La troncal"));
-        clientes.add(new Cliente("0988888888", "Pedro Figueroa", "Guayaquil"));
-        clientes.add(new Cliente("0999999999", "Luis Lainez", "Quito"));
+        clientes.add(new Cliente("0988829914", "Israel Zurita", "La troncal","2421191"));
+        clientes.add(new Cliente("0988888888", "Pedro Figueroa", "Guayaquil","2421191"));
+        clientes.add(new Cliente("0999999999", "Luis Lainez", "Quito","2421191"));
 
 
         ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
@@ -57,6 +57,7 @@ public class ListaClientes extends AppCompatActivity {
             public void renderChild(View view, Cliente model, int parentPosition, int childPosition) {
                 ((TextView) view.findViewById(R.id.tv_child_ci)).setText(model.ruc);
                 ((TextView) view.findViewById(R.id.tv_child_dir)).setText(model.direccion);
+                ((TextView) view.findViewById(R.id.tv_child_telf)).setText(model.telefono);
             }
         });
 
