@@ -1,11 +1,0 @@
-
-Dsquid:S1170"!Make this final field static too.(Í€ÊÌÿÿÿÿÿ8ÊÀ§ùÁ,
-usquid:S001172"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Óé‚Öüÿÿÿÿ8—¨‚ùÁ,
-nsquid:CommentedOutCodeLine4"<This block of commented-out lines of code should be removed.(àÉìçúÿÿÿÿ8”±‡ùÁ,
-isquid:CommentedOutCodeLined"<This block of commented-out lines of code should be removed.(é÷ÊÊ8¼¿şøÁ,
-Usquid:S14812"2Remove this unused "data_Clientes" local variable.(Óé‚Öüÿÿÿÿ8›Ø„ùÁ,
-?squid:S1181W"!Catch Exception instead of Error.(ê–½8¼¿şøÁ,
-dsquid:S18542"ARemove this useless assignment to local variable "data_Clientes".(Óé‚Öüÿÿÿÿ8—¨‚ùÁ,
-|squid:S22932"YReplace the type specification in this constructor call with the diamond operator ("<>").(Óé‚Öüÿÿÿÿ8—¨‚ùÁ,
-msquid:S1192N"ODefine a constant instead of duplicating this literal "No tiene DATOS" 3 times.(“‰‰È8¼¿şøÁ,
-|squid:UselessImportCheck"LRemove this unused import 'com.example.pasantias.appcamaleon.Pojos.Usuario'.(ú’ëèøÿÿÿÿ8¸òºùÁ,

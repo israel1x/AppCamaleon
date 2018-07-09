@@ -1,12 +1,12 @@
 
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Õ»Ç¦8í¸üåÅ,
-^squid:S1854"BRemove this useless assignment to local variable "data_productos".(Ç¬Àà8µÊùåÅ,
-Osquid:S1481"3Remove this unused "data_productos" local variable.(Ç¬Àà8µÊùåÅ,
-nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç¬Àà8µÊùåÅ,
-vsquid:UselessImportCheck"HRemove this unused import 'com.android.volley.toolbox.JsonArrayRequest'.(šéŽíøÿÿÿÿ8µÊùåÅ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(±­Ü–øÿÿÿÿ8µÊùåÅ,
-œsquid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú¡­,8µÊùåÅ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ßÄÀ’þÿÿÿÿ8í¸üåÅ,
-osquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(§ÿ—Ôüÿÿÿÿ8µÊùåÅ,
-_squid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8µÊùåÅ,
-]squid:UselessImportCheck"/Remove this unused import 'org.json.JSONArray'.(¬¸Ê’üÿÿÿÿ8µÊùåÅ,
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Õ»Ç¦8ßÌò·Æ,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ßÄÀ’þÿÿÿÿ8ßÌò·Æ,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(±­Ü–øÿÿÿÿ8ßÌò·Æ,
+Osquid:S1481"3Remove this unused "data_productos" local variable.(Ç¬Àà8ßÌò·Æ,
+œsquid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú¡­,8ßÌò·Æ,
+^squid:S1854"BRemove this useless assignment to local variable "data_productos".(Ç¬Àà8ßÌò·Æ,
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç¬Àà8ßÌò·Æ,
+vsquid:UselessImportCheck"HRemove this unused import 'com.android.volley.toolbox.JsonArrayRequest'.(šéŽíøÿÿÿÿ8ßÌò·Æ,
+_squid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8ßÌò·Æ,
+]squid:UselessImportCheck"/Remove this unused import 'org.json.JSONArray'.(¬¸Ê’üÿÿÿÿ8ßÌò·Æ,
+osquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(§ÿ—Ôüÿÿÿÿ8ßÌò·Æ,
