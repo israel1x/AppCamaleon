@@ -3,6 +3,7 @@ package com.example.pasantias.appcamaleon.DataBase;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(tableName = "clientemin")
 public class ClienteMin {
@@ -12,6 +13,7 @@ public class ClienteMin {
 
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
+    @NonNull
     private String idCliente;
 
     @ColumnInfo(name = "name")

@@ -15,13 +15,13 @@ public interface ClienteMinDao {
     List<ClienteMin> getAll();
 
     @Query("SELECT * FROM clientemin where name LIKE  :firstName")
-    ClienteMin findByName(String firstName, String lastName);
+    ClienteMin findByName(String firstName);
 
     @Query("SELECT id, name, ruc, dir, telf FROM clientemin")
-    ClienteMin findForListCliente();
+    List<ClienteMin> findForListCliente();
 
     @Query("SELECT id, name, lattitud, longitud FROM clientemin")
-    ClienteMin findForRutaClientes();
+    List<ClienteMin> findForRutaClientes();
 
     @Query("SELECT COUNT(*) from clientemin")
     int countUsers();
