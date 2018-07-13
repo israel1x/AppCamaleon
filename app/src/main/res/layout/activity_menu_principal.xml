@@ -4,68 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@drawable/menuprincipal_background"
     tools:context=".MenuPrincipal">
 
-    <Button
-        android:id="@+id/bt_ingresar_pedido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:text="Ingresar pedido"
-        app:layout_constraintEnd_toStartOf="@+id/bt_ver_pedidos"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/bt_ver_pedidos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:layout_marginTop="100dp"
-        android:text="Ver pedidos"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginTop="160dp"
+        android:background="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/me_ver_pedidos" />
 
-    <Button
-        android:id="@+id/bt_ruta_de_clientes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="96dp"
-        android:text="Ruta deClientes"
-        app:layout_constraintEnd_toStartOf="@+id/bt_lista_clientes"
-        app:layout_constraintHorizontal_bias="1.0"
+    <ImageButton
+        android:id="@+id/bt_ruta_clientes"
+        android:layout_width="81dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="36dp"
+        android:background="?selectableItemBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_ingresar_pedido" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_ing_pedidos"
+        app:srcCompat="@drawable/me_rut_clientes" />
 
-    <Button
-        android:id="@+id/bt_lista_clientes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="96dp"
-        android:text="Lista de Clientes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_ver_pedidos" />
-
-    <Button
-        android:id="@+id/bt_pedidos_offline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="152dp"
-        android:layout_marginEnd="60dp"
+    <ImageButton
+        android:id="@+id/bt_list_clientes"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
+        android:layout_marginTop="28dp"
+        android:background="?selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bt_ruta_clientes"
+        app:layout_constraintTop_toBottomOf="@+id/bt_ver_pedidos"
+
+        app:srcCompat="@drawable/me_list_clientes" />
+
+    <ImageButton
+        android:id="@+id/bt_offline"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginTop="52dp"
+        android:background="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.614"
+        app:layout_constraintTop_toBottomOf="@+id/bt_list_clientes"
+        app:layout_constraintVertical_bias="0.037"
+        app:srcCompat="@drawable/me_pedi_offline" />
+
+    <ImageButton
+        android:id="@+id/bt_ing_pedidos"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="160dp"
+        android:background="@color/cardview_light_background"
+        app:layout_constraintEnd_toStartOf="@+id/bt_ver_pedidos"
+        app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_lista_clientes"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/me_ing_pedido"/>
+
+    <ImageView
+        android:id="@+id/iv_reportes"
+        android:background="?selectableItemBackground"
+        android:elevation="5dp"
+        android:layout_width="102dp"
+        android:layout_height="92dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_offline"
+        app:layout_constraintHorizontal_bias="0.705"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_ruta_clientes"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/me_ver_reportes" />
+
 </android.support.constraint.ConstraintLayout>
