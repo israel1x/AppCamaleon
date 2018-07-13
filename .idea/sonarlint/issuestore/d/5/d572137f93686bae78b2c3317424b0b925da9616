@@ -1,17 +1,11 @@
 
-jsquid:S00101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(­“Ë8òÆ¹ˆÉ,
-"squid:ClassVariableVisibilityCheck"WMake appDatabase a static final constant or non-public and provide accessors if needed.(¾‹”éÿÿÿÿÿ8òÆ¹ˆÉ,
-Fsquid:S00108")Either remove or fill this block of code.(¸²ç”8òÆ¹ˆÉ,
-Rsquid:S1444"1Make this "public static appDatabase" field final(¾‹”éÿÿÿÿÿ8òÆ¹ˆÉ,
-Wsquid:S2696"6Make the enclosing method "static" or remove this set.(Ò´ß²ıÿÿÿÿ8òÆ¹ˆÉ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ô°˜¤8òÆ¹ˆÉ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8òÆ¹ˆÉ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ä÷Éê8òÆ¹ˆÉ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(áéºÍıÿÿÿÿ8òÆ¹ˆÉ,
-psquid:MaximumInheritanceDepth"=This class has 10 parents which is greater than 5 authorized.(§ÿ—Ôüÿÿÿÿ8òÆ¹ˆÉ,
-Isquid:S1185"(Remove this method to simply inherit it.(Û¶…óøÿÿÿÿ8òÆ¹ˆÉ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¤Îşò8òÆ¹ˆÉ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8òÆ¹ˆÉ,
-^squid:UnusedPrivateMethod"4Remove this unused private "insertTask" constructor.(Öİ“¡8òÆ¹ˆÉ,
-Jsquid:S3985".Remove this unused private "insertTask" class.(­“Ë8òÆ¹ˆÉ,
-Rsquid:S1068"6Remove this unused "loginWeakReference" private field.(ÒêÁß8òÆ¹ˆÉ,
+Wsquid:S2696"6Make the enclosing method "static" or remove this set.(Ò´ß²ıÿÿÿÿ8‘ï»“É,
+Isquid:S1185"(Remove this method to simply inherit it.(Û¶…óøÿÿÿÿ8§¼“É,
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8‘ï»“É,
+"squid:ClassVariableVisibilityCheck"WMake appDatabase a static final constant or non-public and provide accessors if needed.(¾‹”éÿÿÿÿÿ8‘ï»“É,
+Rsquid:S1444"1Make this "public static appDatabase" field final(¾‹”éÿÿÿÿÿ8‘ï»“É,
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8‘ï»“É,
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ô°˜¤8‘ï»“É,
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¤Îşò8‘ï»“É,
+fsquid:UselessImportCheck"8Remove this unused import 'java.lang.ref.WeakReference'.(å¢Œıÿÿÿÿÿ8‘ï»“É,
+psquid:MaximumInheritanceDepth"=This class has 10 parents which is greater than 5 authorized.(§ÿ—Ôüÿÿÿÿ8‘ï»“É,

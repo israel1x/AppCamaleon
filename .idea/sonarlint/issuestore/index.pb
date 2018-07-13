@@ -41,3 +41,15 @@ Mapp/src/main/java/com/example/pasantias/appcamaleon/DataBase/AppDatabase.java,
 Lapp/src/main/java/com/example/pasantias/appcamaleon/DataBase/UsuarioDao.java,2\3\23720b70bfefd64f7b5ba0d181ee7d3d925bb136
 y
 Iapp/src/main/java/com/example/pasantias/appcamaleon/DataBase/Usuario.java,c\3\c3dd366a2b974ec536f65164e890cd364198820c
+e
+5app/src/main/res/layout/activity_ruta_de_clientes.xml,7\e\7e3febfaa3e3dae004538819d1925b3b66603124
+^
+.app/src/main/res/layout/lista_clientes_row.xml,d\9\d978ff7e127389f75c009282af4ac5bf1f209199
+\
+,app/src/main/res/layout/layout_parent_lc.xml,a\c\ac7ac1d0e76139836d12bef0d76902d4c2be649e
+c
+3app/src/main/res/layout/activity_lista_clientes.xml,9\6\9674359b8a61edd3156e514f438bee972bc5c398
+[
++app/src/main/res/layout/layout_child_lc.xml,c\4\c41cfdf0662828a32a28b550f46806d3c0c7e6b9
+W
+'app/src/main/res/drawable/btn_small.xml,1\a\1ac8bb30c2f158af4913f245bfc5f0d9e03fbb67
