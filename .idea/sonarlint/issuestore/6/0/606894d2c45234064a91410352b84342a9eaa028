@@ -1,4 +1,0 @@
-
-^squid:S2094"BRemove this empty class, write its code or make it an "interface".(ð¿Óå8¦­‰´Æ,
-|squid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¸ØÀ±ýÿÿÿÿ8¦­‰´Æ,
-Ysquid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8¦­‰´Æ,

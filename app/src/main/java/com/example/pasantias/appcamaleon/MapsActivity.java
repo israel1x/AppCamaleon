@@ -55,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         traerRutaDeClientes(clienteMins,tokenEjemplo);
 
+        // la base debe ser instanciada una sola vez en la aplicacion
         appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
 
         appDatabase.clienteMinDao().insertAll(clienteMins);
