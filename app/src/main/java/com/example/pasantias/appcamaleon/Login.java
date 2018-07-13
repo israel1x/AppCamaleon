@@ -30,7 +30,6 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 
 public class Login extends AppCompatActivity {
-
     String servicioLogin = "iniciarSesion";
     public static AppDatabase appDatabase;
     Usuario usuarioX;
@@ -82,9 +81,6 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
-
-
 
     //Metodo para conectar al web services
     public void consultarWSLogin(JSONObject data, String user){
@@ -171,7 +167,6 @@ public class Login extends AppCompatActivity {
         }.execute(usuario);
     }
 
-
     @SuppressLint("StaticFieldLeak")
     private void getDataUser(final int id, final String user, final String pass) {
         new AsyncTask<Integer, Void , Usuario>() {
@@ -197,7 +192,5 @@ public class Login extends AppCompatActivity {
             }
         }.execute(id);
     }
-
-
 
 }

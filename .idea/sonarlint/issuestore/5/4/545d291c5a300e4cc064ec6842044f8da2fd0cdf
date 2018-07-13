@@ -1,15 +1,0 @@
-
-€squid:S1450"_Remove the "btRutaDeClientes" field and declare it as a local variable in the relevant methods.(ŠàÚáÿÿÿÿÿ8Ï¥âşÈ,
-Esquid:S1905")Remove this unnecessary cast to "Button".(ôÌÉë8ÊâşÈ,
-Usquid:S1068"4Remove this unused "btPedidosOffline" private field.(ñŞ…üÿÿÿÿ8Ï¥âşÈ,
-wsquid:S1450"[Remove the "btVerPedidos" field and declare it as a local variable in the relevant methods.(Èâæå8Ï¥âşÈ,
-Esquid:S1905")Remove this unnecessary cast to "Button".(¤ÂÓ—8¼éâşÈ,
-Jsquid:S1905")Remove this unnecessary cast to "Button".(ÿğ·öùÿÿÿÿ8ÊâşÈ,
-Usquid:S1068"4Remove this unused "btIngresarPedido" private field.(¤¢Ù›ÿÿÿÿÿ8Ï¥âşÈ,
-€squid:S1450"_Remove the "btIngresarPedido" field and declare it as a local variable in the relevant methods.(¤¢Ù›ÿÿÿÿÿ8Ï¥âşÈ,
-Lsquid:S1068"0Remove this unused "btVerPedidos" private field.(Èâæå8Ï¥âşÈ,
-€squid:S1450"_Remove the "btPedidosOffline" field and declare it as a local variable in the relevant methods.(ñŞ…üÿÿÿÿ8Ï¥âşÈ,
-ksquid:MaximumInheritanceDepth"=This class has 10 parents which is greater than 5 authorized.(Ú›òã8©ÉáşÈ,
-squid:S1450"^Remove the "btListaClientes" field and declare it as a local variable in the relevant methods.(Ëü´‘ÿÿÿÿÿ8Ï¥âşÈ,
-Jsquid:S1905")Remove this unnecessary cast to "Button".(™üÉóÿÿÿÿÿ8ÊâşÈ,
-Esquid:S1905")Remove this unnecessary cast to "Button".(†íŸ8ÊâşÈ,

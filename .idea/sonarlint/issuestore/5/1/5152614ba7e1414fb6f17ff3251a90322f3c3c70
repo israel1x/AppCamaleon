@@ -1,7 +1,0 @@
-
-psquid:UselessImportCheck"NRemove this unused import 'android.arch.persistence.room.InvalidationTracker'.(õ´‰É
-psquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(šÀªæ
-hsquid:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û½ïÕ
-`squid:UselessImportCheck"?Remove this unused import 'android.support.annotation.NonNull'.(¼Åß
-rsquid:UselessImportCheck"PRemove this unused import 'android.arch.persistence.room.DatabaseConfiguration'.(òÙÐ«
-wsquid:UselessImportCheck"PRemove this unused import 'android.arch.persistence.db.SupportSQLiteOpenHelper'.(”òôäùÿÿÿÿ

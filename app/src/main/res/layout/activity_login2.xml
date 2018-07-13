@@ -19,7 +19,8 @@
         <ImageView
             android:id="@+id/login_logo"
             android:layout_width="200dp"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:src="@drawable/logo_2"/>
 
     </LinearLayout>
 
@@ -63,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Usuario"
-                        />
+                        android:drawableRight="@drawable/ic_login_user"/>
 
                 </LinearLayout>
 
@@ -81,7 +82,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password"
-                        />
+                        android:inputType="textPassword"
+                        android:drawableRight="@drawable/ic_login_pass"/>
 
 
                 </LinearLayout>
