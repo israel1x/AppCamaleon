@@ -7,6 +7,8 @@
     android:background="@drawable/menuprincipal_background"
     tools:context=".MenuPrincipal">
 
+    <include android:id="@+id/miActionBar" layout="@layout/actionbar">
+    </include>
 
     <ImageButton
         android:id="@+id/bt_ver_pedidos"

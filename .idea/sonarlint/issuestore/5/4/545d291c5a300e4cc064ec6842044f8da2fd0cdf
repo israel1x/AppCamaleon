@@ -1,0 +1,30 @@
+
+Ssquid:S1068""0Remove this unused "btVerPedidos" private field.(…Ä®àûÿÿÿÿ8³íÊ,
+Jsquid:S1068%"-Remove this unused "btOffline" private field.(æ¯‘c8³íÊ,
+Msquid:S1068&"0Remove this unused "btIngPedidos" private field.(ë¹^8³íÊ,
+Qsquid:S1068'".Remove this unused "btReportes" private field.(ÅØ¥½øÿÿÿÿ8³íÊ,
+~squid:S1450""[Remove the "btVerPedidos" field and declare it as a local variable in the relevant methods.(…Ä®àûÿÿÿÿ8³íÊ,
+{squid:S1450#"]Remove the "btRutaClientes" field and declare it as a local variable in the relevant methods.(¡‹ß¸8³íÊ,
+€squid:S1450$"]Remove the "btListClientes" field and declare it as a local variable in the relevant methods.(û”İ±ÿÿÿÿÿ8³íÊ,
+usquid:S1450%"XRemove the "btOffline" field and declare it as a local variable in the relevant methods.(æ¯‘c8³íÊ,
+xsquid:S1450&"[Remove the "btIngPedidos" field and declare it as a local variable in the relevant methods.(ë¹^8³íÊ,
+Tsquid:S1444+"1Make this "public static appDatabase" field final(¾‹”éÿÿÿÿÿ8³íÊ,
+nsquid:CommentedOutCodeLine="<This block of commented-out lines of code should be removed.(Ñóô«ûÿÿÿÿ8³íÊ,
+isquid:CommentedOutCodeLinei"<This block of commented-out lines of code should be removed.(ØĞÚ´8³íÊ,
+nsquid:CommentedOutCodeLinez"<This block of commented-out lines of code should be removed.(·’ıÿÿÿÿ8³íÊ,
+jsquid:CommentedOutCodeLine¤"<This block of commented-out lines of code should be removed.(ïç¤8³íÊ,
+Ysquid:S2696B"6Make the enclosing method "static" or remove this set.(Ò´ß²ıÿÿÿÿ8³íÊ,
+‘"squid:ClassVariableVisibilityCheck+"WMake appDatabase a static final constant or non-public and provide accessors if needed.(¾‹”éÿÿÿÿÿ8³íÊ,
+Msquid:S19055"*Remove this unnecessary cast to "Toolbar".(½ú¥şÿÿÿÿ8³íÊ,
+Lsquid:S19058".Remove this unnecessary cast to "ImageButton".(ì­ò„8³íÊ,
+Lsquid:S19059".Remove this unnecessary cast to "ImageButton".(¿ñ¬Í8³íÊ,
+Qsquid:S1905:".Remove this unnecessary cast to "ImageButton".(ÔéÎùøÿÿÿÿ8³íÊ,
+Ksquid:S1905;".Remove this unnecessary cast to "ImageButton".(¹ı€f8³íÊ,
+Qsquid:S1905<".Remove this unnecessary cast to "ImageButton".(˜óğûøÿÿÿÿ8³íÊ,
+Dsquid:S1170)"!Make this final field static too.(Í€ÊÌÿÿÿÿÿ8³íÊ,
+Jsquid:S1168¼"+Return an empty collection instead of null.(¥¹ï8³íÊ,
+¥squid:S1186Ã"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¿Â”øÿÿÿÿ8³íÊ,
+Fsquid:S1148x"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8³íÊ,
+Gsquid:S1148¨"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8³íÊ,
+Xsquid:S1161Y":Add the "@Override" annotation above this method signature(Ôö§ó8³íÊ,
+msquid:MaximumInheritanceDepth "=This class has 10 parents which is greater than 5 authorized.(Ú›òã8³íÊ,
