@@ -74,8 +74,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/btn_ingresar_pedido" />
 
-    <ImageView
-        android:id="@+id/iv_reportes"
+    <ImageButton
+        android:id="@+id/bt_reportes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -90,6 +90,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_ruta_clientes"
         app:layout_constraintVertical_bias="0.033"
-        app:srcCompat="@drawable/btn_reportes" />
+        android:src="@drawable/btn_reportes"/>
 
 </android.support.constraint.ConstraintLayout>

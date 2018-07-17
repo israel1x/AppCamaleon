@@ -58,14 +58,15 @@ public class MenuPrincipal extends AppCompatActivity {
         btListClientes = (ImageButton) findViewById(R.id.bt_list_clientes);
         btOffline = (ImageButton) findViewById(R.id.bt_offline);
         btIngPedidos = (ImageButton) findViewById(R.id.bt_ing_pedidos);
-        //btReportes = (ImageButton) findViewById(R.id.bt_reportes);
+        btReportes = (ImageButton) findViewById(R.id.bt_reportes);
 
-        traerRutaDeClientes(clienteMins,tokenEjemplo);
+        //traerRutaDeClientes(clienteMins,tokenEjemplo);
 
         // la base debe ser instanciada una sola vez en la aplicacion
-        appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
+        //appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
 
-        appDatabase.clienteMinDao().insertAll(clienteMins);
+        //appDatabase.clienteMinDao().insertAll(clienteMins);
+
 
         btListClientes.setOnClickListener(new View.OnClickListener() {
             @Override

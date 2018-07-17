@@ -33,6 +33,7 @@ google-services.json
 
 # User-specific configurations
 .idea/caches/
+.idea/sonarlint/
 .idea/libraries/
 .idea/workspace.xml
 .idea/tasks.xml
