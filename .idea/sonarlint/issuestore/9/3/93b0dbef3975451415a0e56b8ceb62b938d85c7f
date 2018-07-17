@@ -1,27 +1,27 @@
 
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(µÂÂ­8Ç›ÕÊ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ê¦ûùúÿÿÿÿ8Ç›ÕÊ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ØÐÚ´8Ç›ÕÊ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(³é¥ ÿÿÿÿÿ8Ç›ÕÊ,
-"squid:ClassVariableVisibilityCheck"WMake appDatabase a static final constant or non-public and provide accessors if needed.(¾‹”éÿÿÿÿÿ8Ç›ÕÊ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ž·’ýÿÿÿÿ8Ç›ÕÊ,
-`squid:UselessImportCheck"7Remove this unused import 'com.android.volley.Request'.(Å½ä8Ç›ÕÊ,
-Rsquid:S1444"1Make this "public static appDatabase" field final(¾‹”éÿÿÿÿÿ8Ç›ÕÊ,
-jsquid:MaximumInheritanceDepth"<This class has 9 parents which is greater than 5 authorized.(©˜Ãæ8Ç›ÕÊ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8Ç›ÕÊ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¢¹âý8Ç›ÕÊ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¶«œ¨8Ç›ÕÊ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¸çšÖ8Ç›ÕÊ,
-ssquid:UselessImportCheck"ERemove this unused import 'android.support.v7.app.AppCompatActivity'.(«Û®ûüÿÿÿÿ8Ç›ÕÊ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(óˆÈò8Ç›ÕÊ,
-Ksquid:S1905"*Remove this unnecessary cast to "Toolbar".(½ú¥þÿÿÿÿ8Ç›ÕÊ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ïç¤8Ç›ÕÊ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8Ç›ÕÊ,
-_squid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8Ç›ÕÊ,
-Bsquid:S1170"!Make this final field static too.(Í€ÊÌÿÿÿÿÿ8Ç›ÕÊ,
-tsquid:S1450"SRemove the "mMap" field and declare it as a local variable in the relevant methods.(—­ƒÌÿÿÿÿÿ8Ç›ÕÊ,
-usquid:UselessImportCheck"GRemove this unused import 'android.arch.persistence.room.RoomDatabase'.(¿ÔÏ£ýÿÿÿÿ8Ç›ÕÊ,
-vsquid:UselessImportCheck"HRemove this unused import 'com.android.volley.toolbox.JsonArrayRequest'.(šéŽíøÿÿÿÿ8Ç›ÕÊ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ä…¿ðøÿÿÿÿ8§¼ÕÊ,
-Qsquid:S1481"0Remove this unused "miActionBar" local variable.(½ú¥þÿÿÿÿ8§¼ÕÊ,
-`squid:S1854"?Remove this useless assignment to local variable "miActionBar".(½ú¥þÿÿÿÿ8§¼ÕÊ,
+jsquid:CommentedOutCodeLine©"<This block of commented-out lines of code should be removed.(ïç¤8Ç›ÕÊ,
+Ssquid:S14817"0Remove this unused "miActionBar" local variable.(½ú¥þÿÿÿÿ8§¼ÕÊ,
+isquid:CommentedOutCodeLinei"<This block of commented-out lines of code should be removed.(µÂÂ­8Ç›ÕÊ,
+usquid:UselessImportCheck	"ERemove this unused import 'android.support.v7.app.AppCompatActivity'.(«Û®ûüÿÿÿÿ8Ç›ÕÊ,
+bsquid:S18547"?Remove this useless assignment to local variable "miActionBar".(½ú¥þÿÿÿÿ8§¼ÕÊ,
+Fsquid:S1148|"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8Ç›ÕÊ,
+lsquid:MaximumInheritanceDepth&"<This class has 9 parents which is greater than 5 authorized.(©˜Ãæ8Ç›ÕÊ,
+nsquid:CommentedOutCodeLine8"<This block of commented-out lines of code should be removed.(Ä…¿ðøÿÿÿÿ8§¼ÕÊ,
+isquid:CommentedOutCodeLineE"<This block of commented-out lines of code should be removed.(óˆÈò8Ç›ÕÊ,
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ž·’ýÿÿÿÿ8Ç›ÕÊ,
+Dsquid:S1170/"!Make this final field static too.(Í€ÊÌÿÿÿÿÿ8Ç›ÕÊ,
+Msquid:S19057"*Remove this unnecessary cast to "Toolbar".(½ú¥þÿÿÿÿ8Ç›ÕÊ,
+xsquid:UselessImportCheck"HRemove this unused import 'com.android.volley.toolbox.JsonArrayRequest'.(šéŽíøÿÿÿÿ8Ç›ÕÊ,
+‘"squid:ClassVariableVisibilityCheck*"WMake appDatabase a static final constant or non-public and provide accessors if needed.(¾‹”éÿÿÿÿÿ8Ç›ÕÊ,
+nsquid:CommentedOutCodeLineP"<This block of commented-out lines of code should be removed.(³é¥ ÿÿÿÿÿ8Ç›ÕÊ,
+wsquid:UselessImportCheck"GRemove this unused import 'android.arch.persistence.room.RoomDatabase'.(¿ÔÏ£ýÿÿÿÿ8Ç›ÕÊ,
+vsquid:S1450("SRemove the "mMap" field and declare it as a local variable in the relevant methods.(—­ƒÌÿÿÿÿÿ8Ç›ÕÊ,
+isquid:CommentedOutCodeLineN"<This block of commented-out lines of code should be removed.(¸çšÖ8Ç›ÕÊ,
+bsquid:UselessImportCheck"7Remove this unused import 'com.android.volley.Request'.(Å½ä8Ç›ÕÊ,
+nsquid:CommentedOutCodeLineJ"<This block of commented-out lines of code should be removed.(Ê¦ûùúÿÿÿÿ8Ç›ÕÊ,
+isquid:CommentedOutCodeLine:"<This block of commented-out lines of code should be removed.(¶«œ¨8Ç›ÕÊ,
+isquid:CommentedOutCodeLinen"<This block of commented-out lines of code should be removed.(ØÐÚ´8Ç›ÕÊ,
+isquid:CommentedOutCodeLineH"<This block of commented-out lines of code should be removed.(¢¹âý8Ç›ÕÊ,
+asquid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8Ç›ÕÊ,
+Tsquid:S1444*"1Make this "public static appDatabase" field final(¾‹”éÿÿÿÿÿ8Ç›ÕÊ,
+Gsquid:S1148­"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8Ç›ÕÊ,
