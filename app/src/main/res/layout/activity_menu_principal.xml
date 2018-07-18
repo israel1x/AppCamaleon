@@ -1,96 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/menuprincipal_background"
+    android:orientation="vertical"
     tools:context=".MenuPrincipal">
 
-    <include
-        android:id="@+id/miActionBar"
-        layout="@layout/actionbar"></include>
 
-    <ImageButton
-        android:id="@+id/bt_ver_pedidos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginTop="160dp"
-        android:background="@color/cardview_light_background"
-        app:layout_constraintBottom_toTopOf="@+id/bt_list_clientes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/btn_ver_pedidos" />
+   <LinearLayout
+       android:layout_marginTop="40dp"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/bt_ruta_clientes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="48dp"
-        android:background="?selectableItemBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_ing_pedidos"
-        app:srcCompat="@drawable/btn_ruta_clientes" />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight=".33"
+           android:layout_marginRight="12dp"
+           android:layout_marginLeft="12dp"
+           android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/bt_list_clientes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="?selectableItemBackground"
-        app:layout_constraintBottom_toTopOf="@+id/bt_offline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.552"
-        app:layout_constraintStart_toEndOf="@+id/bt_ruta_clientes"
-        app:srcCompat="@drawable/btn_lista_clientes" />
+           <ImageButton
+               android:id="@+id/bt_ing_pedidos"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight=".5"
+               android:background="?selectableItemBackground"
+               app:srcCompat="@drawable/btn_ingresar_pedido" />
 
-    <ImageButton
-        android:id="@+id/bt_offline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="68dp"
-        android:background="@color/cardview_light_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/btn_sicronizar" />
+           <ImageButton
+               android:id="@+id/bt_ver_pedidos"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight=".5"
+               android:background="?selectableItemBackground"
+               app:srcCompat="@drawable/btn_ver_pedidos" />
+       </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/bt_ing_pedidos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="160dp"
-        android:background="@color/cardview_light_background"
-        app:layout_constraintEnd_toStartOf="@+id/bt_ver_pedidos"
-        app:layout_constraintHorizontal_bias="0.195"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/btn_ingresar_pedido" />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight=".33"
+           android:layout_marginRight="12dp"
+           android:layout_marginLeft="12dp"
+           android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/bt_reportes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:background="?selectableItemBackground"
-        android:elevation="5dp"
-        android:src="@drawable/btn_reportes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bt_offline"
-        app:layout_constraintHorizontal_bias="0.69"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_ruta_clientes"
-        app:layout_constraintVertical_bias="0.121" />
+           <ImageButton
+               android:id="@+id/bt_ruta_clientes"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight=".5"
+               android:background="?selectableItemBackground"
+               app:srcCompat="@drawable/btn_ruta_clientes" />
 
-</android.support.constraint.ConstraintLayout>
+           <ImageButton
+               android:id="@+id/bt_list_clientes"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight=".5"
+               android:background="?selectableItemBackground"
+               app:srcCompat="@drawable/btn_lista_clientes" />
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight=".33"
+           android:layout_marginRight="12dp"
+           android:layout_marginLeft="12dp"
+           android:orientation="horizontal">
+
+           <ImageButton
+               android:id="@+id/bt_offline"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight=".5"
+               android:background="?selectableItemBackground"
+               app:srcCompat="@drawable/btn_sicronizar" />
+
+           <ImageButton
+               android:id="@+id/bt_reportes"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight=".5"
+               android:background="?selectableItemBackground"
+               android:src="@drawable/btn_reportes" />
+
+       </LinearLayout>
+
+   </LinearLayout>
+
+
+</LinearLayout>

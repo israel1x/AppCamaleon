@@ -1,6 +1,7 @@
 package com.example.pasantias.appcamaleon;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
@@ -20,7 +21,7 @@ import com.example.pasantias.appcamaleon.Fragments.MapsActivity;
 import com.example.pasantias.appcamaleon.Fragments.MenuPrin;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MenuPrin.OnFragmentInteractionListener {
 
     FrameLayout frameContentPrincipal;
 
@@ -45,6 +46,12 @@ public class MainActivity extends AppCompatActivity
         //fragment = findViewById(R.id.nav_content_principal);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Fragment fragment = new MenuPrin();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_content_principal,fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -116,5 +123,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
