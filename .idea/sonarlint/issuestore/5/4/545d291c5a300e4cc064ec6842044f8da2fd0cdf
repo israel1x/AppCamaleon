@@ -1,34 +1,0 @@
-
-Jsquid:S1068%"-Remove this unused "btOffline" private field.(æ¯‘c8“ÁÒÞÊ,
-|squid:S1450'"YRemove the "btReportes" field and declare it as a local variable in the relevant methods.(ÅØ¥½øÿÿÿÿ8“ÁÒÞÊ,
-usquid:S1450%"XRemove the "btOffline" field and declare it as a local variable in the relevant methods.(æ¯‘c8“ÁÒÞÊ,
-Qsquid:S1905<".Remove this unnecessary cast to "ImageButton".(ÔéÎùøÿÿÿÿ8“ÁÒÞÊ,
-isquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(óˆÈò8“ÁÒÞÊ,
-jsquid:CommentedOutCodeLine©"<This block of commented-out lines of code should be removed.(ïç¤8“ÁÒÞÊ,
-Dsquid:S1170)"!Make this final field static too.(Í€ÊÌÿÿÿÿÿ8“ÁÒÞÊ,
-isquid:CommentedOutCodeLinen"<This block of commented-out lines of code should be removed.(ØÐÚ´8“ÁÒÞÊ,
-Ssquid:S1068""0Remove this unused "btVerPedidos" private field.(…Ä®àûÿÿÿÿ8“ÁÒÞÊ,
-Qsquid:S1068'".Remove this unused "btReportes" private field.(ÅØ¥½øÿÿÿÿ8“ÁÒÞÊ,
-Msquid:S1068&"0Remove this unused "btIngPedidos" private field.(ë¹^8“ÁÒÞÊ,
-Xsquid:S1161^":Add the "@Override" annotation above this method signature(Ôö§ó8“ÁÒÞÊ,
-msquid:MaximumInheritanceDepth "=This class has 10 parents which is greater than 5 authorized.(Ú›òã8“ÁÒÞÊ,
-Tsquid:S1444+"1Make this "public static appDatabase" field final(¾‹”éÿÿÿÿÿ8“ÁÒÞÊ,
-nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ž·’ýÿÿÿÿ8“ÁÒÞÊ,
-~squid:S1450""[Remove the "btVerPedidos" field and declare it as a local variable in the relevant methods.(…Ä®àûÿÿÿÿ8“ÁÒÞÊ,
-nsquid:CommentedOutCodeLineF"<This block of commented-out lines of code should be removed.(Ê¦ûùúÿÿÿÿ8“ÁÒÞÊ,
-Fsquid:S1148}"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8“ÁÒÞÊ,
-Lsquid:S1905:".Remove this unnecessary cast to "ImageButton".(ì­ò„8“ÁÒÞÊ,
-Gsquid:S1148­"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8“ÁÒÞÊ,
-Lsquid:S1905;".Remove this unnecessary cast to "ImageButton".(¿ñ¬Í8“ÁÒÞÊ,
-Qsquid:S1905>".Remove this unnecessary cast to "ImageButton".(˜óðûøÿÿÿÿ8“ÁÒÞÊ,
-isquid:CommentedOutCodeLineD"<This block of commented-out lines of code should be removed.(¢¹âý8“ÁÒÞÊ,
-Ksquid:S1905=".Remove this unnecessary cast to "ImageButton".(¹ý€f8“ÁÒÞÊ,
-Lsquid:S1905?".Remove this unnecessary cast to "ImageButton".(·ëÂ8“ÁÒÞÊ,
-¥squid:S1186È"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¿Â”øÿÿÿÿ8“ÁÒÞÊ,
-bsquid:UselessImportCheck"2Remove this unused import 'android.widget.Button'.(²òžýÿÿÿÿ8“ÁÒÞÊ,
-xsquid:S1450&"[Remove the "btIngPedidos" field and declare it as a local variable in the relevant methods.(ë¹^8“ÁÒÞÊ,
-Msquid:S19057"*Remove this unnecessary cast to "Toolbar".(½ú¥þÿÿÿÿ8“ÁÒÞÊ,
-{squid:S1450#"]Remove the "btRutaClientes" field and declare it as a local variable in the relevant methods.(¡‹ß¸8“ÁÒÞÊ,
-Jsquid:S1168Á"+Return an empty collection instead of null.(¥¹ï8“ÁÒÞÊ,
-‘"squid:ClassVariableVisibilityCheck+"WMake appDatabase a static final constant or non-public and provide accessors if needed.(¾‹”éÿÿÿÿÿ8“ÁÒÞÊ,
-€squid:S1450$"]Remove the "btListClientes" field and declare it as a local variable in the relevant methods.(û”Ý±ÿÿÿÿÿ8“ÁÒÞÊ,

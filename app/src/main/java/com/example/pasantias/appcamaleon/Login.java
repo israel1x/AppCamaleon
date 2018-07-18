@@ -108,7 +108,7 @@ public class Login extends AppCompatActivity {
                                 usuarioTemp.setPassword("1");
                                 insertUser(usuarioTemp);
 
-                                Intent i = new Intent(Login.this, MenuPrincipal.class);
+                                Intent i = new Intent(Login.this, MainActivity.class);
                                 startActivity(i);
                             } else if ( response.getString("resultado").equals("error") ) {
                                 Toast.makeText(Login.this, "Usuario o Contraseña incorrectos", Toast.LENGTH_LONG).show();
@@ -184,7 +184,7 @@ public class Login extends AppCompatActivity {
                 Log.d("De la base", usuario.getUser());
                 if (usuario.getUser().equals(user) && usuario.getPassword().equals(pass)) {
                     Toast.makeText(Login.this, "Inicio local exitoso", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(Login.this, MenuPrincipal.class);
+                    Intent i = new Intent(Login.this, MainActivity.class);
                     startActivity(i);
                 } else {
                     Toast.makeText(Login.this, "Datos incorrectos", Toast.LENGTH_LONG).show();

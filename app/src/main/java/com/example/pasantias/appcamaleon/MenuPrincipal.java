@@ -1,7 +1,6 @@
 package com.example.pasantias.appcamaleon;
 
 import android.annotation.SuppressLint;
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.android.volley.RequestQueue;
@@ -21,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.DataBase.ClienteMin;
+import com.example.pasantias.appcamaleon.Fragments.MapsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,14 +94,14 @@ public class MenuPrincipal extends AppCompatActivity {
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuItemThatWasSelected = item.getItemId();
        if (menuItemThatWasSelected == R.id.action_test) {
-           Log.d("Menu", "item xxxx");
+           Log.d("MenuPrin", "item xxxx");
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressLint("LongLogTag")
     public void traerRutaDeClientes(final List<ClienteMin> clienteMins, String token) {

@@ -1,11 +1,0 @@
-
-=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-isquid:MaximumInheritanceDepth"=This class has 10 parents which is greater than 5 authorized.(§ÿ—Ôüÿÿÿÿ
-ˆ"squid:ClassVariableVisibilityCheck"WMake appDatabase a static final constant or non-public and provide accessors if needed.(¾‹”éÿÿÿÿÿ
-Bsquid:S1185"(Remove this method to simply inherit it.(Û¶…óøÿÿÿÿ
-_squid:UselessImportCheck"8Remove this unused import 'java.lang.ref.WeakReference'.(å¢Œýÿÿÿÿÿ
-Ksquid:S1444"1Make this "public static appDatabase" field final(¾‹”éÿÿÿÿÿ
-`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¤Îþò
-=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ô°˜¤
-Psquid:S2696"6Make the enclosing method "static" or remove this set.(Ò´ß²ýÿÿÿÿ
