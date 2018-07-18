@@ -31,7 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaClientes"
+        <activity
+            android:name=".ListaClientes"
             android:parentActivityName=".MenuPrincipal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +47,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RutaDeClientes"
+        <activity
+            android:name=".RutaDeClientes"
             android:parentActivityName=".MenuPrincipal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,6 +72,21 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
             android:parentActivityName=".MenuPrincipal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pasantias.appcamaleon.MenuPrincipal" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Navegation"
+            android:label="@string/title_activity_navegation"
+            android:parentActivityName=".MenuPrincipal"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.pasantias.appcamaleon.MenuPrincipal" />

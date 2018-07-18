@@ -7,6 +7,13 @@
     tools:context=".RutaDeClientes">
 
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="75dp"
+        android:layout_height="121dp"
+        app:srcCompat="@drawable/btn_ingresar_pedido"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="82dp"
+        tools:layout_editor_absoluteY="91dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/nav_ing_pedido"
+            android:title="Ingresar Pedido" />
+        <item
+            android:id="@+id/nav_offline"
+            android:title="Pedidos Offline" />
+        <item
+            android:id="@+id/nav_listado_pedidos"
+            android:title="Listado de Pedidos" />
+    </group>
+
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/nav_ruta_clientes"
+            android:title="Ruta de Clientes" />
+        <item
+            android:id="@+id/nav_lista_clientes"
+            android:title="Lista de Clientes" />
+    </group>
+
+
+</menu>

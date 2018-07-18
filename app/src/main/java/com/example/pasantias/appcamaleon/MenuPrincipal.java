@@ -45,6 +45,8 @@ public class MenuPrincipal extends AppCompatActivity {
     List<ClienteMin> clienteMins = new ArrayList<>();
     List<ClienteMin> rutas = new ArrayList<>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,7 @@ public class MenuPrincipal extends AppCompatActivity {
         //appDatabase.clienteMinDao().insertAll(clienteMins);
 
 
+
         btListClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +89,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
 
     }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
