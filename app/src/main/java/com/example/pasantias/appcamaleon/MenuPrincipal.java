@@ -53,12 +53,12 @@ public class MenuPrincipal extends AppCompatActivity {
         Toolbar miActionBar = (Toolbar)  findViewById(R.id.miActionBar);
         setSupportActionBar(miActionBar);
 
-        btVerPedidos = (ImageButton) findViewById(R.id.bt_ver_pedidos);
+     /*   btVerPedidos = (ImageButton) findViewById(R.id.bt_ver_pedidos);
         btRutaClientes = (ImageButton) findViewById(R.id.bt_ruta_clientes);
         btListClientes = (ImageButton) findViewById(R.id.bt_list_clientes);
         btOffline = (ImageButton) findViewById(R.id.bt_offline);
         btIngPedidos = (ImageButton) findViewById(R.id.bt_ing_pedidos);
-        btReportes = (ImageButton) findViewById(R.id.bt_reportes);
+        btReportes = (ImageButton) findViewById(R.id.bt_reportes);*/
 
         //traerRutaDeClientes(clienteMins,tokenEjemplo);
 

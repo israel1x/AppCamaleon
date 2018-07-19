@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".ListaClientes"
-            android:parentActivityName=".MenuPrincipal">
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,10 +71,10 @@
         <activity
             android:name=".Fragments.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:parentActivityName=".MenuPrincipal">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pasantias.appcamaleon.MenuPrincipal" />
+                android:value="com.example.pasantias.appcamaleon.MainActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -85,12 +85,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_navegation"
-            android:parentActivityName=".MenuPrincipal"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pasantias.appcamaleon.MenuPrincipal" />
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

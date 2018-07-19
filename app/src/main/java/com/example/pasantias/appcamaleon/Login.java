@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String usuarioD = etDataUsuario.getText().toString();
+                String usuarioD = etDataUsuario.getText().toString().toLowerCase();
                 String paswordD = etDataPassword.getText().toString();
 
                 Log.d("Usuario" , String.valueOf(usuarioD));

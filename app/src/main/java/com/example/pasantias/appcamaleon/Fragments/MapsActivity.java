@@ -52,16 +52,28 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_maps,container, false);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        /*SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);*/
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        return v;
+
+        super.onViewCreated(view, savedInstanceState);
     }
 
     /**
@@ -146,7 +158,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
                                 clienteMins.add(clienteMin);
 
-                                //Log.d("detalle ruta :",id[0] );
+                                Log.d("detalle ruta :",id[0] );
                             }
                             Log.d("detalle ruta :",clienteMins.toString() );
                         } catch (JSONException e) {

@@ -22,21 +22,27 @@
            android:layout_marginLeft="12dp"
            android:orientation="horizontal">
 
-           <ImageButton
+           <Button
                android:id="@+id/bt_ing_pedidos"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight=".5"
+               android:textAllCaps="false"
                android:background="?selectableItemBackground"
-               app:srcCompat="@drawable/btn_ingresar_pedido" />
+               android:drawableTop="@drawable/btn_ingresar_pedido"
+               android:text="@string/bt_lb_ingresar_pedido"
+               android:textColor="#757575"/>
 
-           <ImageButton
+           <Button
                android:id="@+id/bt_ver_pedidos"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight=".5"
-               android:background="?selectableItemBackground"
-               app:srcCompat="@drawable/btn_ver_pedidos" />
+               android:textAllCaps="false"
+               android:drawableTop="@drawable/btn_ver_pedidos"
+               android:text="\nVer\nPedidos"
+               android:textColor="#757575"
+               android:background="?selectableItemBackground"/>
        </LinearLayout>
 
        <LinearLayout
@@ -47,21 +53,27 @@
            android:layout_marginLeft="12dp"
            android:orientation="horizontal">
 
-           <ImageButton
+           <Button
                android:id="@+id/bt_ruta_clientes"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight=".5"
-               android:background="?selectableItemBackground"
-               app:srcCompat="@drawable/btn_ruta_clientes" />
+               android:textAllCaps="false"
+               android:drawableTop="@drawable/btn_ruta_clientes"
+               android:text="\n Ruta de \n Clientes"
+               android:textColor="#757575"
+               android:background="?selectableItemBackground" />
 
-           <ImageButton
+           <Button
                android:id="@+id/bt_list_clientes"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight=".5"
-               android:background="?selectableItemBackground"
-               app:srcCompat="@drawable/btn_lista_clientes" />
+               android:textAllCaps="false"
+               android:drawableTop="@drawable/btn_lista_clientes"
+               android:text="\n Lista de \n Clientes"
+               android:textColor="#757575"
+               android:background="?selectableItemBackground"/>
 
        </LinearLayout>
 
@@ -73,21 +85,27 @@
            android:layout_marginLeft="12dp"
            android:orientation="horizontal">
 
-           <ImageButton
+           <Button
                android:id="@+id/bt_offline"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight=".5"
-               android:background="?selectableItemBackground"
-               app:srcCompat="@drawable/btn_sicronizar" />
+               android:textAllCaps="false"
+               android:drawableTop="@drawable/btn_reportes"
+               android:text="\nReportes"
+               android:textColor="#757575"
+               android:background="?selectableItemBackground"/>
 
-           <ImageButton
+           <Button
                android:id="@+id/bt_reportes"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight=".5"
-               android:background="?selectableItemBackground"
-               android:src="@drawable/btn_reportes" />
+               android:textAllCaps="false"
+               android:drawableTop="@drawable/btn_sicronizar"
+               android:text="\nSincronizacion\nOffline"
+               android:textColor="#757575"
+               android:background="?selectableItemBackground"/>
 
        </LinearLayout>
 

@@ -24,4 +24,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Strings related to Navegacion -->
+    <string name="bt_lb_ingresar_pedido">\n Ingresar \n Pedido</string>
 </resources>
