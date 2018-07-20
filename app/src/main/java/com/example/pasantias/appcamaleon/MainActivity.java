@@ -103,14 +103,16 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_ruta_clientes) {
             item.setChecked(true);
-            fragment = new MapsActivity();
+            //fragment = new MapsActivity();
             //fragmentMaps = new MapsActivity();
-            //Intent i = new Intent(MainActivity.this, MapsActivity.class);
-            //startActivity(i);
+            Intent i = new Intent(MainActivity.this, RutaDeClientes.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_lista_clientes) {
             item.setChecked(true);
-            fragment = new ListaDeClientes();
+            //fragment = new ListaDeClientes();
+            Intent i = new Intent(MainActivity.this, ListaClientes.class);
+            startActivity(i);
         }
 
        if (fragment != null) {

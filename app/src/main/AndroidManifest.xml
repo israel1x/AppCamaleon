@@ -47,15 +47,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RutaDeClientes"
-            android:parentActivityName=".MenuPrincipal">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -86,6 +77,19 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_navegation"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RutaDeClientes"
+            android:label="@string/title_activity_ruta_de_clientes">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pasantias.appcamaleon.MainActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
