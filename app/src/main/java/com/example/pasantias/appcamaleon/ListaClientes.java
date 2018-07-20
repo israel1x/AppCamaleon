@@ -34,17 +34,10 @@ public class ListaClientes extends AppCompatActivity {
     List<ClienteMin> clienteMins = new ArrayList<>();
     ArrayList<Cliente> clientes = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_clientes);
-
-
-
-        traerRutaDeClientes(clienteMins,tokenEjemplo);
-        Log.d("datos de los clientes", clienteMins.toString());
-
 
         ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
 
@@ -63,32 +56,28 @@ public class ListaClientes extends AppCompatActivity {
             }
         });
 
-
        //* clientes.add(new Cliente("0988829914", "Israel Zurita", "La troncal","2421191"));
         //clientes.add(new Cliente("0988888888", "Pedro Figueroa", "Guayaquil","2421191"));
         //clientes.add(new Cliente("0999999999", "Luis Lainez", "Quito","2421191"));//*
+        //clienteMinTOcliente(clienteMins,clientes);
+        //conjuntoDeSecciones(clientes,sectionLinearLayout);
 
+        traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
 
-        clienteMinTOcliente(clienteMins,clientes);
-        conjuntoDeSecciones(clientes,sectionLinearLayout);
-
+        Log.d("datos de los clientes", clienteMins.toString());
         Log.d("datos de los clientes :", clientes.toString() );
-
         sectionLinearLayout.setExpandListener(new ExpandCollapseListener.ExpandListener<Cliente>() {
             @Override
             public void onExpanded(int parentIndex, Cliente parent, View view) {
                 //Layout expanded
             }
         });
-
         sectionLinearLayout.setCollapseListener(new ExpandCollapseListener.CollapseListener<Cliente>() {
             @Override
             public void onCollapsed(int parentIndex, Cliente parent, View view) {
                 //Layout collapsed
             }
         });
-
-
     }
 
     private void clienteMinTOcliente(List<ClienteMin> clienteMins, ArrayList<Cliente> clientes) {
@@ -97,7 +86,6 @@ public class ListaClientes extends AppCompatActivity {
             clientes.add(new Cliente(clienteMin.getRucCliente(),clienteMin.getNameCliente(),clienteMin.getDirCliente(),clienteMin.getTelfCliente()));
         }
     }
-
 
     public void consultarWSListaClientes(String token){
 
@@ -163,7 +151,6 @@ public class ListaClientes extends AppCompatActivity {
         //return data_productos;
     }
 
-
     public Section<Cliente, Cliente> getSection(int i) {
 
         Section<Cliente, Cliente> section = new Section<>();
@@ -198,7 +185,7 @@ public class ListaClientes extends AppCompatActivity {
 
     }
 
-    public void traerRutaDeClientes(final List<ClienteMin> clienteMins, String token) {
+    public void traerRutaDeClientes(final List<ClienteMin> clienteMins, String token, final ExpandableLayout sectionLinearLayout) {
 
         final ClienteMin clienteMin = new ClienteMin();
         final String[] id = new String[1];
@@ -206,18 +193,18 @@ public class ListaClientes extends AppCompatActivity {
         final String[] latitud = new String[1];
         final String[] longitud = new String[1];
         final String[] direccion = new String[1];
+        final String[] ruc = new String[1];
+        final String[] telefono = new String[1];
 
         JSONObject jsonObjectCliente = new JSONObject();
         try {
-            jsonObjectCliente.put("metodo","rutaCliente");
+            jsonObjectCliente.put("metodo","listaClientes");
             jsonObjectCliente.put("token",token);
         }catch (JSONException e){
             e.printStackTrace();
         }
-
         final JSONObject[] jsonObjectRutas = {new JSONObject()};
         final JSONArray[] jsonArrayDetalleRutas = {new JSONArray()};
-
         final JSONObject[] jsonObjectUno = {new JSONObject()};
 
         String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
@@ -240,17 +227,29 @@ public class ListaClientes extends AppCompatActivity {
                             for (int i = 0; i < jsonArrayDetalleRutas[0].length(); i++) {
                                 jsonObjectUno[0] = jsonArrayDetalleRutas[0].getJSONObject(i);
                                 id[0] = jsonObjectUno[0].getString("id_cliente");
-                                latitud[0] = jsonObjectUno[0].getString("latitud");
-                                longitud[0] = jsonObjectUno[0].getString("longitud");
+                                ruc[0] = jsonObjectUno[0].getString("ruc");
                                 nombre[0] = jsonObjectUno[0].getString("nombre");
                                 direccion[0] = jsonObjectUno[0].getString("direccion");
+                                telefono[0] = jsonObjectUno[0].getString("telefono");
+                                latitud[0] = jsonObjectUno[0].getString("latitud");
+                                longitud[0] = jsonObjectUno[0].getString("longitud");
                                 clienteMin.setIdCliente(id[0]);
                                 clienteMin.setLattCliente(latitud[0]);
                                 clienteMin.setLongCliente(longitud[0]);
                                 clienteMin.setNameCliente(nombre[0]);
                                 clienteMin.setDirCliente(direccion[0]);
 
-                                clienteMins.add(clienteMin);
+                                Section<Cliente, Cliente> section = new Section<>();
+                                Cliente clienteTest = new Cliente(ruc[0],nombre[0],direccion[0],telefono[0]);
+                                Cliente padre = clienteTest;
+                                Cliente ruc = clienteTest;
+
+                                section.parent = padre;
+                                section.children.add(ruc);
+                                //clienteMins.add(clienteMin);
+                                section.expanded = false;
+
+                                sectionLinearLayout.addSection(section);
 
                                 Log.d("detalle ruta :",nombre[0] );
                             }
@@ -268,5 +267,4 @@ public class ListaClientes extends AppCompatActivity {
         );
         requestQueue.add(jsonObjectRequestRequestRutaDeClientes);
     }
-
 }

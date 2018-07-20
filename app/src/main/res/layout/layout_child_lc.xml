@@ -8,93 +8,99 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
+        android:layout_marginLeft="10dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/lb_child_ci"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
             android:text="RUC/CI:" />
 
         <TextView
             android:id="@+id/tv_child_ci"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
             android:text="0988829914" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
+        android:layout_marginLeft="10dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/lb_child_dir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Direccion:" />
+            android:layout_marginLeft="10dp"
+            android:text="Dirección:" />
 
         <TextView
             android:id="@+id/tv_child_dir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
             android:text="Jose Mascote" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/lb_child_telf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="telefono:" />
+            android:layout_marginLeft="10dp"
+            android:text="Teléfono:" />
 
         <TextView
             android:id="@+id/tv_child_telf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
             android:text="0988829914" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
 
         <Button
             android:id="@+id/bt_child_newP"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_height="38dp"
+            android:layout_weight=".5"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/btn_small"
-            android:text="Nuevo Pedido"
+            android:drawableLeft="@drawable/ic_location_cliente"
+            android:textAllCaps="false"
+            android:text="Ver Ubicación"
             android:textColor="#ffffff"/>
 
         <Button
             android:id="@+id/bt_child_verU"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_height="38dp"
+            android:layout_weight=".5"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/btn_small"
-            android:text="Ver Ubicacion"
+            android:textAllCaps="false"
+            android:drawableLeft="@drawable/ic_add_pedido"
+            android:text="Nuevo Pedido"
             android:textColor="#ffffff"/>
 
     </LinearLayout>

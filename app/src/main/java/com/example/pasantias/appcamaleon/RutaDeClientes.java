@@ -148,7 +148,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         final String[] telefono = new String[1];;
 
         final LatLng guayaquil = new LatLng(-2.16753, -79.89369);
-        mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
 
         JSONObject jsonObjectCliente = new JSONObject();
         try {
@@ -198,7 +198,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
                                 LatLng mark = new LatLng(lat,lng);
                                 Log.d("Latitud:", String.valueOf(lat));
                                 Log.d("Longitud:", String.valueOf(lng));
-                                mMap.addMarker(new MarkerOptions().position(mark).title(clienteMin.getNameCliente() + " " +clienteMin.getTelfCliente()  +clienteMin.getDirCliente() ));
+                                mMap.addMarker(new MarkerOptions().position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
 
                                 //clienteMins.add(clienteMin);
                                 Log.d("detalle ruta :",id[0] );

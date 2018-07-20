@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.pasantias.appcamaleon.ListaClientes;
 import com.example.pasantias.appcamaleon.MainActivity;
 import com.example.pasantias.appcamaleon.R;
+import com.example.pasantias.appcamaleon.RutaDeClientes;
 
 
 /**
@@ -91,10 +92,48 @@ public class MenuPrin extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(),"Ingresar pedido",Toast.LENGTH_SHORT ).show();
+
+            }
+        });
+
+        btVerPedidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"Ver pedidos",Toast.LENGTH_SHORT ).show();
+            }
+        });
+
+        btRutaClientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), RutaDeClientes.class);
+                startActivity(i);
+            }
+        });
+
+        btListClientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent i = new Intent(getContext(), ListaClientes.class);
                 startActivity(i);
             }
         });
+
+        btOffline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"Offline",Toast.LENGTH_SHORT ).show();
+            }
+        });
+
+        btReportes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"reportes",Toast.LENGTH_SHORT ).show();
+            }
+        });
+
+
 
         return v;
     }
