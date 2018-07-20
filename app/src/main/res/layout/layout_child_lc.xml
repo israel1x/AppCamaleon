@@ -78,7 +78,7 @@
 
 
         <Button
-            android:id="@+id/bt_child_newP"
+            android:id="@+id/bt_child_ver_ubicacion"
             android:layout_width="wrap_content"
             android:layout_height="38dp"
             android:layout_weight=".5"
@@ -91,7 +91,7 @@
             android:textColor="#ffffff"/>
 
         <Button
-            android:id="@+id/bt_child_verU"
+            android:id="@+id/bt_child_nuevo_pedido"
             android:layout_width="wrap_content"
             android:layout_height="38dp"
             android:layout_weight=".5"

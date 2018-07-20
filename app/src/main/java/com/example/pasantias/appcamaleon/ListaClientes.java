@@ -1,9 +1,11 @@
 package com.example.pasantias.appcamaleon;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,30 +48,46 @@ public class ListaClientes extends AppCompatActivity {
             public void renderParent(View view, Cliente model, boolean isExpanded, int parentPosition) {
                 ((TextView) view.findViewById(R.id.tv_parent_nameCliente)).setText(model.nombre);
                  view.findViewById(R.id.arrow).setBackgroundResource(isExpanded ? R.drawable.arrow_up : R.drawable.arrow_down);
-            }
 
+            }
             @Override
             public void renderChild(View view, Cliente model, int parentPosition, int childPosition) {
                 ((TextView) view.findViewById(R.id.tv_child_ci)).setText(model.ruc);
                 ((TextView) view.findViewById(R.id.tv_child_dir)).setText(model.direccion);
                 ((TextView) view.findViewById(R.id.tv_child_telf)).setText(model.telefono);
             }
-        });
 
-       //* clientes.add(new Cliente("0988829914", "Israel Zurita", "La troncal","2421191"));
-        //clientes.add(new Cliente("0988888888", "Pedro Figueroa", "Guayaquil","2421191"));
-        //clientes.add(new Cliente("0999999999", "Luis Lainez", "Quito","2421191"));//*
-        //clienteMinTOcliente(clienteMins,clientes);
-        //conjuntoDeSecciones(clientes,sectionLinearLayout);
+        });
 
         traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
 
-        Log.d("datos de los clientes", clienteMins.toString());
-        Log.d("datos de los clientes :", clientes.toString() );
+        //Log.d("datos de los clientes", clienteMins.toString());
+        //Log.d("datos de los clientes :", clientes.toString() );
+
         sectionLinearLayout.setExpandListener(new ExpandCollapseListener.ExpandListener<Cliente>() {
             @Override
-            public void onExpanded(int parentIndex, Cliente parent, View view) {
+            public void onExpanded(int parentIndex, final Cliente parent, View view) {
                 //Layout expanded
+
+                Button nuevoPedido = findViewById(R.id.bt_child_nuevo_pedido);
+                Button verUbicacion = findViewById(R.id.bt_child_ver_ubicacion);
+
+                nuevoPedido.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getApplicationContext(), "Nuevo Pedido de: " +parent.getNombre(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                verUbicacion.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(ListaClientes.this, UbicacionCliente.class);
+                        i.putExtra("LatCliente", parent.getLatC());
+                        i.putExtra("LngCliente", parent.getLngC());
+                        startActivity(i);
+                    }
+                });
             }
         });
         sectionLinearLayout.setCollapseListener(new ExpandCollapseListener.CollapseListener<Cliente>() {
@@ -240,7 +258,7 @@ public class ListaClientes extends AppCompatActivity {
                                 clienteMin.setDirCliente(direccion[0]);
 
                                 Section<Cliente, Cliente> section = new Section<>();
-                                Cliente clienteTest = new Cliente(ruc[0],nombre[0],direccion[0],telefono[0]);
+                                Cliente clienteTest = new Cliente(ruc[0],nombre[0],direccion[0],telefono[0],Double.parseDouble(latitud[0]),Double.parseDouble(longitud[0]));
                                 Cliente padre = clienteTest;
                                 Cliente ruc = clienteTest;
 

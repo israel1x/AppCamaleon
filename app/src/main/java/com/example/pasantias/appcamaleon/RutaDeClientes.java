@@ -42,7 +42,6 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,20 +50,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-/*
-
-        direccionesClientes.add(new LatLng(-2.1415, -79.9035));
-        direccionesClientes.add(new LatLng(-2.1481, -79.9076));
-        direccionesClientes.add(new LatLng(-2.15995, -79.9143));
-        direccionesClientes.add(new LatLng(-2.175027, -79.886518));
-*/
-
-        //se traen la lista de clientes
-        //traerRutaDeClientes(clienteMins,tokenEjemplo);
     }
-
-
 
     /**
      * Manipulates the map once available.
@@ -82,47 +68,11 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
 
         enableMyLocation();
         traerRutaDeClientes(clienteMins,tokenEjemplo);
-       /* new Thread(new Runnable() {
-            @Override
-            public void run() {
-                traerRutaDeClientes(clienteMins,tokenEjemplo);
-            }
-        }).start();
-        Log.d("OOOOO:", clienteMins.toString());*/
-
-
-        // Add a marker in Sydney and move the camera
-        //LatLng guayaquil = new LatLng(-2.16753, -79.89369);
-        //mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Sydney"));
-        //for (LatLng mark : direccionesClientes) {
-          //  mMap.addMarker(new MarkerOptions().position(mark).title("Marker"));
-        //}
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(guayaquil));
-        //createMarks(clienteMins);
-
     }
 
     void createMarks(List<ClienteMin> clienteMin) {
-
         LatLng guayaquil = new LatLng(-2.16753, -79.89369);
         mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Sydney"));
-
-        /*Log.d("Antes de crear Markas:",clienteMin.toString());
-        if (clienteMin != null) {
-            for (ClienteMin clienteMin1 : clienteMin) {
-                double lat = Double.parseDouble(clienteMin1.getLattCliente());
-                double lng = Double.parseDouble(clienteMin1.getLongCliente());
-                LatLng mark = new LatLng(lat,lng);
-                Log.d("Latitud:", String.valueOf(lat));
-                Log.d("Longitud:", String.valueOf(lng));
-                mMap.addMarker(new MarkerOptions().position(mark).title(clienteMin1.getNameCliente() + "\n" +clienteMin1.getTelfCliente()));
-            }
-        } else {
-            //Toast.makeText(getApplicationContext(),"No hay clientes que mostrar", Toast.LENGTH_SHORT).show();
-            Log.d("NO HAY", "CLIENTES");
-        }*/
-
-       // mMap.moveCamera(CameraUpdateFactory.newLatLng(guayaquil));
     }
 
     private void enableMyLocation() {
@@ -203,10 +153,9 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
                                 //clienteMins.add(clienteMin);
                                 Log.d("detalle ruta :",id[0] );
                             }
-
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(guayaquil));
 
-                            Log.d("detalle ruta :",clienteMins.toString() );
+                            //Log.d("detalle ruta :",clienteMins.toString() );
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -220,6 +169,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         );
         requestQueue.add(jsonObjectRequestRequestRutaDeClientes);
 
+        //Craeamos las markas en el mapa
         createMarks(clienteMins);
     }
 }

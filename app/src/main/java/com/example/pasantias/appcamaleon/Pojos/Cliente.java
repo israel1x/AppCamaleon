@@ -8,6 +8,9 @@ public class Cliente {
     public String nombre;
     public String direccion;
     public String telefono;
+    public Double latC;
+    public Double lngC;
+
 
 
     public Cliente(String ruc, String nombre, String direccion) {
@@ -22,6 +25,15 @@ public class Cliente {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
+    }
+
+    public Cliente(String ruc, String nombre, String direccion, String telefono, Double latC, Double lngC) {
+        this.ruc = ruc;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.latC = latC;
+        this.lngC = lngC;
     }
 
     public Cliente(Cliente cliente) {
@@ -73,5 +85,21 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public Double getLatC() {
+        return latC;
+    }
+
+    public void setLatC(Double latC) {
+        this.latC = latC;
+    }
+
+    public Double getLngC() {
+        return lngC;
+    }
+
+    public void setLngC(Double lngC) {
+        this.lngC = lngC;
     }
 }

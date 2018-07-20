@@ -29,4 +29,5 @@
     <string name="bt_lb_ingresar_pedido">\n Ingresar \n Pedido</string>
     <string name="title_activity_rutad">Map</string>
     <string name="title_activity_ruta_de_clientes">Ruta de Clientes</string>
+    <string name="title_activity_ubicacion_cliente">Ubicación Cliente</string>
 </resources>
