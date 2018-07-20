@@ -2,7 +2,10 @@ package com.example.pasantias.appcamaleon;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -67,7 +70,14 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         mMap.setMinZoomPreference(12);
 
         enableMyLocation();
-        traerRutaDeClientes(clienteMins,tokenEjemplo);
+        if (comprobarSalidaInternet()) {
+            traerRutaDeClientes(clienteMins,tokenEjemplo);
+        } else {
+            Toast.makeText(getApplicationContext(), "No hay conexión a internet" , Toast.LENGTH_SHORT).show();
+            LatLng guayaquil = new LatLng(-2.16753, -79.89369);
+            mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
+        }
+
     }
 
     void createMarks(List<ClienteMin> clienteMin) {
@@ -171,5 +181,21 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
 
         //Craeamos las markas en el mapa
         createMarks(clienteMins);
+    }
+
+
+    public boolean comprobarSalidaInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // Si hay conexión a Internet en este momento
+            Log.d("Ruta de Clientes", " Estado actual: " + networkInfo.getState());
+            return true;
+        } else {
+            // No hay conexión a Internet en este momento
+            Log.d("Ruta de Clientes", "Estás offline");
+            return false;
+        }
     }
 }

@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.net.InetAddress;
 
 public class Login extends AppCompatActivity {
     String servicioLogin = "iniciarSesion";
@@ -191,6 +192,17 @@ public class Login extends AppCompatActivity {
                 }
             }
         }.execute(id);
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("innova.com");
+
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

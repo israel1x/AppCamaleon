@@ -1,6 +1,9 @@
 package com.example.pasantias.appcamaleon;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,7 +62,13 @@ public class ListaClientes extends AppCompatActivity {
 
         });
 
-        traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
+        if ( comprobarSalidaInternet()) {
+            traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
+        } else {
+            Toast.makeText(getApplicationContext(), "No hay conexión a internet" , Toast.LENGTH_SHORT).show();
+        }
+
+        //traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
 
         //Log.d("datos de los clientes", clienteMins.toString());
         //Log.d("datos de los clientes :", clientes.toString() );
@@ -96,6 +105,21 @@ public class ListaClientes extends AppCompatActivity {
                 //Layout collapsed
             }
         });
+    }
+
+    public boolean comprobarSalidaInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // Si hay conexión a Internet en este momento
+            Log.d("Camaleon APP", " Estado actual: " + networkInfo.getState());
+            return true;
+        } else {
+            // No hay conexión a Internet en este momento
+            Log.d("Camaleon APP", "Estás offline");
+            return false;
+        }
     }
 
     private void clienteMinTOcliente(List<ClienteMin> clienteMins, ArrayList<Cliente> clientes) {
