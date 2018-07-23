@@ -6,10 +6,13 @@ import android.arch.persistence.room.DatabaseConfiguration;
 import android.arch.persistence.room.InvalidationTracker;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 @Database(entities = {ClienteMin.class, Usuario.class} , version = 1)
+@TypeConverters(DataConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
