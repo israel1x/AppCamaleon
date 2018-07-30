@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_ing_pedido) {
 
         } else if (id == R.id.nav_offline) {
+            Intent i = new Intent(MainActivity.this, Offline.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_listado_pedidos) {
 

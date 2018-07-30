@@ -7,28 +7,115 @@
     android:orientation="vertical"
     tools:context=".Offline">
 
-    <Button
-        android:id="@+id/bt_cargar_clientes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descargar Clientes"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"/>
-
-
-    <ProgressBar
-        android:id="@+id/pb_descargas"
-        style="?android:attr/progressBarStyleHorizontal"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"/>
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_pb"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/bt_offline_down_clientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:drawableLeft="@drawable/ic_location_cliente"
+            android:background="@drawable/btn_login_round"
+            android:textAllCaps="false"
+            android:text="Descargar Clientes"
+            android:textSize="18sp"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/bt_offline_down_productos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:background="@drawable/btn_login_round"
+            android:drawableLeft="@drawable/ic_location_cliente"
+            android:textAllCaps="false"
+            android:text="Descargar Productos"
+            android:textSize="18sp"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/bt_offline_actualizar_stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:background="@drawable/btn_login_round"
+            android:drawableLeft="@drawable/ic_location_cliente"
+            android:textAllCaps="false"
+            android:text="Actualizar Stock"
+            android:textSize="18sp"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/bt_offline_actualizar_precios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:background="@drawable/btn_login_round"
+            android:drawableLeft="@drawable/ic_location_cliente"
+            android:drawableStart="@drawable/ic_location_cliente"
+            android:textAllCaps="false"
+            android:text="Actualizar Precios"
+            android:textSize="18sp"
+            android:textColor="#ffffff"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Porcentaje" />
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_pbar_porcentaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="35dp"
+                android:textColor="#3157B7"
+                android:text=""/>
+
+            <TextView
+                android:id="@+id/tv_pbar_procesadno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Procesando"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/pbar_offline"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:minWidth="200dp"
+            android:progress="1"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
 
 
 </LinearLayout>

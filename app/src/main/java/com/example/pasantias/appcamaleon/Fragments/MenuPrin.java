@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.pasantias.appcamaleon.ListaClientes;
 import com.example.pasantias.appcamaleon.MainActivity;
+import com.example.pasantias.appcamaleon.Offline;
 import com.example.pasantias.appcamaleon.R;
 import com.example.pasantias.appcamaleon.RutaDeClientes;
 
@@ -122,7 +123,9 @@ public class MenuPrin extends Fragment {
         btOffline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"Offline",Toast.LENGTH_SHORT ).show();
+               // Toast.makeText(getContext(),"Offline",Toast.LENGTH_SHORT ).show();
+                Intent i = new Intent(getContext(), Offline.class);
+                startActivity(i);
             }
         });
 

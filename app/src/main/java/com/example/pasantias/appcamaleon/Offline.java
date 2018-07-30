@@ -1,5 +1,6 @@
 package com.example.pasantias.appcamaleon;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.icu.util.Calendar;
 import android.net.ConnectivityManager;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.DataBase.ClienteMin;
 import com.example.pasantias.appcamaleon.Pojos.Cliente;
 
@@ -37,9 +39,15 @@ import iammert.com.expandablelib.Section;
 
 public class Offline extends AppCompatActivity {
 
-    private Button btCargarClientes;
-    private ProgressBar pbDescargas;
+    public static AppDatabase appDatabase;
     private TextView tvPb;
+
+    private Button btOfflineDownClientes;
+    private Button btOfflineDownProductos;
+    private Button btOfflineActualizarStock;
+    private Button btOfflineActualizarPrecios;
+    private ProgressBar pbarOffline;
+    private TextView tvPbarPorcentaje;
 
     List<ClienteMin> listaClientesDelDia = new ArrayList<>();
     String fechaHoy;
@@ -52,32 +60,63 @@ public class Offline extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
-
-        btCargarClientes =  findViewById(R.id.bt_cargar_clientes);
-        pbDescargas = findViewById(R.id.pb_descargas);
-        tvPb =  findViewById(R.id.tv_pb);
+        appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
 
 
-        //fechaHoy = "2018-07-25";
+        btOfflineDownClientes = (Button) findViewById(R.id.bt_offline_down_clientes);
+        btOfflineDownProductos = (Button) findViewById(R.id.bt_offline_down_productos);
+        btOfflineActualizarStock = (Button) findViewById(R.id.bt_offline_actualizar_stock);
+        btOfflineActualizarPrecios = (Button) findViewById(R.id.bt_offline_actualizar_precios);
+        pbarOffline = (ProgressBar) findViewById(R.id.pbar_offline);
+
+        tvPbarPorcentaje = (TextView) findViewById(R.id.tv_pbar_porcentaje);
 
         fechaHoy = obtenerFechaDelDia(fechaHoy);
         Log.d("Fecha hoy 3: ", fechaHoy );
 
+        final int[] countClicks = {0};
+
         if (!fechaHoy.isEmpty() || fechaHoy.equals(null)) {
-            btCargarClientes.setOnClickListener(new View.OnClickListener() {
+
+            btOfflineDownClientes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (countClicks[0] == 0) {
+                        if (comprobarSalidaInternet()) {
+                            pbarOffline.setVisibility(View.VISIBLE);
+                            tvPbarPorcentaje.setVisibility(View.VISIBLE);
+                            pbarOffline.setProgress(0);
+                            tvPbarPorcentaje.setText("00%");
+                            //descargarClientesDelDia(listaClientesDelDia,tokenEjemplo,fechaHoy);
+                            tareaDescargarClientes(listaClientesDelDia,tokenEjemplo,fechaHoy);
+                            //pbDescargas.setProgress(100);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Ya actualizó sus clientes de hoy" , Toast.LENGTH_SHORT).show();
+                    }
+                    countClicks[0]++;
+                }
+            });
+
+
+            btOfflineDownProductos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (comprobarSalidaInternet()) {
-                        pbDescargas.setVisibility(View.VISIBLE);
-                        pbDescargas.setProgress(0);
-                        //descargarClientesDelDia(listaClientesDelDia,tokenEjemplo,fechaHoy);
-                        tareaDescargarClientes(listaClientesDelDia,tokenEjemplo,fechaHoy);
-                        //pbDescargas.setProgress(100);
+                        pbarOffline.setVisibility(View.VISIBLE);
+                        tvPbarPorcentaje.setVisibility(View.VISIBLE);
+                        pbarOffline.setProgress(0);
+                        tvPbarPorcentaje.setText("00%");
+
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+
         } else {
             Toast.makeText(getApplicationContext(), "La fecha no es correcta" , Toast.LENGTH_SHORT).show();
         }
@@ -253,15 +292,21 @@ public class Offline extends AppCompatActivity {
                                         latitud[0] = jsonObjectUno[0].getString("latitud");
                                         longitud[0] = jsonObjectUno[0].getString("longitud");
                                         clienteMin.setIdCliente(id[0]);
+                                        clienteMin.setNameCliente(nombre[0]);
+                                        clienteMin.setRucCliente(ruc[0]);
+                                        clienteMin.setDirCliente(direccion[0]);
+                                        clienteMin.setTelfCliente(telefono[0]);
                                         clienteMin.setLattCliente(latitud[0]);
                                         clienteMin.setLongCliente(longitud[0]);
-                                        clienteMin.setNameCliente(nombre[0]);
-                                        clienteMin.setDirCliente(direccion[0]);
-                                        //cont[0] = cont[0] + 1;
-                                        int porcentaje = (int) ((i+1/(float)(numElementos)) * 100);
-                                        //publishProgress((int)porcentaje);
-                                        publishProgress((int) ((i+1/(float)numElementos) * 100));
 
+                                        appDatabase.clienteMinDao().insertOne(clienteMin);
+                                        //cont[0] = cont[0] + 1;
+                                        //int porcentaje = (int) ((i+1/(float)(numElementos)) * 50);
+                                        int porcentaje = (int) ((i+1) * (100/numElementos));
+                                        publishProgress((int)porcentaje);
+                                        //publishProgress((int) ((i+1/(float)numElementos) * 50));
+
+                                        //pbarOffline.setProgress(porcentaje);
                                        // Log.d("Num E:", String.valueOf(numElementos));
                                         //Log.d("Contador:", String.valueOf(cont[0]));
                                         Log.d("Porcentaje:", String.valueOf(porcentaje));
@@ -287,8 +332,9 @@ public class Offline extends AppCompatActivity {
             @Override
             protected void onProgressUpdate(Integer... values) {
                 super.onProgressUpdate(values);
-                tvPb.setText(values[0].toString());
-                pbDescargas.setProgress(values[0]);
+                tvPbarPorcentaje.setText(values[0].toString() + "%");
+                pbarOffline.setProgress(values[0]);
+                Log.d("valores de progreso:", String.valueOf(values[0]));
             }
 
 
@@ -296,6 +342,7 @@ public class Offline extends AppCompatActivity {
             protected void onPostExecute(List<ClienteMin> clienteMins) {
                 super.onPostExecute(clienteMins);
                 Toast.makeText(getApplicationContext(), "Se descargaron los clientes" , Toast.LENGTH_SHORT).show();
+
             }
         }.execute(fechaHoy);
     }

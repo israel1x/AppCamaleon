@@ -87,7 +87,7 @@
            android:orientation="horizontal">
 
            <Button
-               android:id="@+id/bt_offline"
+               android:id="@+id/bt_reportes"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight=".5"
@@ -98,7 +98,7 @@
                android:background="?selectableItemBackground"/>
 
            <Button
-               android:id="@+id/bt_reportes"
+               android:id="@+id/bt_offline"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight=".5"

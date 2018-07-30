@@ -29,6 +29,9 @@ public interface ClienteMinDao {
     @Insert
     void insertAll(List<ClienteMin> clienteMins);
 
+    @Insert
+    void insertOne(ClienteMin clienteMin);
+
     @Update
     void update(ClienteMin clienteMin);
 

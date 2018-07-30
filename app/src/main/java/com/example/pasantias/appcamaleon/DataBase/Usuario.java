@@ -14,6 +14,10 @@ public class Usuario {
     private int id;
 
     @NonNull
+    @ColumnInfo(name = "vendedor")
+    private String nameVendedor;
+
+    @NonNull
     @ColumnInfo(name = "user")
     private String user;
 
@@ -57,5 +61,15 @@ public class Usuario {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+
+    @NonNull
+    public String getNameVendedor() {
+        return nameVendedor;
+    }
+
+    public void setNameVendedor(@NonNull String nameVendedor) {
+        this.nameVendedor = nameVendedor;
     }
 }

@@ -84,12 +84,14 @@ public class Login extends AppCompatActivity {
     }
 
     //Metodo para conectar al web services
-    public void consultarWSLogin(JSONObject data, String user){
+    public void consultarWSLogin(JSONObject data, final String user){
 
         final Usuario usuarioTemp = new Usuario();
         Log.d("ZZZZZZZZZ: ", String.valueOf(user));
         //Consulta al web services
         String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
+        //variable para el nomvre del vendedor
+        final String[] nameVendedor = {""};
 
         Log.d("Ruta al web service: ", url);
         ////Uso del web service para traer los productos
@@ -105,8 +107,11 @@ public class Login extends AppCompatActivity {
                                 JSONObject jsonObject = response.getJSONObject("lista");
                                 Log.d("data de la LISTA", jsonObject.toString());
                                 usuarioTemp.setToken(jsonObject.getString("token"));
-                                usuarioTemp.setUser(jsonObject.getString("usuario"));
-                                usuarioTemp.setPassword("1");
+                                usuarioTemp.setUser(user);
+                                usuarioTemp.setNameVendedor(jsonObject.getString("usuario"));
+                                //Obtengo el nombre del vendedor
+                                nameVendedor[0] = jsonObject.getString("usuario") ;
+                                usuarioTemp.setPassword(jsonObject.getString("password"));
                                 insertUser(usuarioTemp);
 
                                 Intent i = new Intent(Login.this, MainActivity.class);
@@ -161,10 +166,6 @@ public class Login extends AppCompatActivity {
                 return null;
             }
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-            }
         }.execute(usuario);
     }
 
