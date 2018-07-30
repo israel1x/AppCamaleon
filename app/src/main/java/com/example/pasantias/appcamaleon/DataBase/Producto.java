@@ -33,9 +33,18 @@ public class Producto {
     @ColumnInfo(name = "pUnitario")
     public double pUnitario;
 
+    @NonNull
+    @ColumnInfo(name = "subcategoria")
+    private String subcategoria_pro;
 
+    @NonNull
+    public String getSubcategoria_pro() {
+        return subcategoria_pro;
+    }
 
-
+    public void setSubcategoria_pro(@NonNull String subcategoria_pro) {
+        this.subcategoria_pro = subcategoria_pro;
+    }
 
     @NonNull
     public int getIdProducto() {

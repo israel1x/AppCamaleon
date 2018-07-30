@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.DataBase.ClienteMin;
+import com.example.pasantias.appcamaleon.DataBase.Producto;
 import com.example.pasantias.appcamaleon.Pojos.Cliente;
 
 import org.json.JSONArray;
@@ -50,6 +51,7 @@ public class Offline extends AppCompatActivity {
     private TextView tvPbarPorcentaje;
 
     List<ClienteMin> listaClientesDelDia = new ArrayList<>();
+    List<Producto> listaProductos = new ArrayList<>();
     String fechaHoy;
     Date fechaDelDiaDeHoy;
 
@@ -75,6 +77,7 @@ public class Offline extends AppCompatActivity {
         Log.d("Fecha hoy 3: ", fechaHoy );
 
         final int[] countClicks = {0};
+        final int[] countClicksProductos = {0};
 
         if (!fechaHoy.isEmpty() || fechaHoy.equals(null)) {
 
@@ -104,16 +107,22 @@ public class Offline extends AppCompatActivity {
             btOfflineDownProductos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (comprobarSalidaInternet()) {
-                        pbarOffline.setVisibility(View.VISIBLE);
-                        tvPbarPorcentaje.setVisibility(View.VISIBLE);
-                        pbarOffline.setProgress(0);
-                        tvPbarPorcentaje.setText("00%");
 
+                    if (countClicksProductos[0] == 0) {
+                        if (comprobarSalidaInternet()) {
+                            pbarOffline.setVisibility(View.VISIBLE);
+                            tvPbarPorcentaje.setVisibility(View.VISIBLE);
+                            pbarOffline.setProgress(0);
+                            tvPbarPorcentaje.setText("00%");
+                            tareaDescargarProductos(listaProductos,tokenEjemplo);
 
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Ya se descargaron los productos de hoy" , Toast.LENGTH_SHORT).show();
                     }
+                    countClicksProductos[0]++;
                 }
             });
 
@@ -342,6 +351,120 @@ public class Offline extends AppCompatActivity {
             protected void onPostExecute(List<ClienteMin> clienteMins) {
                 super.onPostExecute(clienteMins);
                 Toast.makeText(getApplicationContext(), "Se descargaron los clientes" , Toast.LENGTH_SHORT).show();
+
+            }
+        }.execute(fechaHoy);
+    }
+
+
+    public void tareaDescargarProductos(final List<Producto> listaProductos, final String token) {
+
+        new AsyncTask<String, Integer, List<Producto>>() {
+            @Override
+            protected List<Producto> doInBackground(String... strings) {
+
+                final Producto productoX = new Producto();
+                final String[] id_producto = new String[1];
+                final String[] nombre_pro = new String[1];
+                final int[] stock_pro = {0};
+                final String[] valor_unitario = new String[1];
+                final String[] presentacion_pro = new String[1];
+                final String[] marca_pro = new String[1];
+                final String[] subcategoria_pro = new String[1];
+                final int[] cont = {0};
+
+                JSONObject jsonObjectCliente = new JSONObject();
+                try {
+                    jsonObjectCliente.put("metodo","listaProductos");
+                    jsonObjectCliente.put("token",token);
+                    jsonObjectCliente.put("offset", 0);
+                    jsonObjectCliente.put(	"limit",20);
+                    //jsonObjectCliente.put("fecha",fechaHoy );
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+                final JSONObject[] jsonObjectRutas = {new JSONObject()};
+                final JSONArray[] jsonArrayDetalleRutas = {new JSONArray()};
+                final JSONObject[] jsonObjectUno = {new JSONObject()};
+
+                String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
+                Log.d("Web S. listaProductos:", url);
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                JsonObjectRequest jsonObjectRequestDescargaDeListaDeClientes = new JsonObjectRequest(
+                        url,
+                        jsonObjectCliente,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("Data del WS", response.toString());
+                                try {
+                                    jsonObjectRutas[0] = response.getJSONObject("lista");
+                                    jsonArrayDetalleRutas[0] = jsonObjectRutas[0].getJSONArray("listaProductos");
+                                    Log.d("PRODUCTOS :", jsonArrayDetalleRutas[0].toString());
+                                    Log.d("Tamaño :", String.valueOf(jsonArrayDetalleRutas[0].length()));
+                                    int numElementos = jsonArrayDetalleRutas[0].length();
+                                    cont[0] = 0;
+                                    for (int i = 0; i < jsonArrayDetalleRutas[0].length(); i++) {
+                                        jsonObjectUno[0] = jsonArrayDetalleRutas[0].getJSONObject(i);
+                                        id_producto[0] = jsonObjectUno[0].getString("id_producto");
+                                        nombre_pro[0] = jsonObjectUno[0].getString("nombre_producto");
+                                        stock_pro[0] = jsonObjectUno[0].getInt("stock");
+                                        valor_unitario[0] = jsonObjectUno[0].getString("valor_unitario");
+                                        presentacion_pro[0] = jsonObjectUno[0].getString("nombre_presentacion");
+                                        marca_pro[0] = jsonObjectUno[0].getString("nombre_marca");
+                                        subcategoria_pro[0] = jsonObjectUno[0].getString("nombre_subcategoria");
+                                       /* clienteMin.setIdCliente(id[0]);
+                                        clienteMin.setNameCliente(nombre[0]);
+                                        clienteMin.setRucCliente(ruc[0]);
+                                        clienteMin.setDirCliente(direccion[0]);
+                                        clienteMin.setTelfCliente(telefono[0]);
+                                        clienteMin.setLattCliente(latitud[0]);
+                                        clienteMin.setLongCliente(longitud[0]);*/
+
+                                        //appDatabase.clienteMinDao().insertOne(clienteMin);
+                                        //cont[0] = cont[0] + 1;
+                                        //int porcentaje = (int) ((i+1/(float)(numElementos)) * 50);
+                                        int porcentaje = (int) ((i+1) * (100/numElementos));
+                                        publishProgress((int)porcentaje);
+                                        //publishProgress((int) ((i+1/(float)numElementos) * 50));
+
+                                        //pbarOffline.setProgress(porcentaje);
+                                        // Log.d("Num E:", String.valueOf(numElementos));
+                                        //Log.d("Contador:", String.valueOf(cont[0]));
+                                        Log.d("Porcentaje:", String.valueOf(porcentaje));
+                                        Log.d("nombre producto:",nombre_pro[0] );
+                                    }
+                                    //Log.d("detalle de clientes:",clienteMins.toString() );
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("ERROR", error.toString());
+                    }
+                }
+                );
+                requestQueue.add(jsonObjectRequestDescargaDeListaDeClientes);
+
+                return listaProductos;
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                super.onProgressUpdate(values);
+                tvPbarPorcentaje.setText(values[0].toString() + "%");
+                pbarOffline.setProgress(values[0]);
+                Log.d("valores de progreso:", String.valueOf(values[0]));
+            }
+
+
+            @Override
+            protected void onPostExecute(List<Producto> listaProductos) {
+                super.onPostExecute(listaProductos);
+                Toast.makeText(getApplicationContext(), "Se descargaron los productos" , Toast.LENGTH_SHORT).show();
 
             }
         }.execute(fechaHoy);

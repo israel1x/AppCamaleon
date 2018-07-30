@@ -1,9 +1,11 @@
 package com.example.pasantias.appcamaleon;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.DataBase.ClienteMin;
 import com.example.pasantias.appcamaleon.Pojos.Cliente;
 
@@ -38,11 +41,16 @@ public class ListaClientes extends AppCompatActivity {
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
     List<ClienteMin> clienteMins = new ArrayList<>();
     ArrayList<Cliente> clientes = new ArrayList<>();
+    public static AppDatabase appDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_clientes);
+        appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
+
+        //appDatabase = AppDatabase.getAppDatabase(ListaClientes.this);
 
         ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
 
@@ -65,7 +73,15 @@ public class ListaClientes extends AppCompatActivity {
         if ( comprobarSalidaInternet()) {
             traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
         } else {
-            Toast.makeText(getApplicationContext(), "No hay conexión a internet" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
+
+            clienteMins = appDatabase.clienteMinDao().getAll();
+
+            //getClienteMinsLocales(clienteMins);
+
+
+            Log.d("Clientes leidos DB",clienteMins.toString());
+
         }
 
         //traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
@@ -293,6 +309,7 @@ public class ListaClientes extends AppCompatActivity {
 
                                 sectionLinearLayout.addSection(section);
 
+                                //appDatabase.clienteMinDao().insertOne(clienteMin);
                                 Log.d("detalle ruta :",nombre[0] );
                             }
                             Log.d("detalle ruta :",clienteMins.toString() );
@@ -308,5 +325,26 @@ public class ListaClientes extends AppCompatActivity {
         }
         );
         requestQueue.add(jsonObjectRequestRequestRutaDeClientes);
+    }
+
+    public  List<ClienteMin> getClienteMinsLocales(List<ClienteMin> clienteMins) {
+        new AsyncTask<List<ClienteMin>, Void, List<ClienteMin>>() {
+            @Override
+            protected List<ClienteMin> doInBackground(List<ClienteMin>... lists) {
+                Log.d("trabajando en :","traer clientes db" );
+                List<ClienteMin> clientesxxx;
+                clientesxxx = appDatabase.clienteMinDao().getAll();
+                Log.d("trabajando en :",clientesxxx.toString() );
+                return clientesxxx;
+            }
+
+            @Override
+            protected void onProgressUpdate(Void... values) {
+                super.onProgressUpdate(values);
+
+                Log.d("clientes cargados :", String.valueOf(values));
+            }
+        }.execute(clienteMins);
+        return clienteMins;
     }
 }
