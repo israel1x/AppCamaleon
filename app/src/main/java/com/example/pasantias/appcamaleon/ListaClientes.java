@@ -75,9 +75,9 @@ public class ListaClientes extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
 
-            clienteMins = appDatabase.clienteMinDao().getAll();
+            //clienteMins = appDatabase.clienteMinDao().getAll();
 
-            //getClienteMinsLocales(clienteMins);
+            getClienteMinsLocales(clienteMins);
 
 
             Log.d("Clientes leidos DB",clienteMins.toString());
@@ -327,15 +327,16 @@ public class ListaClientes extends AppCompatActivity {
         requestQueue.add(jsonObjectRequestRequestRutaDeClientes);
     }
 
+
     public  List<ClienteMin> getClienteMinsLocales(List<ClienteMin> clienteMins) {
         new AsyncTask<List<ClienteMin>, Void, List<ClienteMin>>() {
             @Override
             protected List<ClienteMin> doInBackground(List<ClienteMin>... lists) {
                 Log.d("trabajando en :","traer clientes db" );
-                List<ClienteMin> clientesxxx;
-                clientesxxx = appDatabase.clienteMinDao().getAll();
-                Log.d("trabajando en :",clientesxxx.toString() );
-                return clientesxxx;
+                //List<ClienteMin> clientesxxx;
+                //clientesxxx = appDatabase.clienteMinDao().getAll();
+                //Log.d("trabajando en :",clientesxxx.toString() );
+                return appDatabase.clienteMinDao().getAll();
             }
 
             @Override
@@ -343,6 +344,12 @@ public class ListaClientes extends AppCompatActivity {
                 super.onProgressUpdate(values);
 
                 Log.d("clientes cargados :", String.valueOf(values));
+            }
+
+            @Override
+            protected void onPostExecute(List<ClienteMin> clienteMins) {
+                super.onPostExecute(clienteMins);
+                Log.d("clientes cargados :",clienteMins.get(0).getNameCliente());
             }
         }.execute(clienteMins);
         return clienteMins;
