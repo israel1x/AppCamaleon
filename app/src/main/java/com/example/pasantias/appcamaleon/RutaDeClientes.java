@@ -2,10 +2,12 @@ package com.example.pasantias.appcamaleon;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -18,7 +20,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.DataBase.ClienteMin;
+import com.example.pasantias.appcamaleon.Pojos.Cliente;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +44,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
     private GoogleMap mMap;
     List<ClienteMin> clienteMins = new ArrayList<>();
     List<LatLng> direccionesClientes = new ArrayList<>();
+    public static AppDatabase appDatabase;
 
     private static final String LOG_TAG = "CamaleonApp";
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
@@ -53,6 +58,10 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //appDatabase = AppDatabase.getAppDatabase(RutaDeClientes.this);
+        appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
+
     }
 
     /**
@@ -73,12 +82,15 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         if (comprobarSalidaInternet()) {
             traerRutaDeClientes(clienteMins,tokenEjemplo);
         } else {
-            Toast.makeText(getApplicationContext(), "No hay conexión a internet" , Toast.LENGTH_SHORT).show();
-            LatLng guayaquil = new LatLng(-2.16753, -79.89369);
-            mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
+            Toast.makeText(getApplicationContext(), "Cargando clientes guardados" , Toast.LENGTH_SHORT).show();
+            //LatLng guayaquil = new LatLng(-2.16753, -79.89369);
+            //mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
+            cargarRutaDeClientesDB(clienteMins,tokenEjemplo);
         }
 
     }
+
+
 
     void createMarks(List<ClienteMin> clienteMin) {
         LatLng guayaquil = new LatLng(-2.16753, -79.89369);
@@ -180,7 +192,36 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         requestQueue.add(jsonObjectRequestRequestRutaDeClientes);
 
         //Craeamos las markas en el mapa
-        createMarks(clienteMins);
+        //createMarks(clienteMins);
+    }
+
+
+    private void cargarRutaDeClientesDB(List<ClienteMin> clienteMins, String tokenEjemplo) {
+
+        new AsyncTask<List<ClienteMin>, Void, List<ClienteMin>>() {
+            @Override
+            protected List<ClienteMin> doInBackground(List<ClienteMin>... lists) {
+                return appDatabase.clienteMinDao().getAll();
+            }
+
+            @Override
+            protected void onPostExecute(List<ClienteMin> clienteMins) {
+                super.onPostExecute(clienteMins);
+                final LatLng guayaquil = new LatLng(-2.16753, -79.89369);
+                mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker at Innova"));
+
+                for (ClienteMin clienteMin : clienteMins) {
+                    //double lat = Double.parseDouble(clienteMin.getLattCliente());
+                    //double lng = Double.parseDouble(clienteMin.getLongCliente());
+                    //LatLng mark = new LatLng(lat,lng);
+                    //Log.d("Latitud:", String.valueOf(lat));
+                    //Log.d("Longitud:", String.valueOf(lng));
+                    LatLng mark = new LatLng(Double.parseDouble(clienteMin.getLattCliente()),Double.parseDouble(clienteMin.getLongCliente()));
+                    mMap.addMarker(new MarkerOptions().position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
+                }
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(guayaquil));
+            }
+        }.execute(clienteMins);
     }
 
 

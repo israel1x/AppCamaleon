@@ -77,11 +77,9 @@ public class ListaClientes extends AppCompatActivity {
 
             //clienteMins = appDatabase.clienteMinDao().getAll();
 
-            getClienteMinsLocales(clienteMins);
-
+            getClienteMinsLocales(clienteMins,sectionLinearLayout);
 
             Log.d("Clientes leidos DB",clienteMins.toString());
-
         }
 
         //traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
@@ -138,12 +136,7 @@ public class ListaClientes extends AppCompatActivity {
         }
     }
 
-    private void clienteMinTOcliente(List<ClienteMin> clienteMins, ArrayList<Cliente> clientes) {
 
-        for (ClienteMin clienteMin : clienteMins) {
-            clientes.add(new Cliente(clienteMin.getRucCliente(),clienteMin.getNameCliente(),clienteMin.getDirCliente(),clienteMin.getTelfCliente()));
-        }
-    }
 
     public void consultarWSListaClientes(String token){
 
@@ -208,6 +201,8 @@ public class ListaClientes extends AppCompatActivity {
 
         //return data_productos;
     }
+
+
 
     public Section<Cliente, Cliente> getSection(int i) {
 
@@ -328,7 +323,8 @@ public class ListaClientes extends AppCompatActivity {
     }
 
 
-    public  List<ClienteMin> getClienteMinsLocales(List<ClienteMin> clienteMins) {
+    public  static List<ClienteMin> getClienteMinsLocales(List<ClienteMin> clienteMins, final ExpandableLayout sectionLinearLayout) {
+        final ArrayList<Cliente> clientes = new ArrayList<>();
         new AsyncTask<List<ClienteMin>, Void, List<ClienteMin>>() {
             @Override
             protected List<ClienteMin> doInBackground(List<ClienteMin>... lists) {
@@ -350,8 +346,30 @@ public class ListaClientes extends AppCompatActivity {
             protected void onPostExecute(List<ClienteMin> clienteMins) {
                 super.onPostExecute(clienteMins);
                 Log.d("clientes cargados :",clienteMins.get(0).getNameCliente());
+
+                clienteMinTOcliente(clienteMins,clientes);
+                for ( Cliente clienteN : clientes) {
+                    Section<Cliente, Cliente> section = new Section<>();
+                    //Cliente clienteTest = new Cliente(ruc[0],nombre[0],direccion[0],telefono[0],Double.parseDouble(latitud[0]),Double.parseDouble(longitud[0]));
+                    Cliente padre = clienteN;
+                    Cliente ruc = clienteN;
+
+                    section.parent = padre;
+                    section.children.add(ruc);
+                    //clienteMins.add(clienteMin);
+                    section.expanded = false;
+
+                    sectionLinearLayout.addSection(section);
+                }
             }
         }.execute(clienteMins);
         return clienteMins;
+    }
+
+    private static void clienteMinTOcliente(List<ClienteMin> clienteMins, ArrayList<Cliente> clientes) {
+
+        for (ClienteMin clienteMin : clienteMins) {
+            clientes.add(new Cliente(clienteMin.getRucCliente(),clienteMin.getNameCliente(),clienteMin.getDirCliente(),clienteMin.getTelfCliente(),Double.parseDouble(clienteMin.getLattCliente()),Double.parseDouble(clienteMin.getLongCliente())));
+        }
     }
 }
