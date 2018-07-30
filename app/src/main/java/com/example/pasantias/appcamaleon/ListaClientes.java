@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.DataBase.ClienteMin;
 import com.example.pasantias.appcamaleon.Pojos.Cliente;
+import com.example.pasantias.appcamaleon.Util.Cart;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,7 +99,12 @@ public class ListaClientes extends AppCompatActivity {
                 nuevoPedido.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Intent i = new Intent(ListaClientes.this, IngresarPedido.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Cart.setCliente(parent);
+                        startActivity(i);
                         Toast.makeText(getApplicationContext(), "Nuevo Pedido de: " +parent.getNombre(), Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
 
@@ -293,7 +299,7 @@ public class ListaClientes extends AppCompatActivity {
                                 clienteMin.setDirCliente(direccion[0]);
 
                                 Section<Cliente, Cliente> section = new Section<>();
-                                Cliente clienteTest = new Cliente(ruc[0],nombre[0],direccion[0],telefono[0],Double.parseDouble(latitud[0]),Double.parseDouble(longitud[0]));
+                                Cliente clienteTest = new Cliente(Integer.parseInt(id[0]),ruc[0],nombre[0],direccion[0],telefono[0],Double.parseDouble(latitud[0]),Double.parseDouble(longitud[0]));
                                 Cliente padre = clienteTest;
                                 Cliente ruc = clienteTest;
 
@@ -369,7 +375,7 @@ public class ListaClientes extends AppCompatActivity {
     private static void clienteMinTOcliente(List<ClienteMin> clienteMins, ArrayList<Cliente> clientes) {
 
         for (ClienteMin clienteMin : clienteMins) {
-            clientes.add(new Cliente(clienteMin.getRucCliente(),clienteMin.getNameCliente(),clienteMin.getDirCliente(),clienteMin.getTelfCliente(),Double.parseDouble(clienteMin.getLattCliente()),Double.parseDouble(clienteMin.getLongCliente())));
+            clientes.add(new Cliente(Integer.parseInt(clienteMin.getIdCliente()),clienteMin.getRucCliente(),clienteMin.getNameCliente(),clienteMin.getDirCliente(),clienteMin.getTelfCliente(),Double.parseDouble(clienteMin.getLattCliente()),Double.parseDouble(clienteMin.getLongCliente())));
         }
     }
 }
