@@ -30,4 +30,22 @@
     <string name="title_activity_rutad">Map</string>
     <string name="title_activity_ruta_de_clientes">Ruta de Clientes</string>
     <string name="title_activity_ubicacion_cliente">Ubicación Cliente</string>
+
+    <string name="labelVendedor">Vendedor: </string>
+    <string name="nameVendedor">Wilson Olmedo Quinto Gutierrez</string>
+    <string name="labelFecha">Fecha: </string>
+    <string name="labelCliente">Cliente:</string>
+    <string name="labelAgregarProducto">Agregar Producto</string>
+    <string name="labelAgregar">Agregar</string>
+    <string name="labelBuscarProducto">Buscar Producto</string>
+    <string name="labelCantidad">Cantidad</string>
+    <string name="labelGuardarPedido">Guardar Pedido</string>
+    <string name="labelPedido">Pedido</string>
+    <string name="labelIvan">I.V.A</string>
+    <string name="labelTotal">Total</string>
+    <string name="labelSubtotal">SUBTOTAL</string>
+    <string name="labelAhorro">AHORRO</string>
+    <string name="labelPromocion">PROMOCIÓN:</string>
+    <string name="labelBuscar">Buscar</string>
+    <string name="labelPendiente">Pendiente</string>
 </resources>

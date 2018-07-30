@@ -11,7 +11,8 @@ public class Cliente {
     public Double latC;
     public Double lngC;
 
-
+    public Cliente() {
+    }
 
     public Cliente(String ruc, String nombre, String direccion) {
         this.ruc = ruc;
@@ -27,7 +28,8 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public Cliente(String ruc, String nombre, String direccion, String telefono, Double latC, Double lngC) {
+    public Cliente(int id_cliente,String ruc, String nombre, String direccion, String telefono, Double latC, Double lngC) {
+        this.id_cliente=id_cliente;
         this.ruc = ruc;
         this.nombre = nombre;
         this.direccion = direccion;

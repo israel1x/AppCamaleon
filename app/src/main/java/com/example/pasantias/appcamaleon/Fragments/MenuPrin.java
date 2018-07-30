@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.pasantias.appcamaleon.IngresarPedido;
 import com.example.pasantias.appcamaleon.ListaClientes;
 import com.example.pasantias.appcamaleon.MainActivity;
 import com.example.pasantias.appcamaleon.Offline;
@@ -92,6 +93,8 @@ public class MenuPrin extends Fragment {
         btIngPedidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getContext(), IngresarPedido.class);
+                startActivity(intent);
                 Toast.makeText(getContext(),"Ingresar pedido",Toast.LENGTH_SHORT ).show();
 
             }

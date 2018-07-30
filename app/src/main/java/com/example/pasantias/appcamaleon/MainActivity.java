@@ -96,7 +96,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_ing_pedido) {
-
+            Intent intent = new Intent(MainActivity.this, IngresarPedido.class);
+            startActivity(intent);
         } else if (id == R.id.nav_offline) {
             Intent i = new Intent(MainActivity.this, Offline.class);
             startActivity(i);
