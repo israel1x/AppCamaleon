@@ -7,11 +7,12 @@ import java.sql.Date;
 public class DataConverter {
 
     @TypeConverter
-    public static Date toDate(Long timestamp) {
+    public  Date toDate(Long timestamp) {
         return timestamp == null ? null : new Date(timestamp);
     }
 
 
     @TypeConverter
-    public static Long toTimestamp(Date date) { return date == null ? null : date.getTime(); }
+    public  Long toTimestamp(Date date) {
+        return date == null ? null : date.getTime(); }
 }

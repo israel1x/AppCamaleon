@@ -11,7 +11,7 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-@Database(entities = {ClienteMin.class, Usuario.class} , version = 2)
+@Database(entities = {ClienteMin.class, Usuario.class, Producto.class, Actualizacion.class} , version = 3)
 @TypeConverters(DataConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -19,6 +19,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ClienteMinDao clienteMinDao();
     public abstract UsuarioDao usuarioDao();
+    public abstract ProductoDao productoDao();
+    public abstract ActualizacionDao actualizacionDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

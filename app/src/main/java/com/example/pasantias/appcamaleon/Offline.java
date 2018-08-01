@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pasantias.appcamaleon.DataBase.Actualizacion;
 import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.DataBase.ClienteMin;
 import com.example.pasantias.appcamaleon.DataBase.Producto;
@@ -55,6 +56,8 @@ public class Offline extends AppCompatActivity {
     String fechaHoy;
     Date fechaDelDiaDeHoy;
 
+    Actualizacion actualizacionHoy;
+
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
 
 
@@ -75,6 +78,11 @@ public class Offline extends AppCompatActivity {
 
         fechaHoy = obtenerFechaDelDia(fechaHoy);
         Log.d("Fecha hoy 3: ", fechaHoy );
+        //creamos una nueva fecha de actualizacion
+        fechaDelDiaDeHoy = obtenerFechaDeHoyCompleta();
+        actualizacionHoy = new Actualizacion(1, fechaDelDiaDeHoy,fechaDelDiaDeHoy);
+
+        Log.d("Fecha hoy completa: ", fechaDelDiaDeHoy.toString() );
 
         final int[] countClicks = {0};
         final int[] countClicksProductos = {0};
@@ -84,6 +92,9 @@ public class Offline extends AppCompatActivity {
             btOfflineDownClientes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    appDatabase.actualizacionDao().insertActualizacion(actualizacionHoy);
+
                     if (countClicks[0] == 0) {
                         if (comprobarSalidaInternet()) {
                             pbarOffline.setVisibility(View.VISIBLE);
@@ -162,6 +173,13 @@ public class Offline extends AppCompatActivity {
         return fechaHoy;
     }
 
+    public Date obtenerFechaDeHoyCompleta() {
+        java.util.Calendar calendar1 = java.util.Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd ");
+        Date date  = calendar1.getTime();
+        //fechaHoy = mdformat.format(date);
+        return date;
+    }
 
     public void descargarClientesDelDia(final List<ClienteMin> clienteMins, String token, String dateHoy) {
 
@@ -311,7 +329,7 @@ public class Offline extends AppCompatActivity {
                                         appDatabase.clienteMinDao().insertOne(clienteMin);
                                         //cont[0] = cont[0] + 1;
                                         //int porcentaje = (int) ((i+1/(float)(numElementos)) * 50);
-                                        int porcentaje = (int) ((i+1) * (100/numElementos));
+                                        int porcentaje = ((i+1) * (100/numElementos));
                                         publishProgress((int)porcentaje);
                                         //publishProgress((int) ((i+1/(float)numElementos) * 50));
 
