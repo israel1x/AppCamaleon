@@ -39,4 +39,5 @@ public class Producto implements Serializable{
     public void setProductoPrecio(Double productoPrecio) {
         this.productoPrecio = productoPrecio;
     }
+
 }

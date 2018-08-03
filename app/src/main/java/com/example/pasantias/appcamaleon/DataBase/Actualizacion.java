@@ -27,9 +27,6 @@ public class Actualizacion {
     private String fechaUpdateProductos;
 
 
-    public Actualizacion() {
-    }
-
     public Actualizacion(@NonNull int idActualizacion, String fechaUpdateClientes, String fechaUpdateProductos) {
         this.idActualizacion = idActualizacion;
         this.fechaUpdateClientes = fechaUpdateClientes;

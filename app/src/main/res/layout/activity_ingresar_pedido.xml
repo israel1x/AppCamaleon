@@ -290,6 +290,7 @@
             android:paddingTop="10dp">
 
             <Button
+                android:id="@+id/bt_ingresar_pendiente"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_margin="2dp"

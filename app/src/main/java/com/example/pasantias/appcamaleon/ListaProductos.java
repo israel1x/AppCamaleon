@@ -1,6 +1,7 @@
 package com.example.pasantias.appcamaleon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -13,10 +14,14 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,15 +60,19 @@ public class ListaProductos extends AppCompatActivity {
     private boolean aptoParaCargar;
 
 
+
+
     private Integer autoCompleteLetter = 0;
     private ProductoAutoCompleteAdapte productoAutoCompleteAdapte;
     private static final int TRIGGER_AUTO_COMPLETE = 100;
     private static final long AUTO_COMPLETE_DELAY = 300;
     private Handler handler;
     private String keyWord = " ";
-    private Button bt_buscar_producto;
+    private boolean blockSearch=false;
+   // private Button bt_buscar_producto;
     private TextView textFecha;
     String currentDateandTime;
+    private AutoCompleteTextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +80,9 @@ public class ListaProductos extends AppCompatActivity {
         setContentView(R.layout.activity_lista_productos);
 
         textFecha= (TextView) findViewById(R.id.textFecha);
-        bt_buscar_producto = (Button) findViewById(R.id.bt_buscar_producto);
-        final AutoCompleteTextView textView = findViewById(R.id.edit_buscar_producto);
+        //bt_buscar_producto = (Button) findViewById(R.id.bt_buscar_producto);
+
+         textView = findViewById(R.id.edit_buscar_producto);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewProductos);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -80,7 +90,7 @@ public class ListaProductos extends AppCompatActivity {
         textFecha.setText(currentDateandTime);
 
 
-        bt_buscar_producto.setOnClickListener(new View.OnClickListener() {
+      /*  bt_buscar_producto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bt_buscar_producto.setEnabled(false);
@@ -90,7 +100,7 @@ public class ListaProductos extends AppCompatActivity {
                 productosAdapter.limpiarLista();
                 obtenerDatos(tokenEjemplo, offset, keyWord);
             }
-        });
+        });*/
 
 
         productosAdapter = new ProductosAdapter(this);
@@ -108,22 +118,41 @@ public class ListaProductos extends AppCompatActivity {
                     int totalItemCount = layoutManager.getItemCount();
                     int pastVisibleItems = layoutManager.findFirstCompletelyVisibleItemPosition();
                     if (aptoParaCargar) {
-                        // if((visibleItemCount+pastVisibleItems)>=totalItemCount){
-                        if (comprobarSalidaInternet()) {
+                         if((visibleItemCount+pastVisibleItems)>=totalItemCount){
+                       // if (comprobarSalidaInternet()) {
                             aptoParaCargar = false;
                             offset += 1;
                             obtenerDatos(tokenEjemplo, offset, keyWord);
-                        }
-                        // }
+                        //}
+                         }
                     }
                 }
             }
         });
 
 
+
         productoAutoCompleteAdapte = new ProductoAutoCompleteAdapte(this,android.R.layout.simple_dropdown_item_1line);
         textView.setThreshold(3);
         textView.setAdapter(productoAutoCompleteAdapte);
+
+        textView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH && !blockSearch) {
+                    blockSearch=true;
+                    Toast.makeText(getApplicationContext(), "boton", Toast.LENGTH_LONG).show();
+                    keyWord = String.valueOf(textView.getText());
+                    aptoParaCargar = true;
+                    offset = 0;
+                    productosAdapter.limpiarLista();
+                    obtenerDatos(tokenEjemplo, offset, keyWord);
+                    /* performSearch();*/
+                    return true;
+                }
+                return false;
+            }
+        });
 
         textView.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -157,10 +186,25 @@ public class ListaProductos extends AppCompatActivity {
             }
         });
 
-
+       // offset = 0;
+       // obtenerDatos(tokenEjemplo, offset, keyWord);
         //  Toast.makeText(this, String.valueOf(Cart.countList()), Toast.LENGTH_LONG).show();
     }
+    @Override
+    public void onBackPressed() {
+        Cart.setInsertarData(true);
+        back();
+        //finish();
+       // startActivity(getIntent());
+        super.onBackPressed();
 
+    }
+    public void back(){
+        Intent intent = new Intent(ListaProductos.this, IngresarPedido.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
     private void obtenerDatos(String token, int offset, String keyWord) {
 
         final String[] id = new String[1];
@@ -219,19 +263,24 @@ public class ListaProductos extends AppCompatActivity {
 
                                 }
                                 productosAdapter.adicionarListaAmiibo(list);
-                                bt_buscar_producto.setEnabled(true);
+                                blockSearch=false;
+                               // bt_buscar_producto.setEnabled(true);
                                 aptoParaCargar = true;
                             }
+                            blockSearch=false;
+                           // bt_buscar_producto.setEnabled(true);
 
                         } catch (JSONException e) {
-                            bt_buscar_producto.setEnabled(true);
+                            blockSearch=false;
+                          //  bt_buscar_producto.setEnabled(true);
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                bt_buscar_producto.setEnabled(true);
+                blockSearch=false;
+               // bt_buscar_producto.setEnabled(true);
                 Log.d("ERROR", error.toString());
             }
         }
