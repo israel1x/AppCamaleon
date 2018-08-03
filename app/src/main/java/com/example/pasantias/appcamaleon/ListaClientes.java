@@ -3,6 +3,7 @@ package com.example.pasantias.appcamaleon;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -89,9 +90,18 @@ public class ListaClientes extends AppCompatActivity {
         //Log.d("datos de los clientes :", clientes.toString() );
 
         sectionLinearLayout.setExpandListener(new ExpandCollapseListener.ExpandListener<Cliente>() {
+
+            TextView nombreClienteSelect;
+
+
             @Override
             public void onExpanded(int parentIndex, final Cliente parent, View view) {
                 //Layout expanded
+
+                int color = view.getResources().getColor(R.color.colorAccent);
+                nombreClienteSelect = view.findViewById(R.id.tv_parent_nameCliente);
+                nombreClienteSelect.setBackgroundColor(color);
+                nombreClienteSelect.setTextColor(Color.WHITE);
 
                 Button nuevoPedido = findViewById(R.id.bt_child_nuevo_pedido);
                 Button verUbicacion = findViewById(R.id.bt_child_ver_ubicacion);
@@ -119,10 +129,19 @@ public class ListaClientes extends AppCompatActivity {
                 });
             }
         });
+
+
         sectionLinearLayout.setCollapseListener(new ExpandCollapseListener.CollapseListener<Cliente>() {
+
+            TextView nombreClienteSelect;
             @Override
             public void onCollapsed(int parentIndex, Cliente parent, View view) {
                 //Layout collapsed
+
+                int colorAcent = view.getResources().getColor(R.color.colorAccent);
+                nombreClienteSelect = view.findViewById(R.id.tv_parent_nameCliente);
+                nombreClienteSelect.setBackgroundColor(Color.WHITE);
+                nombreClienteSelect.setTextColor(colorAcent);
             }
         });
     }

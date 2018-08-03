@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textStyle="bold"
             android:text="RUC/CI:" />
 
         <TextView
@@ -24,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:textColor="#3157B7"
             android:text="0988829914" />
     </LinearLayout>
 
@@ -39,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textStyle="bold"
             android:text="Dirección:" />
 
         <TextView
@@ -46,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:textColor="#3157B7"
             android:text="Jose Mascote" />
     </LinearLayout>
 
@@ -60,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textStyle="bold"
             android:text="Teléfono:" />
 
         <TextView
@@ -67,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:textColor="#3157B7"
             android:text="0988829914" />
     </LinearLayout>
 

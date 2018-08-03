@@ -15,7 +15,8 @@
             android:id="@+id/tv_parent_nameCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Erasmo Israel Zurita barahona"
+            android:text="Israel "
+            android:textColor="#3157B7"
             android:padding="16dp"
             android:layout_centerVertical="true"/>
 
