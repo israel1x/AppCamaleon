@@ -32,6 +32,13 @@ public interface ActualizacionDao {
     @Update(onConflict = REPLACE)
     void update(Actualizacion actualizacion);
 
+    //ACTUALIZAR SOLO LA FECHA DE ACTUALIZACION DE PRODUCTOS
+    //@Update(onConflict = REPLACE)
+    //void updateFechaProductosById(int id);
+
+    //ACTUALIZAR SOLO LA FECHA DE ACTUALIZACION DE PRODUCTOS
+    //@
+
     @Delete
     void delete(Actualizacion actualizacion);
 
