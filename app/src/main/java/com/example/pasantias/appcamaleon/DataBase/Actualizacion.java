@@ -14,20 +14,23 @@ import java.util.Date;
 public class Actualizacion {
 
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "idupd")
+    @ColumnInfo(name = "idupdate")
     @NonNull
     private int idActualizacion;
 
-    @ColumnInfo(name = "updclientes")
-    @TypeConverters(DataConverter.class)
-    private Date fechaUpdateClientes;
+    @ColumnInfo(name = "updateclientes")
+    //@TypeConverters(DataConverter.class)
+    private String fechaUpdateClientes;
 
-    @ColumnInfo(name = "updproductos")
-    @TypeConverters(DataConverter.class)
-    private Date fechaUpdateProductos;
+    @ColumnInfo(name = "updateproductos")
+    //@TypeConverters(DataConverter.class)
+    private String fechaUpdateProductos;
 
 
-    public Actualizacion(@NonNull int idActualizacion, Date fechaUpdateClientes, Date fechaUpdateProductos) {
+    public Actualizacion() {
+    }
+
+    public Actualizacion(@NonNull int idActualizacion, String fechaUpdateClientes, String fechaUpdateProductos) {
         this.idActualizacion = idActualizacion;
         this.fechaUpdateClientes = fechaUpdateClientes;
         this.fechaUpdateProductos = fechaUpdateProductos;
@@ -42,19 +45,19 @@ public class Actualizacion {
         this.idActualizacion = idActualizacion;
     }
 
-    public Date getFechaUpdateClientes() {
+    public String getFechaUpdateClientes() {
         return fechaUpdateClientes;
     }
 
-    public void setFechaUpdateClientes(Date fechaUpdateClientes) {
+    public void setFechaUpdateClientes(String fechaUpdateClientes) {
         this.fechaUpdateClientes = fechaUpdateClientes;
     }
 
-    public Date getFechaUpdateProductos() {
+    public String getFechaUpdateProductos() {
         return fechaUpdateProductos;
     }
 
-    public void setFechaUpdateProductos(Date fechaUpdateProductos) {
+    public void setFechaUpdateProductos(String fechaUpdateProductos) {
         this.fechaUpdateProductos = fechaUpdateProductos;
     }
 }

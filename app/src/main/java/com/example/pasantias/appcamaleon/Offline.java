@@ -54,7 +54,7 @@ public class Offline extends AppCompatActivity {
     List<ClienteMin> listaClientesDelDia = new ArrayList<>();
     List<Producto> listaProductos = new ArrayList<>();
     String fechaHoy;
-    Date fechaDelDiaDeHoy;
+    String fechaDelDiaDeHoy;
 
     Actualizacion actualizacionHoy;
 
@@ -80,9 +80,10 @@ public class Offline extends AppCompatActivity {
         Log.d("Fecha hoy 3: ", fechaHoy );
         //creamos una nueva fecha de actualizacion
         fechaDelDiaDeHoy = obtenerFechaDeHoyCompleta();
+        Log.d("Fecha hoy 4: ", fechaDelDiaDeHoy );
         actualizacionHoy = new Actualizacion(1, fechaDelDiaDeHoy,fechaDelDiaDeHoy);
 
-        Log.d("Fecha hoy completa: ", fechaDelDiaDeHoy.toString() );
+        //Log.d("Fecha hoy completa: ", fechaDelDiaDeHoy.toString() );
 
         final int[] countClicks = {0};
         final int[] countClicksProductos = {0};
@@ -93,24 +94,25 @@ public class Offline extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    appDatabase.actualizacionDao().insertActualizacion(actualizacionHoy);
+                    //appDatabase.actualizacionDao().insertActualizacion(actualizacionHoy);
 
-                    if (countClicks[0] == 0) {
+                    //if (countClicks[0] == 0) {
                         if (comprobarSalidaInternet()) {
                             pbarOffline.setVisibility(View.VISIBLE);
                             tvPbarPorcentaje.setVisibility(View.VISIBLE);
                             pbarOffline.setProgress(0);
                             tvPbarPorcentaje.setText("00%");
                             //descargarClientesDelDia(listaClientesDelDia,tokenEjemplo,fechaHoy);
-                            tareaDescargarClientes(listaClientesDelDia,tokenEjemplo,fechaHoy);
+                            getFechasDeActualizacionDeClientes(1);
+                            //tareaDescargarClientes(listaClientesDelDia,tokenEjemplo,fechaHoy);
                             //pbDescargas.setProgress(100);
                         } else {
                             Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Ya actualizó sus clientes de hoy" , Toast.LENGTH_SHORT).show();
-                    }
-                    countClicks[0]++;
+                   // } else {
+                        //Toast.makeText(getApplicationContext(), "Ya actualizó sus clientes de hoy" , Toast.LENGTH_SHORT).show();
+                   // }
+                   // countClicks[0]++;
                 }
             });
 
@@ -173,12 +175,13 @@ public class Offline extends AppCompatActivity {
         return fechaHoy;
     }
 
-    public Date obtenerFechaDeHoyCompleta() {
+    public String obtenerFechaDeHoyCompleta() {
+        String fecha = "";
         java.util.Calendar calendar1 = java.util.Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd ");
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date  = calendar1.getTime();
-        //fechaHoy = mdformat.format(date);
-        return date;
+        fecha = mdformat.format(date);
+        return fecha;
     }
 
     public void descargarClientesDelDia(final List<ClienteMin> clienteMins, String token, String dateHoy) {
@@ -370,9 +373,13 @@ public class Offline extends AppCompatActivity {
                 super.onPostExecute(clienteMins);
                 Toast.makeText(getApplicationContext(), "Se descargaron los clientes" , Toast.LENGTH_SHORT).show();
 
+                Actualizacion actualizacion = new Actualizacion(1, fechaHoy, fechaHoy);
+                //GUARDO EN LA BASE EL REGISTRO (LA FECHA DE DESCARGA DE CLIENTES)
+                appDatabase.actualizacionDao().insertActualizacion(actualizacion);
             }
         }.execute(fechaHoy);
     }
+
 
 
     public void tareaDescargarProductos(final List<Producto> listaProductos, final String token) {
@@ -486,6 +493,66 @@ public class Offline extends AppCompatActivity {
 
             }
         }.execute(fechaHoy);
+    }
+
+
+
+    //METODO QUE VALIDA LA FECHA DE DESCARGA DE LA LISTA DE CLIENTES
+    //EVITA DESCARGAR LA MISMA LISTA DE CLIENTES
+    public void getFechasDeActualizacionDeClientes(final int id) {
+        new AsyncTask<Integer, Void, String>() {
+
+            String actualizacionClientes;
+            @Override
+            protected String doInBackground(Integer... integers) {
+                actualizacionClientes = appDatabase.actualizacionDao().getFechaActualizacionDeClientes(id);
+                return actualizacionClientes;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                String fechaUpdateClientes;
+                String fechaUpdateProductos;
+
+                if ( actualizacionClientes == null ) {
+                    tareaDescargarClientes(listaClientesDelDia,tokenEjemplo,fechaHoy);
+                    Log.d("Descargando clientes", "de: " + fechaHoy);
+                } else {
+                    //fechaUpdateClientes = actualizacion.getFechaUpdateClientes();
+                    Toast.makeText(getApplicationContext(), "Ya se descargaron los clientes del: " + fechaHoy, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute(id);
+    }
+
+
+
+    //METODO QUE VALIDA LA FECHA DE DESCARGA DE LA LISTA DE PRODUCTOS
+    //EVITA DESCARGAR LA MISMA LISTA DE PRODUCTOS
+    public void getFechaDeActualizacionDeProductos(final int id) {
+        new AsyncTask<Integer, Void, String>() {
+
+            String actualizacionProductos;
+            @Override
+            protected String doInBackground(Integer... integers) {
+                actualizacionProductos = appDatabase.actualizacionDao().getFechaActualizacionDeProductos(id);
+                return actualizacionProductos;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                if (actualizacionProductos == null) {
+
+
+                    Log.d("Descargando productos", "de: " + fechaHoy);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Ya se descargaron los productos del: " + fechaHoy, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute(id);
     }
 
 }

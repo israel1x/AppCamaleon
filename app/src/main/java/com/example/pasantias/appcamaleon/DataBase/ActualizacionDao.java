@@ -15,14 +15,16 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @TypeConverters(DataConverter.class)
 public interface ActualizacionDao {
 
-    @Query("SELECT * FROM actualizacion WHERE idupd = :idupdate")
+    @Query("SELECT * FROM actualizacion WHERE idupdate = :idupdate")
     Actualizacion getByIdActualizacion(int idupdate);
 
-    //@Query("SELECT updclientes FROM actualizacion WHERE idupd = :idupdate")
-    //Date getFechaActualizacionDeClientes(int idupdate);
+    //RETORNA LA FECHA COMO STRING EN QUE SE ACTUALIZARON LOS CLIENTES
+    @Query("SELECT updateclientes FROM actualizacion WHERE idupdate = :idupdate")
+    String getFechaActualizacionDeClientes(int idupdate);
 
-    //@Query("SELECT updproductos FROM actualizacion WHERE idupd = :idupdate")
-    //Date getFechaActualizacionDeProductos(int idupdate);
+    //RETORNA LA FECHA EN QUE SE ACTUALIZARON LOS PRODUCTOS
+    @Query("SELECT updateproductos FROM actualizacion WHERE idupdate = :idupdate")
+    String getFechaActualizacionDeProductos(int idupdate);
 
     @Insert(onConflict = REPLACE)
     void insertActualizacion(Actualizacion actualizacion);
