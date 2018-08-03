@@ -34,6 +34,12 @@ public class ClienteMin {
     @ColumnInfo(name = "longitud")
     private String longCliente;
 
+    @ColumnInfo(name = "fechavisita")
+    private String fechaVisita;
+
+    @ColumnInfo(name = "estadovisita")
+    private int estadoVisita;
+
 
     public String getIdCliente() {
         return idCliente;
@@ -89,5 +95,21 @@ public class ClienteMin {
 
     public void setLongCliente(String longCliente) {
         this.longCliente = longCliente;
+    }
+
+    public String getFechaVisita() {
+        return fechaVisita;
+    }
+
+    public void setFechaVisita(String fechaVisita) {
+        this.fechaVisita = fechaVisita;
+    }
+
+    public int getEstadoVisita() {
+        return estadoVisita;
+    }
+
+    public void setEstadoVisita(int estadoVisita) {
+        this.estadoVisita = estadoVisita;
     }
 }

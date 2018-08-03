@@ -8,6 +8,8 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 @Dao
 public interface ClienteMinDao {
 
@@ -17,22 +19,30 @@ public interface ClienteMinDao {
     @Query("SELECT * FROM clientemin where name LIKE  :firstName")
     ClienteMin findByName(String firstName);
 
-    @Query("SELECT id, name, ruc, dir, telf FROM clientemin")
+    @Query("SELECT id, name, ruc, dir, telf, estadovisita FROM clientemin")
     List<ClienteMin> findForListCliente();
 
-    @Query("SELECT id, name, lattitud, longitud FROM clientemin")
+    @Query("SELECT id, name, lattitud, longitud, estadovisita FROM clientemin")
     List<ClienteMin> findForRutaClientes();
 
     @Query("SELECT COUNT(*) from clientemin")
     int countUsers();
 
-    @Insert
+    //RETORNA LA FECHA DE VISITA DE UN CLIENTE
+    @Query("SELECT fechavisita from clientemin where id = :clienteBuscado")
+    String getFechaDeVisitaAlCliente(int clienteBuscado);
+
+    //RETORNA  UNA LISTA CON TODOS CLIENTES POR FECHA DE VISITA
+    @Query("SELECT * FROM clientemin WHERE fechavisita = :fechaDeVisita")
+    List<ClienteMin> getAllClientesByFechaDeVisita(String fechaDeVisita);
+
+    @Insert(onConflict = REPLACE)
     void insertAll(List<ClienteMin> clienteMins);
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     void insertOne(ClienteMin clienteMin);
 
-    @Update
+    @Update(onConflict = REPLACE)
     void update(ClienteMin clienteMin);
 
     @Delete

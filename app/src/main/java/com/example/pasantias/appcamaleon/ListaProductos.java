@@ -89,7 +89,7 @@ public class ListaProductos extends AppCompatActivity {
         currentDateandTime = sdf.format(new Date());
         textFecha.setText(currentDateandTime);
 
-        
+
       /*  bt_buscar_producto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
