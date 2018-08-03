@@ -117,10 +117,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IngresarPedido"
-            android:screenOrientation="landscape">
+            android:name=".IngresarPedido">
         </activity>
-        <activity android:name=".ListaProductos" ></activity>
+        <activity android:name=".ListaProductos" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

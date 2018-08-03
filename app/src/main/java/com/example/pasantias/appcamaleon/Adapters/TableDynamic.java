@@ -50,6 +50,7 @@ public class TableDynamic {
     private void newCell() {
         textCell = new TextView(context);
         textCell.setBackgroundColor(Color.WHITE);
+        textCell.setTextColor(Color.BLACK);
         textCell.setPadding(7,15,0,15);
         //textCell.setGravity(Gravity.CENTER);
         textCell.setTextSize(15);

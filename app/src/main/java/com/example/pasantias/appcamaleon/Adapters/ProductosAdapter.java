@@ -3,6 +3,7 @@ package com.example.pasantias.appcamaleon.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -15,12 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pasantias.appcamaleon.IngresarPedido;
+import com.example.pasantias.appcamaleon.Pojos.Item;
 import com.example.pasantias.appcamaleon.Pojos.Producto;
 import com.example.pasantias.appcamaleon.R;
 import com.example.pasantias.appcamaleon.Util.Cart;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ProductosViewHolder> {
     private ArrayList<Producto> listaProductos;
@@ -42,31 +47,35 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         String text = "<font color=#FFB233>PROMOCIÓN: </font> <font color=#B4B0AA> &nbsp; Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</font>";
 
         final Producto p = listaProductos.get(position);
+        final int post=position;
         holder.productoNombre.setText(p.getProductoNombre());
         holder.productoPresentacion.setText(p.getProductoPresentacion());
         holder.productoPrecioUnitario.setText("P.UNI: " + p.getProductoPrecio().toString());
         holder.productoPromocion.setText(Html.fromHtml(text));
-
+        holder.productoCantidad.setText(Cart.getExistesItem(p));
+      //  if(p.isSelect()) {
+           // holder.productoNombre.setTextColor(p.isSelect()==true ? Color.RED:Color.GREEN);
+           holder.cardProducto.setCardBackgroundColor(Cart.isExists(p) ? Color.LTGRAY:Color.WHITE);
+       // }
 
         holder.bt_ing_producto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (holder.productoCantidad.getText().length() != 0) {
+                    Integer val = Integer.parseInt(String.valueOf(holder.productoCantidad.getText()));
                     if (!Cart.isExists(p)) {
-                        Integer val = Integer.parseInt(String.valueOf(holder.productoCantidad.getText()));
                         if(val!=0) {
-                            Cart.setInsertarData(true);
-                            Intent intent = new Intent(context, IngresarPedido.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra("producto", p);
-                            intent.putExtra("cantidad", val);
-                            context.startActivity(intent);
-                            ((Activity) context).finish();
+                            Cart.insert(new Item(p, val));
+                           notifyDataSetChanged();
                         }else {
                             Toast.makeText(context, "El producto " + p.getProductoNombre() + " tiene que ser mayor a 0", Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(context, "El producto " + p.getProductoNombre() + " ya se encuentra ingresado en la lista", Toast.LENGTH_LONG).show();
+                        if(Cart.getExistesItem(p).equals(String.valueOf(val))) {
+                            Toast.makeText(context, "El item " + p.getProductoNombre() + " ya tiene igresada la cantidad de "+val, Toast.LENGTH_LONG).show();
+                        }else{
+                            updateMensaje(p,val);
+                        }
                     }
                 } else {
                     Toast.makeText(context, "El producto " + p.getProductoNombre() + " tiene que tener una cantidad", Toast.LENGTH_LONG).show();
@@ -74,6 +83,38 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
             }
         });
     }
+
+    public void updateMensaje(Producto producto,Integer cantidad){
+        final Producto p=producto;
+        final Integer val=cantidad;
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setTitle("Producto");
+        alertDialog.setMessage("El item ya tiene ingresada la cantidad de "+Cart.getExistesItem(producto)+" desea cambiar la cantidad a "+cantidad);
+
+        alertDialog.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(val!=0) {
+                            Cart.update(new Item(p, val));
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "El producto " + p.getProductoNombre() + " actualizado", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(context, "El producto " + p.getProductoNombre() + " tiene que ser mayor a 0", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        alertDialog.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
+    }
+
+
 
     @Override
     public int getItemCount() {
