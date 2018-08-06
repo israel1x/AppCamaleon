@@ -39,8 +39,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp"
+            android:drawableLeft="@drawable/ic_box"
             android:background="@drawable/btn_login_round"
-            android:drawableLeft="@drawable/ic_location_cliente"
             android:textAllCaps="false"
             android:text="Descargar Productos"
             android:textSize="18sp"
@@ -54,28 +54,14 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp"
+            android:drawableLeft="@drawable/ic_sync"
             android:background="@drawable/btn_login_round"
-            android:drawableLeft="@drawable/ic_location_cliente"
             android:textAllCaps="false"
-            android:text="Actualizar Stock"
+            android:text="Actualizar Stock Y Precios"
             android:textSize="18sp"
             android:textColor="#ffffff"/>
 
-        <Button
-            android:id="@+id/bt_offline_actualizar_precios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
-            android:background="@drawable/btn_login_round"
-            android:drawableLeft="@drawable/ic_location_cliente"
-            android:drawableStart="@drawable/ic_location_cliente"
-            android:textAllCaps="false"
-            android:text="Actualizar Precios"
-            android:textSize="18sp"
-            android:textColor="#ffffff"/>
+
 
     </LinearLayout>
 

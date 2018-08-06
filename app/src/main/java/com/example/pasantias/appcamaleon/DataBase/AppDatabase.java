@@ -12,7 +12,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 
-@Database(entities = {ClienteMin.class, Usuario.class, Producto.class, Actualizacion.class, Pedido.class, DetallePedido.class} , version = 5)
+@Database(entities = {ClienteMin.class, Usuario.class, Producto.class, Actualizacion.class, Pedido.class, DetallePedido.class} , version = 6)
 @TypeConverters(DataConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 

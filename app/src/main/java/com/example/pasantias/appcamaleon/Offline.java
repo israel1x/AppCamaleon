@@ -71,7 +71,7 @@ public class Offline extends AppCompatActivity {
         btOfflineDownClientes = (Button) findViewById(R.id.bt_offline_down_clientes);
         btOfflineDownProductos = (Button) findViewById(R.id.bt_offline_down_productos);
         btOfflineActualizarStock = (Button) findViewById(R.id.bt_offline_actualizar_stock);
-        btOfflineActualizarPrecios = (Button) findViewById(R.id.bt_offline_actualizar_precios);
+        //btOfflineActualizarPrecios = (Button) findViewById(R.id.bt_offline_actualizar_precios);
         pbarOffline = (ProgressBar) findViewById(R.id.pbar_offline);
 
         tvPbarPorcentaje = (TextView) findViewById(R.id.tv_pbar_porcentaje);
@@ -81,7 +81,7 @@ public class Offline extends AppCompatActivity {
         //creamos una nueva fecha de actualizacion
         fechaDelDiaDeHoy = obtenerFechaDeHoyCompleta();
         Log.d("Fecha hoy 4: ", fechaDelDiaDeHoy );
-        actualizacionHoy = new Actualizacion(1, fechaDelDiaDeHoy,fechaDelDiaDeHoy);
+        actualizacionHoy = new Actualizacion(1, fechaDelDiaDeHoy,fechaDelDiaDeHoy,fechaDelDiaDeHoy);
 
         //Log.d("Fecha hoy completa: ", fechaDelDiaDeHoy.toString() );
 
@@ -95,8 +95,6 @@ public class Offline extends AppCompatActivity {
                 public void onClick(View view) {
 
                     //appDatabase.actualizacionDao().insertActualizacion(actualizacionHoy);
-
-                    //if (countClicks[0] == 0) {
                         if (comprobarSalidaInternet()) {
                             pbarOffline.setVisibility(View.VISIBLE);
                             tvPbarPorcentaje.setVisibility(View.VISIBLE);
@@ -109,10 +107,6 @@ public class Offline extends AppCompatActivity {
                         } else {
                             Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
                         }
-                   // } else {
-                        //Toast.makeText(getApplicationContext(), "Ya actualizó sus clientes de hoy" , Toast.LENGTH_SHORT).show();
-                   // }
-                   // countClicks[0]++;
                 }
             });
 
@@ -121,7 +115,6 @@ public class Offline extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    //if (countClicksProductos[0] == 0) {
                         if (comprobarSalidaInternet()) {
                             pbarOffline.setVisibility(View.VISIBLE);
                             tvPbarPorcentaje.setVisibility(View.VISIBLE);
@@ -133,10 +126,27 @@ public class Offline extends AppCompatActivity {
                         } else {
                             Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
                         }
-                   // } else {
-                    //    Toast.makeText(getApplicationContext(), "Ya se descargaron los productos de hoy" , Toast.LENGTH_SHORT).show();
-                    //}
-                    //countClicksProductos[0]++;
+                }
+            });
+
+
+
+            btOfflineActualizarStock.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if ( comprobarSalidaInternet() ) {
+                        pbarOffline.setVisibility(View.VISIBLE);
+                        tvPbarPorcentaje.setVisibility(View.VISIBLE);
+                        pbarOffline.setProgress(0);
+                        tvPbarPorcentaje.setText("00%");
+
+                        getFechaActualizarStock(1);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
 
@@ -381,7 +391,7 @@ public class Offline extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Se descargaron los clientes" , Toast.LENGTH_SHORT).show();
 
                 //Log.d("FECHA A GUARDAR LOCAL:",fechaUpdateDbClientes[0]);
-                Actualizacion actualizacion = new Actualizacion(1, fechaHoy, null);
+                Actualizacion actualizacion = new Actualizacion(1, fechaHoy, null, null);
                 //GUARDO EN LA BASE EL REGISTRO (LA FECHA DE DESCARGA DE CLIENTES)
                 appDatabase.actualizacionDao().insertActualizacion(actualizacion);
             }
@@ -500,7 +510,7 @@ public class Offline extends AppCompatActivity {
                 super.onPostExecute(listaProductos);
                 Toast.makeText(getApplicationContext(), "Se descargaron todos los productos" , Toast.LENGTH_SHORT).show();
 
-                Actualizacion actualizacion = new Actualizacion(1, fechaHoy, fechaHoy);
+                Actualizacion actualizacion = new Actualizacion(1, fechaHoy, fechaHoy,null);
                 //GUARDO EN LA BASE EL REGISTRO (LA FECHA DE DESCARGA DE CLIENTES)
 
                 // Actualizar el registro de la fecha de actualizacion de productos
@@ -600,10 +610,8 @@ public class Offline extends AppCompatActivity {
 
                 JSONObject jsonObjectCliente = new JSONObject();
                 try {
-                    jsonObjectCliente.put("metodo","listaProductos");
+                    jsonObjectCliente.put("metodo","listaProductosActualizados");
                     jsonObjectCliente.put("token",token);
-                    jsonObjectCliente.put("offset", 0);
-                    jsonObjectCliente.put(	"limit",20);
                     jsonObjectCliente.put("fecha_base",fechaDelDiaDeHoy );
                     //"fecha_base":"2018-08-01 12:00:00"
                 }catch (JSONException e){
@@ -614,7 +622,7 @@ public class Offline extends AppCompatActivity {
                 final JSONObject[] jsonObjectUno = {new JSONObject()};
 
                 String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
-                Log.d("Web S. listaProductos:", url);
+                Log.d("ProductosActualizados:", url);
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 JsonObjectRequest jsonObjectRequestDescargaDeListaDeClientes = new JsonObjectRequest(
@@ -650,7 +658,7 @@ public class Offline extends AppCompatActivity {
                                         productoX.setMarca(marca_pro[0]);
                                         productoX.setSubcategoria_pro(subcategoria_pro[0]);
 
-                                        appDatabase.productoDao().insert(productoX);
+                                        appDatabase.productoDao().update(productoX);
                                         //cont[0] = cont[0] + 1;
                                         //int porcentaje = (int) ((i+1/(float)(numElementos)) * 50);
                                         int porcentaje = (int) ((i+1) * (100/numElementos));
@@ -697,5 +705,35 @@ public class Offline extends AppCompatActivity {
             }
         }.execute(fechaDelDiaDeHoy);
     }
+
+
+    public void getFechaActualizarStock(final int id) {
+        new AsyncTask<Integer, Void, String>() {
+
+            String actualizacionStock;
+            @Override
+            protected String doInBackground(Integer... integers) {
+                actualizacionStock = appDatabase.actualizacionDao().getFechaActualizacionDeProductos(id);
+                return actualizacionStock;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                if (actualizacionStock == null) {
+
+                    tareaActualizarProductos(listaProductos,tokenEjemplo);
+                    Log.d("Actualizando productos", "de: " + fechaHoy);
+                } else {
+
+                    //COMPARO LAS FECHAS PARA VER SI ES NECESARIO ACTUALIZAR EL STOCK Y LOS PRECIOS
+                    //
+                    Toast.makeText(getApplicationContext(), "Ya se actualizaron los productos del: " + fechaHoy, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute(id);
+    }
+
 
 }

@@ -1,6 +1,9 @@
 package com.example.pasantias.appcamaleon.Pojos;
 
-public class Cliente {
+import android.widget.Filter;
+import android.widget.Filterable;
+
+public class Cliente implements Filterable{
 
     public int id_cliente;
     public String ruc;
@@ -103,5 +106,10 @@ public class Cliente {
 
     public void setLngC(Double lngC) {
         this.lngC = lngC;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }

@@ -26,11 +26,14 @@ public class Actualizacion {
     //@TypeConverters(DataConverter.class)
     private String fechaUpdateProductos;
 
+    @ColumnInfo(name = "updatestockprecio")
+    private String fechaUpdateStockPrecios;
 
-    public Actualizacion(@NonNull int idActualizacion, String fechaUpdateClientes, String fechaUpdateProductos) {
+    public Actualizacion(@NonNull int idActualizacion, String fechaUpdateClientes, String fechaUpdateProductos, String fechaUpdateStockPrecios) {
         this.idActualizacion = idActualizacion;
         this.fechaUpdateClientes = fechaUpdateClientes;
         this.fechaUpdateProductos = fechaUpdateProductos;
+        this.fechaUpdateStockPrecios = fechaUpdateStockPrecios;
     }
 
     @NonNull
@@ -56,5 +59,13 @@ public class Actualizacion {
 
     public void setFechaUpdateProductos(String fechaUpdateProductos) {
         this.fechaUpdateProductos = fechaUpdateProductos;
+    }
+
+    public String getFechaUpdateStockPrecios() {
+        return fechaUpdateStockPrecios;
+    }
+
+    public void setFechaUpdateStockPrecios(String fechaUpdateStockPrecios) {
+        this.fechaUpdateStockPrecios = fechaUpdateStockPrecios;
     }
 }

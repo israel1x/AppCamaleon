@@ -26,6 +26,10 @@ public interface ActualizacionDao {
     @Query("SELECT updateproductos FROM actualizacion WHERE idupdate = :idupdate")
     String getFechaActualizacionDeProductos(int idupdate);
 
+    //RETORNA LA FECHA EN QUE SE ACTUALIZO EL STOCK Y EL PRECIO DE LOS PRODUCTOS
+    @Query("SELECT updatestockprecio FROM actualizacion WHERE idupdate = :idupdate")
+    String getFechaActualizacionDeStockYPrecios(int idupdate);
+
     @Insert(onConflict = REPLACE)
     void insertActualizacion(Actualizacion actualizacion);
 
@@ -35,9 +39,6 @@ public interface ActualizacionDao {
     //ACTUALIZAR SOLO LA FECHA DE ACTUALIZACION DE PRODUCTOS
     //@Update(onConflict = REPLACE)
     //void updateFechaProductosById(int id);
-
-    //ACTUALIZAR SOLO LA FECHA DE ACTUALIZACION DE PRODUCTOS
-    //@
 
     @Delete
     void delete(Actualizacion actualizacion);

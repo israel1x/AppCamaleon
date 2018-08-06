@@ -9,9 +9,14 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,13 +43,13 @@ import iammert.com.expandablelib.ExpandCollapseListener;
 import iammert.com.expandablelib.ExpandableLayout;
 import iammert.com.expandablelib.Section;
 
-public class ListaClientes extends AppCompatActivity {
+public class ListaClientes extends AppCompatActivity implements Filterable {
 
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
     List<ClienteMin> clienteMins = new ArrayList<>();
     ArrayList<Cliente> clientes = new ArrayList<>();
     public static AppDatabase appDatabase;
-
+    private SearchView svListaClientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,12 @@ public class ListaClientes extends AppCompatActivity {
 
         //appDatabase = AppDatabase.getAppDatabase(ListaClientes.this);
 
-        ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
+        svListaClientes =  findViewById(R.id.sv_listaClientes);
+
+
+
+
+        final ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
 
         sectionLinearLayout.setRenderer(new ExpandableLayout.Renderer<Cliente, Cliente>() {
             @Override
@@ -77,22 +87,14 @@ public class ListaClientes extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
 
-            //clienteMins = appDatabase.clienteMinDao().getAll();
-
             getClienteMinsLocales(clienteMins,sectionLinearLayout);
 
             Log.d("Clientes leidos DB",clienteMins.toString());
         }
 
-        //traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
-
-        //Log.d("datos de los clientes", clienteMins.toString());
-        //Log.d("datos de los clientes :", clientes.toString() );
 
         sectionLinearLayout.setExpandListener(new ExpandCollapseListener.ExpandListener<Cliente>() {
-
             TextView nombreClienteSelect;
-
 
             @Override
             public void onExpanded(int parentIndex, final Cliente parent, View view) {
@@ -144,6 +146,29 @@ public class ListaClientes extends AppCompatActivity {
                 nombreClienteSelect.setTextColor(colorAcent);
             }
         });
+
+
+
+        svListaClientes.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+
+                //sectionLinearLayout.filterChildren(obj -> ((Cliente) obj).name.toLowerCase().contains(s.toString().toLowerCase()));
+                return false;
+            }
+        });
+
+
+
     }
 
     public boolean comprobarSalidaInternet() {
@@ -329,6 +354,7 @@ public class ListaClientes extends AppCompatActivity {
 
                                 sectionLinearLayout.addSection(section);
 
+
                                 //appDatabase.clienteMinDao().insertOne(clienteMin);
                                 Log.d("detalle ruta :",nombre[0] );
                             }
@@ -396,5 +422,10 @@ public class ListaClientes extends AppCompatActivity {
         for (ClienteMin clienteMin : clienteMins) {
             clientes.add(new Cliente(Integer.parseInt(clienteMin.getIdCliente()),clienteMin.getRucCliente(),clienteMin.getNameCliente(),clienteMin.getDirCliente(),clienteMin.getTelfCliente(),Double.parseDouble(clienteMin.getLattCliente()),Double.parseDouble(clienteMin.getLongCliente())));
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }
