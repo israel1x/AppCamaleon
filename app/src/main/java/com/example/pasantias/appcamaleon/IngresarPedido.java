@@ -150,7 +150,7 @@ public class IngresarPedido extends AppCompatActivity {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
         alertDialog.setTitle("Pedido");
-        alertDialog.setMessage("Esta seguro que desea salir, se pederan los datos de pedido");
+        alertDialog.setMessage("Esta seguro que desea salir, se perderán los datos del pedido");
 
         alertDialog.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
@@ -219,12 +219,6 @@ public class IngresarPedido extends AppCompatActivity {
             tableDynamic.addData(Cart.conItems());
         }
         calculoProductos();
-        if(Cart.getInsertarData()) {
-            Cart.setInsertarData(false);
-            startActivity(getIntent());
-            //restartActivity(IngresarPedido.this);
-
-        }
     }
 
     public static void restartActivity(Activity activity) {

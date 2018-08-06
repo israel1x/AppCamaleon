@@ -15,7 +15,7 @@ public interface DetallePedidoDao {
     List<DetallePedido> getAll();
 
     @Query("SELECT * FROM detallePedido where idPedido = :idPedido")
-    DetallePedido findByDetallePedido(String idPedido);
+    List<DetallePedido> findByDetallePedido(String idPedido);
 
 
     @Query("SELECT COUNT(*) from detallePedido")

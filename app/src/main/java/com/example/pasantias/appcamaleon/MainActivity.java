@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_listado_pedidos) {
-
+            Intent i = new Intent(MainActivity.this, ListaPedidos.class);
+            startActivity(i);
         } else if (id == R.id.nav_ruta_clientes) {
             item.setChecked(true);
             //fragment = new MapsActivity();

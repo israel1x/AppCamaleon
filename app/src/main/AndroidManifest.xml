@@ -82,6 +82,8 @@
             android:name=".IngresarPedido">
         </activity>
         <activity android:name=".ListaProductos" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ListaPedidos"></activity>
+        <service android:name=".Util.ServioEnvioPedidos" android:enabled="true" android:exported="true"></service>
     </application>
 
 </manifest>

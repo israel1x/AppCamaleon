@@ -192,7 +192,7 @@ public class ListaProductos extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Cart.setInsertarData(true);
+
         back();
         //finish();
        // startActivity(getIntent());
