@@ -36,6 +36,9 @@ public interface ClienteMinDao {
     @Query("SELECT * FROM clientemin WHERE fechavisita = :fechaDeVisita")
     List<ClienteMin> getAllClientesByFechaDeVisita(String fechaDeVisita);
 
+    @Query("SELECT * from clientemin where id = :idClienteBuscado")
+    ClienteMin getCliente(int idClienteBuscado);
+
     @Insert(onConflict = REPLACE)
     void insertAll(List<ClienteMin> clienteMins);
 
