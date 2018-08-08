@@ -325,7 +325,7 @@ public class IngresarPedido extends AppCompatActivity {
                 bt_ingresar_pendiente.setEnabled(false);
                 String mensaje = "";
                 if (estado == 1) {
-                    mensaje = "Guardado como pedido Online";
+                    mensaje = "Enviado";
                 } else if (estado == 2) {
                     mensaje = "Guardado como pedido Offline";
                 } else {

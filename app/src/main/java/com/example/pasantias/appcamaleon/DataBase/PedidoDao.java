@@ -20,6 +20,9 @@ public interface PedidoDao {
     @Query("SELECT * FROM pedido where estadoPedido = :idEstado")
     List<Pedido> findByIdEstado(String idEstado);
 
+    @Query("SELECT * FROM pedido where estadoPedido in(1,2) order by pfecha desc")
+    List<Pedido> findByIdEstadoIn();
+
    // @Query("SELECT * from pedido ORDER BY estadoPedido ASC")
     //LiveData<List<Pedido>> getAllPedido();
 
