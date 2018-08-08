@@ -27,6 +27,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -115,10 +117,15 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         final String[] latitud = new String[1];
         final String[] longitud = new String[1];
         final String[] direccion = new String[1];
-        final String[] telefono = new String[1];;
+        final String[] telefono = new String[1];
+        final String[] estadoVisita = new String[1];
 
         final LatLng guayaquil = new LatLng(-2.16753, -79.89369);
         mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
+
+        final MarkerOptions marcaClienteVisitado = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_gps2)).anchor(0.0f,1.0f);
+        final MarkerOptions marcaCliente = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_gps)).anchor(0.0f,1.0f);
+
 
         JSONObject jsonObjectCliente = new JSONObject();
         try {
@@ -156,12 +163,14 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
                                 nombre[0] = jsonObjectUno[0].getString("nombre");
                                 direccion[0] = jsonObjectUno[0].getString("direccion");
                                 telefono[0] = jsonObjectUno[0].getString("telefono");
+                                //estadoVisita[0] = String.valueOf(jsonObjectUno[0].getInt("estado"));
                                 clienteMin.setIdCliente(id[0]);
                                 clienteMin.setLattCliente(latitud[0]);
                                 clienteMin.setLongCliente(longitud[0]);
                                 clienteMin.setNameCliente(nombre[0]);
                                 clienteMin.setDirCliente(direccion[0]);
                                 clienteMin.setTelfCliente(telefono[0]);
+                                //clienteMin.setEstadoVisita(Integer.parseInt(estadoVisita[0]));
 
                                 double lat = Double.parseDouble(clienteMin.getLattCliente());
                                 double lng = Double.parseDouble(clienteMin.getLongCliente());
@@ -170,6 +179,11 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
                                 Log.d("Longitud:", String.valueOf(lng));
                                 mMap.addMarker(new MarkerOptions().position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
 
+                               /* if (estadoVisita[0].equals(1)) {
+                                    mMap.addMarker(marcaClienteVisitado.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
+                                } else {
+                                    mMap.addMarker(marcaCliente.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
+                                }*/
                                 //clienteMins.add(clienteMin);
                                 Log.d("detalle ruta :",id[0] );
                             }
@@ -196,6 +210,10 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
 
     private void cargarRutaDeClientesDB(List<ClienteMin> clienteMins, String tokenEjemplo) {
 
+        final MarkerOptions marcaClienteVisitado = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_gps2)).anchor(0.0f,1.0f);
+
+        final MarkerOptions marcaCliente = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_maps_gps3)).anchor(0.0f,1.0f);
+
         new AsyncTask<List<ClienteMin>, Void, List<ClienteMin>>() {
             @Override
             protected List<ClienteMin> doInBackground(List<ClienteMin>... lists) {
@@ -215,7 +233,11 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
                     //Log.d("Latitud:", String.valueOf(lat));
                     //Log.d("Longitud:", String.valueOf(lng));
                     LatLng mark = new LatLng(Double.parseDouble(clienteMin.getLattCliente()),Double.parseDouble(clienteMin.getLongCliente()));
-                    mMap.addMarker(new MarkerOptions().position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
+                    if (clienteMin.getEstadoVisita() == 1) {
+                        mMap.addMarker(marcaClienteVisitado.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
+                    } else {
+                        mMap.addMarker(marcaCliente.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
+                    }
                 }
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(guayaquil));
             }

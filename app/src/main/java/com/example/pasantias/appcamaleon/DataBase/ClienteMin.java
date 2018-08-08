@@ -109,6 +109,7 @@ public class ClienteMin {
         return estadoVisita;
     }
 
+
     public void setEstadoVisita(int estadoVisita) {
         this.estadoVisita = estadoVisita;
     }
