@@ -198,7 +198,7 @@ public class IngresarPedido extends AppCompatActivity {
     public void showMensaje() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Descargar clientes");
-        alertDialog.setMessage("No hay clientes en la base, desea descargar los clientes");
+        alertDialog.setMessage("No hay descargado su lista de cliente de hoy, desea descargar los clientes");
 
         alertDialog.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
