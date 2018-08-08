@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.pasantias.appcamaleon.Adapters.ItemPedidoAdapter;
 import com.example.pasantias.appcamaleon.Adapters.TableDynamic;
 import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
+import com.example.pasantias.appcamaleon.DataBase.ClienteMin;
 import com.example.pasantias.appcamaleon.DataBase.DetallePedido;
 import com.example.pasantias.appcamaleon.DataBase.Pedido;
 import com.example.pasantias.appcamaleon.Pojos.Item;
@@ -108,8 +109,12 @@ public class IngresarPedido extends AppCompatActivity {
         textCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(IngresarPedido.this, ListaClientes.class);
-                startActivity(i);
+                if(appDatabase.clienteMinDao().countUsers()>0) {
+                    Intent i = new Intent(IngresarPedido.this, ListaClientes.class);
+                    startActivity(i);
+                }else{
+                    showMensaje();
+                }
                 //  finish();
             }
         });
@@ -179,7 +184,7 @@ public class IngresarPedido extends AppCompatActivity {
 
             AlertDialog alert = alertDialog.create();
             alert.show();
-        }else{
+        } else {
             IngresarPedido.this.finish();
         }
     }
@@ -192,15 +197,14 @@ public class IngresarPedido extends AppCompatActivity {
 
     public void showMensaje() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Pedido");
-        alertDialog.setMessage("Esta seguro que desea salir, se pederan los datos de pedido");
+        alertDialog.setTitle("Descargar clientes");
+        alertDialog.setMessage("No hay clientes en la base, desea descargar los clientes");
 
         alertDialog.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // Cart.removeListCart();
-                        finish();
-                        // IngresarPedido.this.finish();
+                        Intent intent = new Intent(IngresarPedido.this, Offline.class);
+                        startActivity(intent);
                     }
                 });
 
@@ -325,7 +329,7 @@ public class IngresarPedido extends AppCompatActivity {
                 bt_ingresar_pendiente.setEnabled(false);
                 String mensaje = "";
                 if (estado == 1) {
-                    mensaje = "Guardado como pedido Online";
+                    mensaje = "Enviado";
                 } else if (estado == 2) {
                     mensaje = "Guardado como pedido Offline";
                 } else {
@@ -363,6 +367,11 @@ public class IngresarPedido extends AppCompatActivity {
             @Override
             protected Long doInBackground(Pedido... pedidos) {
                 Long id = appDatabase.pedidoDao().insertId(pedido);
+                if (pedido.getEstadoPedido() == 1 || pedido.getEstadoPedido() == 2) {
+                    ClienteMin clienteMin = appDatabase.clienteMinDao().getCliente(pedido.getIdCliente());
+                    clienteMin.setEstadoVisita(1);
+                    appDatabase.clienteMinDao().update(clienteMin);
+                }
                 Log.d("Se gguardo", "XXXXXXX X");
                 return id;
             }

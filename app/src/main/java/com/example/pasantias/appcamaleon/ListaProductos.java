@@ -39,6 +39,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.Pojos.Producto;
 import com.example.pasantias.appcamaleon.Util.Cart;
 
@@ -59,7 +60,7 @@ public class ListaProductos extends AppCompatActivity {
     private int offset;
     private boolean aptoParaCargar;
 
-
+    public static AppDatabase appDatabase;
 
 
     private Integer autoCompleteLetter = 0;
@@ -89,7 +90,7 @@ public class ListaProductos extends AppCompatActivity {
         currentDateandTime = sdf.format(new Date());
         textFecha.setText(currentDateandTime);
 
-
+        appDatabase = AppDatabase.getAppDatabase(getApplication());
       /*  bt_buscar_producto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +123,11 @@ public class ListaProductos extends AppCompatActivity {
                        // if (comprobarSalidaInternet()) {
                             aptoParaCargar = false;
                             offset += 1;
-                            obtenerDatos(tokenEjemplo, offset, keyWord);
+                             if(comprobarSalidaInternet()) {
+                                 obtenerDatos(tokenEjemplo, offset, keyWord);
+                             }else{
+                                 obtenerDatosOffline(offset,keyWord);
+                             }
                         //}
                          }
                     }
@@ -141,12 +146,15 @@ public class ListaProductos extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH && !blockSearch) {
                     blockSearch=true;
-                    Toast.makeText(getApplicationContext(), "boton", Toast.LENGTH_LONG).show();
                     keyWord = String.valueOf(textView.getText());
                     aptoParaCargar = true;
                     offset = 0;
                     productosAdapter.limpiarLista();
-                    obtenerDatos(tokenEjemplo, offset, keyWord);
+                    if(comprobarSalidaInternet()) {
+                        obtenerDatos(tokenEjemplo, offset, keyWord);
+                    }else{
+                        obtenerDatosOffline(offset,keyWord);
+                    }
                     /* performSearch();*/
                     return true;
                 }
@@ -179,7 +187,11 @@ public class ListaProductos extends AppCompatActivity {
             public boolean handleMessage(Message msg) {
                 if (msg.what == TRIGGER_AUTO_COMPLETE) {
                     if (!TextUtils.isEmpty(textView.getText())) {
-                        llenarAutocomplete(textView.getText().toString());
+                        if(comprobarSalidaInternet()) {
+                            llenarAutocomplete(textView.getText().toString());
+                        }else{
+                            llenarAutocompleteOffline(textView.getText().toString());
+                        }
                     }
                 }
                 return false;
@@ -292,6 +304,38 @@ public class ListaProductos extends AppCompatActivity {
 
     }
 
+    public void obtenerDatosOffline(int offset,String keyWord){
+        ArrayList<Producto> list = new ArrayList<>();
+        List<com.example.pasantias.appcamaleon.DataBase.Producto> productos;
+        int limit=5;
+        int offsetcan=limit*offset;
+        if(!keyWord.equals(null) && !keyWord.equals(" ") && !keyWord.equals("")){
+           productos=appDatabase.productoDao().getProductoOffsetString(String.valueOf(limit),String.valueOf(offsetcan),keyWord);
+        }else{
+            productos=appDatabase.productoDao().getProductoOffset(String.valueOf(limit),String.valueOf(offsetcan));
+        }
+
+        if(productos.size()>0) {
+
+            for (int i = 0; i < productos.size(); i++) {
+                Producto producto = new Producto();
+                producto.setId_producto(productos.get(i).getIdProducto());
+                producto.setProductoNombre(productos.get(i).getName());
+                producto.setProductoPresentacion(productos.get(i).getPresentacion());
+                producto.setProductoPrecio(productos.get(i).getpUnitario());
+                list.add(producto);
+            }
+            productosAdapter.adicionarListaAmiibo(list);
+            blockSearch=false;
+            // bt_buscar_producto.setEnabled(true);
+            aptoParaCargar = true;
+        }else{
+            Toast.makeText(getApplicationContext(),"No existen productos en la base",Toast.LENGTH_LONG).show();
+        }
+        blockSearch=false;
+
+    }
+
     public void llenarAutocomplete(String query) {
         final String[] nombre = new String[1];
         JSONObject jsonObjectPeticionProducto = new JSONObject();
@@ -348,6 +392,19 @@ public class ListaProductos extends AppCompatActivity {
         );
         requestQueue.add(jsonObjectRequestRequestRutaDeClientes);
 
+    }
+    public void llenarAutocompleteOffline(String query) {
+        int limit=5;
+        int offsetcan=1;
+        List<com.example.pasantias.appcamaleon.DataBase.Producto> productos=appDatabase.productoDao().getProductoOffsetString(String.valueOf(limit),String.valueOf(offsetcan),query);
+        List<String> stringList = new ArrayList<>();
+        if(productos.size()>0) {
+            for (int i = 0; i < productos.size(); i++) {
+                stringList.add(productos.get(i).getName());
+            }
+        }
+        productoAutoCompleteAdapte.setData(stringList);
+        productoAutoCompleteAdapte.notifyDataSetChanged();
     }
 
     public boolean comprobarSalidaInternet() {

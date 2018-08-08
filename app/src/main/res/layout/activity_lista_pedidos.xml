@@ -15,69 +15,58 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/rowTableHeader"
-        android:weightSum="5">
+        android:weightSum="10">
+        <TextView
+            android:id="@+id/cellN"
+            android:background="@drawable/row_cell_border"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:text="N°" />
 
         <TextView
             android:id="@+id/cellNombre"
             android:background="@drawable/row_cell_border"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:paddingBottom="5dp"
             android:text="NOMBRE" />
 
         <TextView
-            android:id="@+id/cellPresentacion"
+            android:id="@+id/cellFecha"
             android:background="@drawable/row_cell_border"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:paddingBottom="5dp"
-            android:text="PRESENTACION" />
+            android:text="FECHA" />
 
         <TextView
-            android:id="@+id/cellPrecio"
+            android:id="@+id/cellEstado"
             android:background="@drawable/row_cell_border"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:paddingBottom="5dp"
-            android:text="PRECIO" />
+            android:text="ESTADO" />
 
-        <TextView
-            android:id="@+id/cellCantidad"
-            android:background="@drawable/row_cell_border"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:text="CANTIDAD" />
-
-        <TextView
-            android:id="@+id/cellSubtotal"
-            android:background="@drawable/row_cell_border"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:text="SUBTOTAL" />
 
     </LinearLayout>
 
 
     <!-- Place your layout here -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/tableLayoutProducto"
+        android:id="@+id/tableLayoutPedido"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_total"

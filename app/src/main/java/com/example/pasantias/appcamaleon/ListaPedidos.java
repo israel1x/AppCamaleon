@@ -11,22 +11,39 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.pasantias.appcamaleon.Adapters.PedidoAdapter;
+import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.Util.FileUploadNotification;
 import com.example.pasantias.appcamaleon.Util.ServioEnvioPedidos;
 
 public class ListaPedidos extends AppCompatActivity {
-/*    private Button btnEjecutar;
-    private ProgressBar pbarProgreso;*/
+    /*    private Button btnEjecutar;
+        private ProgressBar pbarProgreso;*/
+    public static AppDatabase appDatabase;
+
+    private RecyclerView recyclerView;
+    private PedidoAdapter pedidoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pedidos);
+        appDatabase = AppDatabase.getAppDatabase(getApplication());
+
+        recyclerView = (RecyclerView) findViewById(R.id.tableLayoutPedido);
+        pedidoAdapter=new PedidoAdapter(this);
+        recyclerView.setAdapter(pedidoAdapter);
+        recyclerView.setHasFixedSize(true);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        updateData();
 
 /*        btnEjecutar = (Button) findViewById(R.id.button2);
         pbarProgreso = (ProgressBar)findViewById(R.id.pbarProgreso);
@@ -49,6 +66,11 @@ public class ListaPedidos extends AppCompatActivity {
         filter.addAction(ServioEnvioPedidos.ACTION_FIN);
         ProgressReceiver rcv = new ProgressReceiver();
         registerReceiver(rcv, filter);*/
+    }
+
+    public void updateData() {
+        pedidoAdapter.limpiarLista();
+        pedidoAdapter.adicionarListaItem(appDatabase.pedidoDao().findByIdEstadoIn());
     }
 
    /* public boolean isMyServiceRunning(Class<?> serviceClass) {

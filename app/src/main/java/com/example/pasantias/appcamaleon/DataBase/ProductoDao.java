@@ -15,6 +15,11 @@ public interface ProductoDao {
     @Query("SELECT * FROM producto")
     List<Producto> loadAllProducto();
 
+    @Query("SELECT * FROM producto LIMIT :limite OFFSET :offset")
+    List<Producto> getProductoOffset(String limite,String offset);
+
+    @Query("SELECT * FROM producto WHERE name LIKE :string COLLATE NOCASE LIMIT :limite OFFSET :offset")
+    List<Producto> getProductoOffsetString(String limite,String offset,String string);
     /*@Query("SELECT * FROM producto WHERE name = :nombre")
     String findByNombreProducto(String[] nombre);*/
 
