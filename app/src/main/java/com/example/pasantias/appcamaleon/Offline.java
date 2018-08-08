@@ -65,8 +65,10 @@ public class Offline extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
-        appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
+        //appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
 
+
+        appDatabase = AppDatabase.getAppDatabase(getApplication());
 
         btOfflineDownClientes = (Button) findViewById(R.id.bt_offline_down_clientes);
         btOfflineDownProductos = (Button) findViewById(R.id.bt_offline_down_productos);

@@ -55,9 +55,9 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_clientes);
-        appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
+        //appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
 
-        //appDatabase = AppDatabase.getAppDatabase(ListaClientes.this);
+        appDatabase = AppDatabase.getAppDatabase(getApplication());
 
         svListaClientes =  findViewById(R.id.sv_listaClientes);
 

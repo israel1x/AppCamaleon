@@ -59,9 +59,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //appDatabase = AppDatabase.getAppDatabase(RutaDeClientes.this);
-        appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
-
+        appDatabase = AppDatabase.getAppDatabase(getApplication());
     }
 
     /**
