@@ -20,15 +20,15 @@ import com.example.pasantias.appcamaleon.Util.FileUploadNotification;
 import com.example.pasantias.appcamaleon.Util.ServioEnvioPedidos;
 
 public class ListaPedidos extends AppCompatActivity {
-    private Button btnEjecutar;
-    private ProgressBar pbarProgreso;
+/*    private Button btnEjecutar;
+    private ProgressBar pbarProgreso;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pedidos);
 
-        btnEjecutar = (Button) findViewById(R.id.button2);
+/*        btnEjecutar = (Button) findViewById(R.id.button2);
         pbarProgreso = (ProgressBar)findViewById(R.id.pbarProgreso);
         btnEjecutar.setOnClickListener(new View.OnClickListener() {
 
@@ -48,10 +48,10 @@ public class ListaPedidos extends AppCompatActivity {
         filter.addAction(ServioEnvioPedidos.ACTION_PROGRESO);
         filter.addAction(ServioEnvioPedidos.ACTION_FIN);
         ProgressReceiver rcv = new ProgressReceiver();
-        registerReceiver(rcv, filter);
+        registerReceiver(rcv, filter);*/
     }
 
-    public boolean isMyServiceRunning(Class<?> serviceClass) {
+   /* public boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
@@ -73,5 +73,5 @@ public class ListaPedidos extends AppCompatActivity {
                 Toast.makeText(ListaPedidos.this, "Tarea finalizada!", Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
 }

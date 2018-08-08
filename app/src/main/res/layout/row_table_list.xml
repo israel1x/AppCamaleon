@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/rowTable"
+    android:weightSum="5">
+
+    <TextView
+        android:id="@+id/cellNombre"
+        android:background="@drawable/row_cell_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:text="NOMBRE" />
+
+    <TextView
+        android:id="@+id/cellPresentacion"
+        android:background="@drawable/row_cell_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:text="PRESENTACION" />
+
+    <TextView
+        android:id="@+id/cellPrecio"
+        android:background="@drawable/row_cell_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:text="PRECIO" />
+
+    <TextView
+        android:id="@+id/cellCantidad"
+        android:background="@drawable/row_cell_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:text="CANTIDAD" />
+
+    <TextView
+        android:id="@+id/cellSubtotal"
+        android:background="@drawable/row_cell_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:text="SUBTOTAL" />
+
+</LinearLayout>

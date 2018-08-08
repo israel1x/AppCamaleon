@@ -6,30 +6,83 @@
     android:layout_height="match_parent"
     android:id="@+id/rLayout"
     tools:context=".ListaPedidos">
-    <TextView
-
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Proceso" />
-
-    <ProgressBar
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/pbarProgreso"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/pbarProgreso"
-        android:id="@+id/button2"
+    <include
+        android:id="@+id/miActionBar"
+        layout="@layout/actionbar"></include>
+    <LinearLayout
+        android:layout_below="@+id/miActionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
-        android:textColor="#fff"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="50dp"
-        android:text="Show Loading Notification" />
+        android:orientation="horizontal"
+        android:id="@+id/rowTableHeader"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/cellNombre"
+            android:background="@drawable/row_cell_border"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:text="NOMBRE" />
+
+        <TextView
+            android:id="@+id/cellPresentacion"
+            android:background="@drawable/row_cell_border"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:text="PRESENTACION" />
+
+        <TextView
+            android:id="@+id/cellPrecio"
+            android:background="@drawable/row_cell_border"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:text="PRECIO" />
+
+        <TextView
+            android:id="@+id/cellCantidad"
+            android:background="@drawable/row_cell_border"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:text="CANTIDAD" />
+
+        <TextView
+            android:id="@+id/cellSubtotal"
+            android:background="@drawable/row_cell_border"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:text="SUBTOTAL" />
+
+    </LinearLayout>
+
+
+    <!-- Place your layout here -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tableLayoutProducto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_total"
+        android:layout_below="@+id/rowTableHeader">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

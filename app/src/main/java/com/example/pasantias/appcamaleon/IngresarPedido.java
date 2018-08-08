@@ -3,13 +3,18 @@ package com.example.pasantias.appcamaleon;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +22,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pasantias.appcamaleon.Adapters.ItemPedidoAdapter;
 import com.example.pasantias.appcamaleon.Adapters.TableDynamic;
 import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.DataBase.DetallePedido;
@@ -55,27 +61,26 @@ public class IngresarPedido extends AppCompatActivity {
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
 
     private Button btIngProducto, bt_ingresar_pedido, bt_ingresar_pendiente;
-    private TableLayout tableLayoutProducto;
-    private TableDynamic tableDynamic;
+
+    private RecyclerView recyclerView;
+    private ItemPedidoAdapter itemPedidoAdapter;
 
     private TextView textFecha, textCliente, textAhorro, textSubtotal, textIva, textTotal;
     private String currentDateandTime;
     private Double latitud;
     private Double longitud;
 
-    private String[] header = new String[]{
-            "NOMBRE", "PRESENTACION", "PRECIO", "CANTIDAD", "SUBTOTAL"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingresar_pedido);
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+
         appDatabase = AppDatabase.getAppDatabase(getApplication());
 
         btIngProducto = (Button) findViewById(R.id.bt_ing_producto);
-        tableLayoutProducto = (TableLayout) findViewById(R.id.tableLayoutProducto);
+        recyclerView = (RecyclerView) findViewById(R.id.tableLayoutProducto);
 
         textFecha = (TextView) findViewById(R.id.textFecha);
         textCliente = (TextView) findViewById(R.id.textCliente);
@@ -99,24 +104,24 @@ public class IngresarPedido extends AppCompatActivity {
         currentDateandTime = sdf.format(new Date());
 
         textFecha.setText(currentDateandTime);
-        if (Cart.getCliente().getId_cliente() != 0) {
-            textCliente.setText(Cart.getCliente().nombre);
-        } else {
-            textCliente.setText("Seleccionar Cliente");
-        }
+
         textCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(IngresarPedido.this, ListaClientes.class);
                 startActivity(i);
-              //  finish();
+                //  finish();
             }
         });
         bt_ingresar_pedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bt_ingresar_pedido.setEnabled(false);
-                obtenerDatos(tokenEjemplo);
+                if (comprobarSalidaInternet()) {
+                    obtenerDatos(tokenEjemplo);
+                } else {
+                    guardarPedidoPendiente(2);
+                }
             }
         });
 
@@ -124,13 +129,9 @@ public class IngresarPedido extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bt_ingresar_pendiente.setEnabled(false);
-                guardarPedidoPendiente();
+                guardarPedidoPendiente(3);
             }
         });
-
-
-        tableDynamic = new TableDynamic(tableLayoutProducto, getApplicationContext());
-        tableDynamic.addHeader(header);
 
 
         btIngProducto.setOnClickListener(new View.OnClickListener() {
@@ -142,22 +143,64 @@ public class IngresarPedido extends AppCompatActivity {
             }
         });
 
-        addItem();
+        itemPedidoAdapter = new ItemPedidoAdapter(this);
+        recyclerView.setAdapter(itemPedidoAdapter);
+        recyclerView.setHasFixedSize(true);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        updateData();
+
     }
 
     @Override
     public void onBackPressed() {
+        if (Cart.countList() != 0) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("Pedido");
+            alertDialog.setMessage("Esta seguro que desea salir, se perderán los datos del pedido");
+
+            alertDialog.setPositiveButton("YES",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Cart.removeListCart();
+                            //finish();
+                            IngresarPedido.this.finish();
+                        }
+                    });
+
+            alertDialog.setNegativeButton("NO",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert = alertDialog.create();
+            alert.show();
+        }else{
+            IngresarPedido.this.finish();
+        }
+    }
+
+    public void updateData() {
+        itemPedidoAdapter.limpiarLista();
+        itemPedidoAdapter.adicionarListaItem(Cart.conItems());
+        calculoProductos();
+    }
+
+    public void showMensaje() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setCancelable(false);
         alertDialog.setTitle("Pedido");
-        alertDialog.setMessage("Esta seguro que desea salir, se perderán los datos del pedido");
+        alertDialog.setMessage("Esta seguro que desea salir, se pederan los datos de pedido");
 
         alertDialog.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                         Cart.removeListCart();
-                        //finish();
-                         IngresarPedido.this.finish();
+                        // Cart.removeListCart();
+                        finish();
+                        // IngresarPedido.this.finish();
                     }
                 });
 
@@ -172,62 +215,15 @@ public class IngresarPedido extends AppCompatActivity {
         alert.show();
     }
 
-    public void showMensaje(){
-        /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Pedido");
-        alertDialog.setMessage("Esta seguro que desea salir, se pederan los datos de pedido");
-
-        alertDialog.setPositiveButton("YES",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                       // Cart.removeListCart();
-                        finish();
-                       // IngresarPedido.this.finish();
-                    }
-                });
-
-        alertDialog.setNegativeButton("NO",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert = alertDialog.create();
-        alert.show();*/
-    }
-
     private void calculoProductos() {
+        if (Cart.getCliente().getId_cliente() != 0) {
+            textCliente.setText(Cart.getCliente().nombre);
+        } else {
+            textCliente.setText("Seleccionar Cliente");
+        }
         textSubtotal.setText("$ " + Cart.df2.format(Cart.subTotal()));
         textIva.setText("$ " + Cart.df2.format(Cart.iva()));
         textTotal.setText("$ " + Cart.df2.format(Cart.total()));
-    }
-
-    private void addItem() {
-        /*Intent intent = getIntent();
-        if (intent != null) {
-            Producto producto = (Producto) intent.getSerializableExtra("producto");
-            Integer cantidad = intent.getIntExtra("cantidad", 0);
-            if (cantidad != 0 && Cart.getInsertarData()) {
-                Cart.insert(new Item(producto, cantidad));
-                Cart.setInsertarData(false);
-                //  Toast.makeText(this, String.valueOf(Cart.countList()), Toast.LENGTH_LONG).show();
-            }
-        }*/
-        if (Cart.countList() != 0) {
-            //List<Item> productos =Cart.conItems();
-            tableDynamic.addData(Cart.conItems());
-        }
-        calculoProductos();
-    }
-
-    public static void restartActivity(Activity activity) {
-        if (Build.VERSION.SDK_INT >= 11) {
-            activity.recreate();
-        } else {
-            activity.finish();
-            activity.startActivity(activity.getIntent());
-        }
     }
 
     private void obtenerDatos(String token) {
@@ -278,10 +274,11 @@ public class IngresarPedido extends AppCompatActivity {
                             try {
 
                                 String aJsonString = response.getString("texto");
+                                guardarPedidoPendiente(1);
                                 Cart.removeListCart();
-                                restartActivity(IngresarPedido.this);
+                                updateData();
                                 bt_ingresar_pedido.setEnabled(true);
-                                Toast.makeText(getApplicationContext(), aJsonString, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), aJsonString, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 bt_ingresar_pedido.setEnabled(true);
                                 e.printStackTrace();
@@ -305,7 +302,7 @@ public class IngresarPedido extends AppCompatActivity {
 
     }
 
-    private void guardarPedidoPendiente() {
+    private void guardarPedidoPendiente(int estado) {
         // getLocation();
         if (Cart.getCliente().getId_cliente() != 0) {
             if (Cart.countList() != 0) {
@@ -321,12 +318,20 @@ public class IngresarPedido extends AppCompatActivity {
                 //if (longitud != 0 && longitud != null) {
                 pedido.setLongPedido(String.valueOf(longitud));
                 // }
-                pedido.setEstadoPedido(2);
+                pedido.setEstadoPedido(estado);
 
 
                 insertPedido(pedido);
                 bt_ingresar_pendiente.setEnabled(false);
-                Toast.makeText(this, "Guardado como pendiente", Toast.LENGTH_SHORT).show();
+                String mensaje = "";
+                if (estado == 1) {
+                    mensaje = "Guardado como pedido Online";
+                } else if (estado == 2) {
+                    mensaje = "Guardado como pedido Offline";
+                } else {
+                    mensaje = "Guardado como pendiente";
+                }
+                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
             } else {
                 bt_ingresar_pedido.setEnabled(true);
                 Toast.makeText(this, "No a seleccionado item", Toast.LENGTH_SHORT).show();
@@ -385,7 +390,7 @@ public class IngresarPedido extends AppCompatActivity {
                 detallePedidos.add(detallePedido);
             }
             Cart.removeListCart();
-            restartActivity(IngresarPedido.this);
+            updateData();
             insertDetallePedido(detallePedidos);
         } else {
             Toast.makeText(getApplicationContext(), "No se realizo el registro del producto", Toast.LENGTH_LONG).show();
@@ -398,10 +403,25 @@ public class IngresarPedido extends AppCompatActivity {
             @Override
             protected Void doInBackground(List<DetallePedido>... lstDetallePedidos) {
                 appDatabase.detallePedidoDao().insertAll(lstDetallePedidos[0]);
-                Log.d("Cantidad de producto ingresado a la base", String.valueOf(appDatabase.detallePedidoDao().countDetallePedido()));
+                Log.d("Cantidad", String.valueOf(appDatabase.detallePedidoDao().countDetallePedido()));
                 return null;
             }
         }.execute(detallePedidos);
+    }
+
+    public boolean comprobarSalidaInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // Si hay conexión a Internet en este momento
+            Log.d("Camaleon APP", " Estado actual: " + networkInfo.getState());
+            return true;
+        } else {
+            // No hay conexión a Internet en este momento
+            Log.d("Camaleon APP", "Estás offline");
+            return false;
+        }
     }
 
 }
