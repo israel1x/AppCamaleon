@@ -123,8 +123,8 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         final LatLng guayaquil = new LatLng(-2.16753, -79.89369);
         mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
 
-        final MarkerOptions marcaClienteVisitado = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_gps2)).anchor(0.0f,1.0f);
-        final MarkerOptions marcaCliente = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_gps)).anchor(0.0f,1.0f);
+        final MarkerOptions marcaClienteVisitado = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.visitado_150)).anchor(0.0f,1.0f);
+        final MarkerOptions marcaCliente = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.visita_150)).anchor(0.0f,1.0f);
 
 
         JSONObject jsonObjectCliente = new JSONObject();
@@ -210,9 +210,9 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
 
     private void cargarRutaDeClientesDB(List<ClienteMin> clienteMins, String tokenEjemplo) {
 
-        final MarkerOptions marcaClienteVisitado = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_gps2)).anchor(0.0f,1.0f);
+        final MarkerOptions marcaClienteVisitado = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.visitado_150)).anchor(0.0f,1.0f);
 
-        final MarkerOptions marcaCliente = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_maps_gps3)).anchor(0.0f,1.0f);
+        final MarkerOptions marcaCliente = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.visita_150)).anchor(0.0f,1.0f);
 
         new AsyncTask<List<ClienteMin>, Void, List<ClienteMin>>() {
             @Override

@@ -86,9 +86,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="outputName" value="ic_maps_gps3" />
+                                      <entry key="imageAsset" value="C:\Users\Pasantias\Desktop\PROYECTO CAMALEON\ICONOS\iconosubicacion100x100150x150azulverde\visitado_150.png" />
+                                      <entry key="outputName" value="ic_maps_visitado" />
                                     </map>
                                   </option>
                                 </PersistentState>
