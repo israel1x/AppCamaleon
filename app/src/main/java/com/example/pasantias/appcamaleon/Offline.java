@@ -2,6 +2,7 @@ package com.example.pasantias.appcamaleon;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -86,6 +87,12 @@ public class Offline extends AppCompatActivity {
         actualizacionHoy = new Actualizacion(1, fechaDelDiaDeHoy,fechaDelDiaDeHoy,fechaDelDiaDeHoy);
 
         //Log.d("Fecha hoy completa: ", fechaDelDiaDeHoy.toString() );
+
+        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
+        int estadoDescargas = sharedPreferences.getInt("estadoDescargas", 0);
+        Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
+
 
         final int[] countClicks = {0};
         final int[] countClicksProductos = {0};
@@ -396,6 +403,15 @@ public class Offline extends AppCompatActivity {
                 Actualizacion actualizacion = new Actualizacion(1, fechaHoy, null, null);
                 //GUARDO EN LA BASE EL REGISTRO (LA FECHA DE DESCARGA DE CLIENTES)
                 appDatabase.actualizacionDao().insertActualizacion(actualizacion);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+                int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
+                //int estadoDescargas = sharedPreferences.getInt("estadoDescargas", 0);
+                Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
+                SharedPreferences.Editor e = sharedPreferences.edit();
+                e.putInt("estadoDescargas",1 );
+                e.commit();
+
             }
         }.execute(fechaHoy);
     }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -32,6 +33,7 @@ import java.net.InetAddress;
 
 public class Login extends AppCompatActivity {
     String servicioLogin = "iniciarSesion";
+    private SharedPreferences sp;
     public static AppDatabase appDatabase;
     Usuario usuarioX;
 
@@ -48,6 +50,12 @@ public class Login extends AppCompatActivity {
         etDataUsuario =  findViewById(R.id.et_dataUsuario);
         etDataPassword =  findViewById(R.id.et_dataPassword);
         btLogin =  findViewById(R.id.bt_login);
+
+        sp = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("modoDeTrabajo", 1); // 0 para offline, 1 para online
+        editor.putInt("estadoDescargas",0 ); // 0 para  no descargados los clientes
+        editor.commit();                            // 1 para descargados los clientes
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override

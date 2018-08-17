@@ -3,6 +3,7 @@ package com.example.pasantias.appcamaleon;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -58,10 +59,12 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
         //appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
 
         appDatabase = AppDatabase.getAppDatabase(getApplication());
-
         svListaClientes =  findViewById(R.id.sv_listaClientes);
 
-
+        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
+        int estadoDescargas = sharedPreferences.getInt("estadoDescargas", 0);
+        Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
 
 
         final ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
@@ -82,15 +85,24 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
 
         });
 
-        if ( comprobarSalidaInternet()) {
-            traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
+        if (modoTrabajo == 1) {
+            if ( comprobarSalidaInternet()) {
+                traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
+            } else {
+                Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
+
+                getClienteMinsLocales(clienteMins,sectionLinearLayout);
+
+                Log.d("Clientes leidos DB",clienteMins.toString());
+            }
+        } else if (estadoDescargas == 0) {
+            Toast.makeText(getApplicationContext(), "Primero descarge sus clientes de hoy, para poder visualizarlos" , Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
-
             getClienteMinsLocales(clienteMins,sectionLinearLayout);
-
-            Log.d("Clientes leidos DB",clienteMins.toString());
         }
+
+
 
 
         sectionLinearLayout.setExpandListener(new ExpandCollapseListener.ExpandListener<Cliente>() {

@@ -1,6 +1,7 @@
 package com.example.pasantias.appcamaleon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -33,11 +35,17 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
+        Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
 
        // MenuPrin menuPrin = new MenuPrin();
         //frameContentPrincipal = findViewById(R.id.nav_content_principal);
@@ -80,6 +88,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Intent i = new Intent(MainActivity.this, Configuraciones.class);
+            startActivity(i);
+
             return true;
         }
 

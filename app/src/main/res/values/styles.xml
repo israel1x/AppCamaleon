@@ -12,4 +12,11 @@
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MySwitch" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textColorPrimaryDisableOnly">#1c8eb7</item>
+        <item name="android:colorControlActivated">#1b405e</item>
+        <item name="android:colorForeground">#f57f17</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+    </style>
+
 </resources>

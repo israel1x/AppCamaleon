@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -47,6 +48,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
     List<ClienteMin> clienteMins = new ArrayList<>();
     List<LatLng> direccionesClientes = new ArrayList<>();
     public static AppDatabase appDatabase;
+    public static int modoTrabajo;
 
     private static final String LOG_TAG = "CamaleonApp";
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
@@ -62,6 +64,10 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         mapFragment.getMapAsync(this);
 
         appDatabase = AppDatabase.getAppDatabase(getApplication());
+
+        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
+        Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
     }
 
     /**
@@ -79,12 +85,16 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         mMap.setMinZoomPreference(12);
 
         enableMyLocation();
-        if (comprobarSalidaInternet()) {
-            traerRutaDeClientes(clienteMins,tokenEjemplo);
+        Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
+        if (modoTrabajo == 1) {
+            if (comprobarSalidaInternet()) {
+                traerRutaDeClientes(clienteMins,tokenEjemplo);
+            } else {
+                Toast.makeText(getApplicationContext(), "Cargando clientes guardados" , Toast.LENGTH_SHORT).show();
+                cargarRutaDeClientesDB(clienteMins,tokenEjemplo);
+            }
         } else {
             Toast.makeText(getApplicationContext(), "Cargando clientes guardados" , Toast.LENGTH_SHORT).show();
-            //LatLng guayaquil = new LatLng(-2.16753, -79.89369);
-            //mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
             cargarRutaDeClientesDB(clienteMins,tokenEjemplo);
         }
 

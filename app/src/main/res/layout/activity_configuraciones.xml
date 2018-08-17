@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Configuraciones">
+
+    <include android:id="@+id/miActionBar" layout="@layout/actionbar">
+    </include>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Modo de Trabajo"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:background="#b7b2b2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Funcionar sin internet" />
+
+            <Switch
+                android:id="@+id/sw_modotrabajo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MySwitch"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:background="#b7b2b2"/>
+    </LinearLayout>
+
+</LinearLayout>

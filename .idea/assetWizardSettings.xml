@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_person_pin_circle_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_wb_cloudy_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -45,9 +45,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="C:\Users\Pasantias\Desktop\mpa_gps.png" />
-                                      <entry key="outputName" value="ic_map_gps2" />
+                                      <entry key="outputName" value="ic_modo_trabajo" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="06a646" />
+                                      <entry key="themeColor" value="210bff" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -82,6 +82,17 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                     </map>
                                   </option>
                                   <option name="values">
@@ -106,7 +117,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_move_to_inbox_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_wb_cloudy_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -121,7 +132,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>
@@ -147,7 +158,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_move_to_inbox_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/file/ic_cloud_off_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -157,8 +168,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_box" />
+                            <entry key="color" value="3157b7" />
+                            <entry key="outputName" value="ic_modotrabajo_off" />
                             <entry key="sourceFile" value="C:\Users\Pasantias" />
                           </map>
                         </option>

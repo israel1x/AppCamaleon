@@ -2,13 +2,17 @@ package com.example.pasantias.appcamaleon.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pasantias.appcamaleon.IngresarPedido;
@@ -18,6 +22,8 @@ import com.example.pasantias.appcamaleon.MainActivity;
 import com.example.pasantias.appcamaleon.Offline;
 import com.example.pasantias.appcamaleon.R;
 import com.example.pasantias.appcamaleon.RutaDeClientes;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -46,6 +52,9 @@ public class MenuPrin extends Fragment {
     private Button btListClientes;
     private Button btOffline;
     private Button btReportes;
+
+    private TextView tvMododetrabajo;
+    private ImageView imgvModotrabajo;
 
     public MenuPrin() {
         // Required empty public constructor
@@ -91,6 +100,21 @@ public class MenuPrin extends Fragment {
         btOffline = (Button) v.findViewById(R.id.bt_offline);
         btReportes = (Button) v.findViewById(R.id.bt_reportes);
 
+        imgvModotrabajo = (ImageView) v.findViewById(R.id.imgv_modotrabajo);
+        tvMododetrabajo = (TextView) v.findViewById(R.id.tv_mododetrabajo);
+
+        consultarSetearModoDeTrabajo();
+
+        /*SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
+        Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
+        if (modoTrabajo == 1) {
+            tvMododetrabajo.setText("Modo Online");
+        } else {
+            tvMododetrabajo.setText("Modo Offline");
+            imgvModotrabajo.setImageResource(R.drawable.ic_modotrabajo_off);
+        }
+*/
         btIngPedidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,6 +168,26 @@ public class MenuPrin extends Fragment {
 
 
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        consultarSetearModoDeTrabajo();
+    }
+
+    public void consultarSetearModoDeTrabajo() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
+        Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
+        if (modoTrabajo == 1) {
+            tvMododetrabajo.setText("Modo Online");
+            imgvModotrabajo.setImageResource(R.drawable.ic_modotrabajo);
+        } else {
+            tvMododetrabajo.setText("Modo Offline");
+            imgvModotrabajo.setImageResource(R.drawable.ic_modotrabajo_off);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
