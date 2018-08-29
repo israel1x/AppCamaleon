@@ -33,8 +33,7 @@
         </activity>
         <activity
             android:name=".ListaClientes"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".MenuPrincipal"></activity>
+            android:parentActivityName=".MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -58,7 +57,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_navegation"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".RutaDeClientes"
             android:label="@string/title_activity_ruta_de_clientes">
@@ -73,10 +72,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.pasantias.appcamaleon.ListaClientes" />
         </activity>
-        <activity android:name=".Offline"></activity>
+        <activity android:name=".Offline" />
         <activity
             android:name=".IngresarPedido"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ListaProductos"
             android:screenOrientation="portrait" />
@@ -87,7 +86,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Configuraciones"></activity>
+        <activity android:name=".Configuraciones" />
     </application>
 
 </manifest>

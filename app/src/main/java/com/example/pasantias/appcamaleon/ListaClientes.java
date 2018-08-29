@@ -44,6 +44,8 @@ import iammert.com.expandablelib.ExpandCollapseListener;
 import iammert.com.expandablelib.ExpandableLayout;
 import iammert.com.expandablelib.Section;
 
+import static com.example.pasantias.appcamaleon.RutaDeClientes.modoTrabajo;
+
 public class ListaClientes extends AppCompatActivity implements Filterable {
 
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
@@ -180,6 +182,35 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
         });
 
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
+        int estadoDescargas = sharedPreferences.getInt("estadoDescargas", 0);
+
+        if (modoTrabajo == 1) {
+            if ( comprobarSalidaInternet()) {
+                traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
+            } else {
+                Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
+
+                getClienteMinsLocales(clienteMins,sectionLinearLayout);
+
+                Log.d("Clientes leidos DB",clienteMins.toString());
+            }
+        } else if (estadoDescargas == 0) {
+            Toast.makeText(getApplicationContext(), "Primero descarge sus clientes de hoy, para poder visualizarlos" , Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
+            getClienteMinsLocales(clienteMins,sectionLinearLayout);
+        }
 
     }
 

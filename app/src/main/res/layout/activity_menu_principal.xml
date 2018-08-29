@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MenuPrincipal">
+    android:orientation="vertical">
 
 
    <LinearLayout
@@ -79,18 +79,17 @@
        </LinearLayout>
 
 
-
        <LinearLayout
-           android:orientation="vertical"
-           android:layout_weight=".33"
            android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+           android:layout_height="115dp"
+           android:layout_weight=".33"
+           android:orientation="vertical">
 
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:layout_marginRight="12dp"
                android:layout_marginLeft="12dp"
+               android:layout_marginRight="12dp"
                android:orientation="horizontal">
 
                <Button
@@ -98,50 +97,48 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_weight=".5"
-                   android:textAllCaps="false"
+                   android:background="?selectableItemBackground"
                    android:drawableTop="@drawable/btn_reportes"
                    android:text="\nReportes"
-                   android:textColor="#757575"
-                   android:background="?selectableItemBackground"/>
+                   android:textAllCaps="false"
+                   android:textColor="#757575" />
 
                <Button
                    android:id="@+id/bt_offline"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_weight=".5"
-                   android:textAllCaps="false"
+                   android:background="?selectableItemBackground"
                    android:drawableTop="@drawable/btn_sicronizar"
                    android:text="\nSincronizacion\nOffline"
-                   android:textColor="#757575"
-                   android:background="?selectableItemBackground"/>
+                   android:textAllCaps="false"
+                   android:textColor="#757575" />
 
            </LinearLayout>
 
-          <LinearLayout
-              android:layout_marginLeft="12dp"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="12dp"
+               android:orientation="horizontal">
 
-              <ImageView
-                  android:id="@+id/imgv_modotrabajo"
-                  android:textAlignment="center"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:src="@drawable/ic_modotrabajo" />
+               <ImageView
+                   android:id="@+id/imgv_modotrabajo"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_modotrabajo"
+                   android:textAlignment="center" />
 
-              <TextView
-                  android:id="@+id/tv_mododetrabajo"
-                  android:layout_marginLeft="5dp"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:gravity="center"
-                  android:layout_gravity="center_vertical"
-                  android:text="Online" />
-          </LinearLayout>
+               <TextView
+                   android:id="@+id/tv_mododetrabajo"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_vertical"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center"
+                   android:text="Online" />
+           </LinearLayout>
 
        </LinearLayout>
    </LinearLayout>
-
-
 </LinearLayout>

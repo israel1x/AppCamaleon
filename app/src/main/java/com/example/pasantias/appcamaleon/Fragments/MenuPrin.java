@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,8 +138,13 @@ public class MenuPrin extends Fragment {
         btRutaClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), RutaDeClientes.class);
-                startActivity(i);
+                //Intent i = new Intent(getContext(), RutaDeClientes.class);
+                //startActivity(i);
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment12 = new MapsActivity();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fr_mainContent,fragment12);
+                fragmentTransaction.commit();
             }
         });
 

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -34,22 +35,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
         int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
         Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
-       // MenuPrin menuPrin = new MenuPrin();
-        //frameContentPrincipal = findViewById(R.id.nav_content_principal);
-        //getSupportFragmentManager().beginTransaction().add(R.id.,menuPrin).commit();
 
         //fragment = findViewById(R.id.nav_content_principal);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -58,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new MenuPrin();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_content_principal,fragment);
+        fragmentTransaction.replace(R.id.fr_mainContent,fragment);
         fragmentTransaction.commit();
     }
 
@@ -88,10 +82,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
             Intent i = new Intent(MainActivity.this, Configuraciones.class);
             startActivity(i);
-
             return true;
         }
 
@@ -106,7 +98,6 @@ public class MainActivity extends AppCompatActivity
         MapsActivity fragmentMaps = null;
         Fragment fragment = null;
         int id = item.getItemId();
-
         if (id == R.id.nav_ing_pedido) {
             Intent intent = new Intent(MainActivity.this, IngresarPedido.class);
             startActivity(intent);
@@ -119,14 +110,17 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.nav_ruta_clientes) {
             item.setChecked(true);
-            //fragment = new MapsActivity();
-            //fragmentMaps = new MapsActivity();
-            Intent i = new Intent(MainActivity.this, RutaDeClientes.class);
-            startActivity(i);
+            //Intent i = new Intent(MainActivity.this, RutaDeClientes.class);
+            //startActivity(i);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment fragment12 = new MapsActivity();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fr_mainContent,fragment12);
+            fragmentTransaction.commit();
 
         } else if (id == R.id.nav_lista_clientes) {
             item.setChecked(true);
-            //fragment = new ListaDeClientes();
             Intent i = new Intent(MainActivity.this, ListaClientes.class);
             startActivity(i);
         }
