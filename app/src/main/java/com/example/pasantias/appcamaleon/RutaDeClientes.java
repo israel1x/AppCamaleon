@@ -9,11 +9,17 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -41,7 +47,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallback {
+import static android.content.Context.MODE_PRIVATE;
+
+public class RutaDeClientes extends Fragment implements OnMapReadyCallback {
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     private GoogleMap mMap;
@@ -54,20 +62,28 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
 
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ruta_de_clientes);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        appDatabase = AppDatabase.getAppDatabase(getApplication());
+        View rootView = inflater.inflate(R.layout.activity_ruta_de_clientes,container,false);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        appDatabase = AppDatabase.getAppDatabase(getActivity());
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datosAplicacion", MODE_PRIVATE);
         modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
         Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
+
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     /**
@@ -90,11 +106,11 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
             if (comprobarSalidaInternet()) {
                 traerRutaDeClientes(clienteMins,tokenEjemplo);
             } else {
-                Toast.makeText(getApplicationContext(), "Cargando clientes guardados" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cargando clientes guardados" , Toast.LENGTH_SHORT).show();
                 cargarRutaDeClientesDB(clienteMins,tokenEjemplo);
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Cargando clientes guardados" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Cargando clientes guardados" , Toast.LENGTH_SHORT).show();
             cargarRutaDeClientesDB(clienteMins,tokenEjemplo);
         }
 
@@ -108,12 +124,12 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
     }
 
     private void enableMyLocation() {
-        if (ContextCompat.checkSelfPermission(this,
+        if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
-            ActivityCompat.requestPermissions(this, new String[]
+            ActivityCompat.requestPermissions(getActivity(), new String[]
                             {Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_LOCATION_PERMISSION);
         }
@@ -128,7 +144,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         final String[] longitud = new String[1];
         final String[] direccion = new String[1];
         final String[] telefono = new String[1];
-        final String[] estadoVisita = new String[1];
+        //final String[] estadoVisita = new String[1];
 
         final LatLng guayaquil = new LatLng(-2.16753, -79.89369);
         mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
@@ -152,7 +168,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
         Log.d("Web service listaClientes:", url);
         ////Uso del web service para traer la ruta de clientes
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonObjectRequest jsonObjectRequestRequestRutaDeClientes = new JsonObjectRequest(
                 url,
                 jsonObjectCliente,
@@ -187,7 +203,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
                                 LatLng mark = new LatLng(lat,lng);
                                 Log.d("Latitud:", String.valueOf(lat));
                                 Log.d("Longitud:", String.valueOf(lng));
-                                mMap.addMarker(new MarkerOptions().position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
+                                mMap.addMarker(marcaCliente.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
 
                                /* if (estadoVisita[0].equals(1)) {
                                     mMap.addMarker(marcaClienteVisitado.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
@@ -212,9 +228,6 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
         }
         );
         requestQueue.add(jsonObjectRequestRequestRutaDeClientes);
-
-        //Craeamos las markas en el mapa
-        //createMarks(clienteMins);
     }
 
 
@@ -256,7 +269,7 @@ public class RutaDeClientes extends FragmentActivity implements OnMapReadyCallba
 
 
     public boolean comprobarSalidaInternet() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {

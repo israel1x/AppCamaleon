@@ -8,12 +8,19 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -44,9 +51,10 @@ import iammert.com.expandablelib.ExpandCollapseListener;
 import iammert.com.expandablelib.ExpandableLayout;
 import iammert.com.expandablelib.Section;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.example.pasantias.appcamaleon.RutaDeClientes.modoTrabajo;
 
-public class ListaClientes extends AppCompatActivity implements Filterable {
+public class ListaClientes extends Fragment implements Filterable {
 
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
     List<ClienteMin> clienteMins = new ArrayList<>();
@@ -54,35 +62,36 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
     public static AppDatabase appDatabase;
     private SearchView svListaClientes;
 
+    public ListaClientes() {
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_clientes);
-        //appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"clientesdb").allowMainThreadQueries().build();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_lista_clientes,container,false);
 
-        appDatabase = AppDatabase.getAppDatabase(getApplication());
-        svListaClientes =  findViewById(R.id.sv_listaClientes);
+        appDatabase = AppDatabase.getAppDatabase(getContext());
+        svListaClientes =  rootView.findViewById(R.id.sv_listaClientes);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datosAplicacion", MODE_PRIVATE);
         int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
         int estadoDescargas = sharedPreferences.getInt("estadoDescargas", 0);
         Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
 
 
-        final ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
+        final ExpandableLayout sectionLinearLayout = (ExpandableLayout) rootView.findViewById(R.id.el_listaClientes);
 
         sectionLinearLayout.setRenderer(new ExpandableLayout.Renderer<Cliente, Cliente>() {
             @Override
-            public void renderParent(View view, Cliente model, boolean isExpanded, int parentPosition) {
-                ((TextView) view.findViewById(R.id.tv_parent_nameCliente)).setText(model.nombre);
-                 view.findViewById(R.id.arrow).setBackgroundResource(isExpanded ? R.drawable.arrow_up : R.drawable.arrow_down);
+            public void renderParent(View rootView, Cliente model, boolean isExpanded, int parentPosition) {
+                ((TextView)rootView.findViewById(R.id.tv_parent_nameCliente)).setText(model.nombre);
+                rootView.findViewById(R.id.arrow).setBackgroundResource(isExpanded ? R.drawable.arrow_up : R.drawable.arrow_down);
 
             }
             @Override
-            public void renderChild(View view, Cliente model, int parentPosition, int childPosition) {
-                ((TextView) view.findViewById(R.id.tv_child_ci)).setText(model.ruc);
-                ((TextView) view.findViewById(R.id.tv_child_dir)).setText(model.direccion);
-                ((TextView) view.findViewById(R.id.tv_child_telf)).setText(model.telefono);
+            public void renderChild(View rootView, Cliente model, int parentPosition, int childPosition) {
+                ((TextView) rootView.findViewById(R.id.tv_child_ci)).setText(model.ruc);
+                ((TextView) rootView.findViewById(R.id.tv_child_dir)).setText(model.direccion);
+                ((TextView) rootView.findViewById(R.id.tv_child_telf)).setText(model.telefono);
             }
 
         });
@@ -91,16 +100,16 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
             if ( comprobarSalidaInternet()) {
                 traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
             } else {
-                Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
 
                 getClienteMinsLocales(clienteMins,sectionLinearLayout);
 
                 Log.d("Clientes leidos DB",clienteMins.toString());
             }
         } else if (estadoDescargas == 0) {
-            Toast.makeText(getApplicationContext(), "Primero descarge sus clientes de hoy, para poder visualizarlos" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Primero descarge sus clientes de hoy, para poder visualizarlos" , Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
             getClienteMinsLocales(clienteMins,sectionLinearLayout);
         }
 
@@ -111,36 +120,44 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
             TextView nombreClienteSelect;
 
             @Override
-            public void onExpanded(int parentIndex, final Cliente parent, View view) {
+            public void onExpanded(int parentIndex, final Cliente parent, View rootView) {
                 //Layout expanded
 
-                int color = view.getResources().getColor(R.color.colorAccent);
-                nombreClienteSelect = view.findViewById(R.id.tv_parent_nameCliente);
+                int color = rootView.getResources().getColor(R.color.colorAccent);
+                nombreClienteSelect = rootView.findViewById(R.id.tv_parent_nameCliente);
                 nombreClienteSelect.setBackgroundColor(color);
                 nombreClienteSelect.setTextColor(Color.WHITE);
 
-                Button nuevoPedido = findViewById(R.id.bt_child_nuevo_pedido);
-                Button verUbicacion = findViewById(R.id.bt_child_ver_ubicacion);
+                Button nuevoPedido = getActivity().findViewById(R.id.bt_child_nuevo_pedido);
+                Button verUbicacion = getActivity().findViewById(R.id.bt_child_ver_ubicacion);
 
                 nuevoPedido.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        Intent i = new Intent(ListaClientes.this, IngresarPedido.class);
+                    public void onClick(View rootView) {
+                        Intent i = new Intent(getContext(), IngresarPedido.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         Cart.setCliente(parent);
                         startActivity(i);
-                        Toast.makeText(getApplicationContext(), "Nuevo Pedido de: " +parent.getNombre(), Toast.LENGTH_SHORT).show();
-                        finish();
+                        Toast.makeText(getContext(), "Nuevo Pedido de: " +parent.getNombre(), Toast.LENGTH_SHORT).show();
+                        //finish();
                     }
                 });
 
                 verUbicacion.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        Intent i = new Intent(ListaClientes.this, UbicacionCliente.class);
-                        i.putExtra("LatCliente", parent.getLatC());
-                        i.putExtra("LngCliente", parent.getLngC());
-                        startActivity(i);
+                    public void onClick(View rootView) {
+
+                        Bundle cordenadasCliente = new Bundle();
+                        cordenadasCliente.putDouble("LatCliente",parent.getLatC());
+                        cordenadasCliente.putDouble("LngCliente",parent.getLngC());
+
+                        FragmentManager fragmentManager = getFragmentManager();
+                        Fragment ubicacionCliente = new UbicacionCliente();
+                        ubicacionCliente.setArguments(cordenadasCliente);
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fr_mainContent,ubicacionCliente);
+                        fragmentTransaction.addToBackStack("");
+                        fragmentTransaction.commit();
                     }
                 });
             }
@@ -151,11 +168,11 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
 
             TextView nombreClienteSelect;
             @Override
-            public void onCollapsed(int parentIndex, Cliente parent, View view) {
+            public void onCollapsed(int parentIndex, Cliente parent, View rootView) {
                 //Layout collapsed
 
-                int colorAcent = view.getResources().getColor(R.color.colorAccent);
-                nombreClienteSelect = view.findViewById(R.id.tv_parent_nameCliente);
+                int colorAcent = rootView.getResources().getColor(R.color.colorAccent);
+                nombreClienteSelect = rootView.findViewById(R.id.tv_parent_nameCliente);
                 nombreClienteSelect.setBackgroundColor(Color.WHITE);
                 nombreClienteSelect.setTextColor(colorAcent);
             }
@@ -166,7 +183,7 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
         svListaClientes.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), query, Toast.LENGTH_LONG).show();
 
                 return false;
             }
@@ -174,24 +191,25 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
             @Override
             public boolean onQueryTextChange(String s) {
 
-                Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
 
                 //sectionLinearLayout.filterChildren(obj -> ((Cliente) obj).name.toLowerCase().contains(s.toString().toLowerCase()));
                 return false;
             }
         });
 
-
-
+        return rootView;
     }
 
+
+
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
-        final ExpandableLayout sectionLinearLayout = (ExpandableLayout) findViewById(R.id.el_listaClientes);
+        final ExpandableLayout sectionLinearLayout = getActivity().findViewById(R.id.el_listaClientes);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datosAplicacion", MODE_PRIVATE);
         int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
         int estadoDescargas = sharedPreferences.getInt("estadoDescargas", 0);
 
@@ -199,23 +217,23 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
             if ( comprobarSalidaInternet()) {
                 traerRutaDeClientes(clienteMins,tokenEjemplo,sectionLinearLayout);
             } else {
-                Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
 
                 getClienteMinsLocales(clienteMins,sectionLinearLayout);
 
                 Log.d("Clientes leidos DB",clienteMins.toString());
             }
         } else if (estadoDescargas == 0) {
-            Toast.makeText(getApplicationContext(), "Primero descarge sus clientes de hoy, para poder visualizarlos" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Primero descarge sus clientes de hoy, para poder visualizarlos" , Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getApplicationContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
             getClienteMinsLocales(clienteMins,sectionLinearLayout);
         }
 
     }
 
     public boolean comprobarSalidaInternet() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
@@ -244,16 +262,13 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
 
         final ArrayList<Cliente> data_Clientes = new ArrayList<Cliente>();
 
-        //Log.d("ZZZZZZZZZ: ", productoBuscado);
-        //productoBuscado = productoBuscado.toString();
-        //Consulta al api de productos
         String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
 
 
         Log.d("Ruta al web service: ", url);
         ////Uso del web service para traer los productos
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonArrayRequest jsonArrayRequestDatosDelproducto = new JsonArrayRequest(
                 Request.Method.POST,
                 url,
@@ -271,12 +286,12 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
 
                             if ((dataProductos).length()== 0) {
                                 Log.d("No DATOS DEL PRODUCTO: ", "No tiene DATOS");
-                                Toast.makeText(getApplicationContext(),"No tiene DATOS",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),"No tiene DATOS",Toast.LENGTH_LONG).show();
                                 //Si no existe ningun elemento muestro un mensahj que no hay datos del  PRODUCTO
 
                             } else {
                                 Log.d("ISRAEL", dataProductos.toString());
-                                Toast.makeText(getApplicationContext(),"No tiene DATOS", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),"No tiene DATOS", Toast.LENGTH_LONG).show();
 
                             }
                         }catch (Error error){
@@ -291,8 +306,6 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
         });
 
         requestQueue.add(jsonArrayRequestDatosDelproducto);
-
-        //return data_productos;
     }
 
 
@@ -357,7 +370,7 @@ public class ListaClientes extends AppCompatActivity implements Filterable {
         Log.d("Web S. ListaClientes:", url);
         ////Uso del web service para traer la ruta de clientes
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonObjectRequest jsonObjectRequestRequestRutaDeClientes = new JsonObjectRequest(
                 url,
                 jsonObjectCliente,

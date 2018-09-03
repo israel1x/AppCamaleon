@@ -7,13 +7,19 @@ import android.icu.util.Calendar;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,7 +49,9 @@ import java.util.List;
 import iammert.com.expandablelib.ExpandableLayout;
 import iammert.com.expandablelib.Section;
 
-public class Offline extends AppCompatActivity {
+import static android.content.Context.MODE_PRIVATE;
+
+public class Offline extends Fragment {
 
     public static AppDatabase appDatabase;
     private TextView tvPb;
@@ -64,33 +72,23 @@ public class Offline extends AppCompatActivity {
 
     final String tokenEjemplo = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzAwYWY5NmMzZDE2MjYyNDRmYzMyMjc3M2U2MmJjNWFjNmM0NGRlIiwiZGF0YSI6eyJ1c3VhcmlvSWQiOjEsInZlbmRlZG9ySWQiOjEsInVzZXJuYW1lIjoid2lsc29uIn19.e-yTp8RRMecWB6-ZJODHnCnxEJXtODydjVxWmHVFFjY";
 
+    public Offline() {
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offline);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        View rootView = inflater.inflate(R.layout.activity_offline,container,false);
 
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        appDatabase = AppDatabase.getAppDatabase(getContext());
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();*/
-
-        appDatabase = AppDatabase.getAppDatabase(getApplication());
-
-        btOfflineDownClientes = (Button) findViewById(R.id.bt_offline_down_clientes);
-        btOfflineDownProductos = (Button) findViewById(R.id.bt_offline_down_productos);
-        btOfflineActualizarStock = (Button) findViewById(R.id.bt_offline_actualizar_stock);
+        btOfflineDownClientes = (Button) rootView.findViewById(R.id.bt_offline_down_clientes);
+        btOfflineDownProductos = (Button) rootView.findViewById(R.id.bt_offline_down_productos);
+        btOfflineActualizarStock = (Button) rootView.findViewById(R.id.bt_offline_actualizar_stock);
         //btOfflineActualizarPrecios = (Button) findViewById(R.id.bt_offline_actualizar_precios);
-        pbarOffline = (ProgressBar) findViewById(R.id.pbar_offline);
+        pbarOffline = (ProgressBar) rootView.findViewById(R.id.pbar_offline);
 
-        tvPbarPorcentaje = (TextView) findViewById(R.id.tv_pbar_porcentaje);
+        tvPbarPorcentaje = (TextView) rootView.findViewById(R.id.tv_pbar_porcentaje);
 
         fechaHoy = obtenerFechaDelDia(fechaHoy);
         Log.d("Fecha hoy 3: ", fechaHoy );
@@ -99,16 +97,11 @@ public class Offline extends AppCompatActivity {
         Log.d("Fecha hoy 4: ", fechaDelDiaDeHoy );
         actualizacionHoy = new Actualizacion(1, fechaDelDiaDeHoy,fechaDelDiaDeHoy,fechaDelDiaDeHoy);
 
-        //Log.d("Fecha hoy completa: ", fechaDelDiaDeHoy.toString() );
-
-        SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datosAplicacion", MODE_PRIVATE);
         int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
         int estadoDescargas = sharedPreferences.getInt("estadoDescargas", 0);
+
         Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
-
-
-        final int[] countClicks = {0};
-        final int[] countClicksProductos = {0};
 
         if (!fechaHoy.isEmpty() || fechaHoy.equals(null)) {
 
@@ -116,19 +109,16 @@ public class Offline extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    //appDatabase.actualizacionDao().insertActualizacion(actualizacionHoy);
-                        if (comprobarSalidaInternet()) {
-                            pbarOffline.setVisibility(View.VISIBLE);
-                            tvPbarPorcentaje.setVisibility(View.VISIBLE);
-                            pbarOffline.setProgress(0);
-                            tvPbarPorcentaje.setText("00%");
-                            //descargarClientesDelDia(listaClientesDelDia,tokenEjemplo,fechaHoy);
-                            getFechasDeActualizacionDeClientes(1);
-                            //tareaDescargarClientes(listaClientesDelDia,tokenEjemplo,fechaHoy);
-                            //pbDescargas.setProgress(100);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
-                        }
+                    if (comprobarSalidaInternet()) {
+                        pbarOffline.setVisibility(View.VISIBLE);
+                        tvPbarPorcentaje.setVisibility(View.VISIBLE);
+                        pbarOffline.setProgress(0);
+                        tvPbarPorcentaje.setText("00%");
+
+                        getFechasDeActualizacionDeClientes(1);
+                    } else {
+                        Toast.makeText(getContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -137,17 +127,16 @@ public class Offline extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                        if (comprobarSalidaInternet()) {
-                            pbarOffline.setVisibility(View.VISIBLE);
-                            tvPbarPorcentaje.setVisibility(View.VISIBLE);
-                            pbarOffline.setProgress(0);
-                            tvPbarPorcentaje.setText("00%");
-                            //tareaDescargarProductos(listaProductos,tokenEjemplo);
-                            getFechaDeActualizacionDeProductos(1);
+                    if (comprobarSalidaInternet()) {
+                        pbarOffline.setVisibility(View.VISIBLE);
+                        tvPbarPorcentaje.setVisibility(View.VISIBLE);
+                        pbarOffline.setProgress(0);
+                        tvPbarPorcentaje.setText("00%");
+                        getFechaDeActualizacionDeProductos(1);
 
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        Toast.makeText(getContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -166,22 +155,20 @@ public class Offline extends AppCompatActivity {
                         getFechaActualizarStock(1);
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Debe tener una conexión a internet" , Toast.LENGTH_SHORT).show();
                     }
 
                 }
             });
 
         } else {
-            Toast.makeText(getApplicationContext(), "La fecha no es correcta" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "La fecha no es correcta" , Toast.LENGTH_SHORT).show();
         }
-
+        return rootView;
     }
 
-
-
     public boolean comprobarSalidaInternet() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             // Si hay conexión a Internet en este momento
@@ -228,9 +215,6 @@ public class Offline extends AppCompatActivity {
         final String[] ruc = new String[1];
         final String[] telefono = new String[1];
 
-        //Fecha del dia
-        //dateHoy = "2018-07-25";
-
         JSONObject jsonObjectCliente = new JSONObject();
         try {
             jsonObjectCliente.put("metodo","listaClientes");
@@ -249,7 +233,7 @@ public class Offline extends AppCompatActivity {
         Log.d("Web S. ListaClientes:", url);
         ////Uso del web service para traer la ruta de clientes
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonObjectRequest jsonObjectRequestDescargaDeListaDeClientes = new JsonObjectRequest(
                 url,
                 jsonObjectCliente,
@@ -333,7 +317,7 @@ public class Offline extends AppCompatActivity {
                 String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
                 Log.d("Web S. ListaClientes:", url);
 
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                 JsonObjectRequest jsonObjectRequestDescargaDeListaDeClientes = new JsonObjectRequest(
                         url,
                         jsonObjectCliente,
@@ -410,14 +394,14 @@ public class Offline extends AppCompatActivity {
             @Override
             protected void onPostExecute(List<ClienteMin> clienteMins) {
                 super.onPostExecute(clienteMins);
-                Toast.makeText(getApplicationContext(), "Se descargaron los clientes" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Se descargaron los clientes" , Toast.LENGTH_SHORT).show();
 
                 //Log.d("FECHA A GUARDAR LOCAL:",fechaUpdateDbClientes[0]);
                 Actualizacion actualizacion = new Actualizacion(1, fechaHoy, null, null);
                 //GUARDO EN LA BASE EL REGISTRO (LA FECHA DE DESCARGA DE CLIENTES)
                 appDatabase.actualizacionDao().insertActualizacion(actualizacion);
 
-                SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datosAplicacion", MODE_PRIVATE);
                 int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
                 //int estadoDescargas = sharedPreferences.getInt("estadoDescargas", 0);
                 Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
@@ -464,7 +448,7 @@ public class Offline extends AppCompatActivity {
                 String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
                 Log.d("Web S. listaProductos:", url);
 
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                 JsonObjectRequest jsonObjectRequestDescargaDeListaDeClientes = new JsonObjectRequest(
                         url,
                         jsonObjectCliente,
@@ -539,7 +523,7 @@ public class Offline extends AppCompatActivity {
             @Override
             protected void onPostExecute(List<Producto> listaProductos) {
                 super.onPostExecute(listaProductos);
-                Toast.makeText(getApplicationContext(), "Se descargaron todos los productos" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Se descargaron todos los productos" , Toast.LENGTH_SHORT).show();
 
                 Actualizacion actualizacion = new Actualizacion(1, fechaHoy, fechaHoy,null);
                 //GUARDO EN LA BASE EL REGISTRO (LA FECHA DE DESCARGA DE CLIENTES)
@@ -580,7 +564,7 @@ public class Offline extends AppCompatActivity {
                     //PARA VER SI ES NECESARIO ACTUALIZAR PRODUCTOS
                     // RECIBO LA FECHA PARA COMPARAR CON MI REGISTRO DE LA BASE
 
-                    Toast.makeText(getApplicationContext(), "Ya se descargaron los clientes del: " + actualizacionClientes, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Ya se descargaron los clientes del: " + actualizacionClientes, Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute(id);
@@ -612,7 +596,7 @@ public class Offline extends AppCompatActivity {
 
                     //COMPARO LAS FECHAS PARA VER SI ES NECESARIO ACTUALIZAR LOS PRODUCTOS
                     //
-                    Toast.makeText(getApplicationContext(), "Ya se descargaron los productos del: " + fechaHoy, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Ya se descargaron los productos del: " + fechaHoy, Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute(id);
@@ -655,7 +639,7 @@ public class Offline extends AppCompatActivity {
                 String url = "http://innovasystem.ddns.net:8089/wsCamaleon/servicios";
                 Log.d("ProductosActualizados:", url);
 
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                 JsonObjectRequest jsonObjectRequestDescargaDeListaDeClientes = new JsonObjectRequest(
                         url,
                         jsonObjectCliente,
@@ -731,7 +715,7 @@ public class Offline extends AppCompatActivity {
             @Override
             protected void onPostExecute(List<Producto> listaProductos) {
                 super.onPostExecute(listaProductos);
-                Toast.makeText(getApplicationContext(), "Se actualizaron los productos" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Se actualizaron los productos" , Toast.LENGTH_SHORT).show();
 
             }
         }.execute(fechaDelDiaDeHoy);
@@ -760,7 +744,7 @@ public class Offline extends AppCompatActivity {
 
                     //COMPARO LAS FECHAS PARA VER SI ES NECESARIO ACTUALIZAR EL STOCK Y LOS PRECIOS
                     //
-                    Toast.makeText(getApplicationContext(), "Ya se actualizaron los productos del: " + fechaHoy, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Ya se actualizaron los productos del: " + fechaHoy, Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute(id);

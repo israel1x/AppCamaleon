@@ -138,12 +138,11 @@ public class MenuPrin extends Fragment {
         btRutaClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent i = new Intent(getContext(), RutaDeClientes.class);
-                //startActivity(i);
                 FragmentManager fragmentManager = getFragmentManager();
-                Fragment fragment12 = new MapsActivity();
+                Fragment rutaDeClientesFra = new RutaDeClientes();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fr_mainContent,fragment12);
+                fragmentTransaction.replace(R.id.fr_mainContent,rutaDeClientesFra);
+                fragmentTransaction.addToBackStack("");
                 fragmentTransaction.commit();
             }
         });
@@ -151,17 +150,24 @@ public class MenuPrin extends Fragment {
         btListClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), ListaClientes.class);
-                startActivity(i);
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment listaClientesFra = new ListaClientes();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fr_mainContent,listaClientesFra);
+                fragmentTransaction.addToBackStack("");
+                fragmentTransaction.commit();
             }
         });
 
         btOffline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Toast.makeText(getContext(),"Offline",Toast.LENGTH_SHORT ).show();
-                Intent i = new Intent(getContext(), Offline.class);
-                startActivity(i);
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment offlineFra = new Offline();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fr_mainContent,offlineFra);
+                fragmentTransaction.addToBackStack("");
+                fragmentTransaction.commit();
             }
         });
 

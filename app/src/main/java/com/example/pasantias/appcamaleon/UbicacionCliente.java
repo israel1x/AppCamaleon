@@ -1,7 +1,13 @@
 package com.example.pasantias.appcamaleon;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -11,32 +17,38 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class UbicacionCliente extends FragmentActivity implements OnMapReadyCallback {
+public class UbicacionCliente extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     Double latitudCliente;
     Double longitudCliente;
     LatLng ubicacionDelCliente;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ubicacion_cliente);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
-        Bundle bundle = getIntent().getExtras();
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_ubicacion_cliente, container,false);
+
+        Bundle bundle = getArguments();
         if (bundle != null) {
             latitudCliente = bundle.getDouble("LatCliente");
             longitudCliente = bundle.getDouble("LngCliente");
             ubicacionDelCliente = new LatLng(latitudCliente,longitudCliente);
         } else {
-            Toast.makeText(getApplicationContext(), "No hay datos que presentar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No hay datos que presentar", Toast.LENGTH_SHORT).show();
         }
+        return rootView;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+    }
 
     /**
      * Manipulates the map once available.

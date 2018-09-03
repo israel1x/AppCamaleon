@@ -32,21 +32,20 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navegation);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);
         int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
         Log.d("MODO TRABAJO" , String.valueOf(modoTrabajo));
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //fragment = findViewById(R.id.nav_content_principal);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         Fragment fragment = new MenuPrin();
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -101,44 +100,37 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_ing_pedido) {
             Intent intent = new Intent(MainActivity.this, IngresarPedido.class);
             startActivity(intent);
+
         } else if (id == R.id.nav_offline) {
-            Intent i = new Intent(MainActivity.this, Offline.class);
-            startActivity(i);
+            item.setChecked(true);
+            fragment = new Offline();
 
         } else if (id == R.id.nav_listado_pedidos) {
             Intent i = new Intent(MainActivity.this, ListaPedidos.class);
             startActivity(i);
+
         } else if (id == R.id.nav_ruta_clientes) {
             item.setChecked(true);
-            //Intent i = new Intent(MainActivity.this, RutaDeClientes.class);
-            //startActivity(i);
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment12 = new MapsActivity();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fr_mainContent,fragment12);
-            fragmentTransaction.commit();
+            fragment = new RutaDeClientes();
 
         } else if (id == R.id.nav_lista_clientes) {
             item.setChecked(true);
-            Intent i = new Intent(MainActivity.this, ListaClientes.class);
-            startActivity(i);
+            fragment = new ListaClientes();
         }
-
-       if (fragment != null) {
+        if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.nav_content_principal,fragment);
+            fragmentTransaction.replace(R.id.fr_mainContent,fragment);
+            fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 }
