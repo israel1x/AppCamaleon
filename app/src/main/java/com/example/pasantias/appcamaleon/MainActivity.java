@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -19,8 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.example.pasantias.appcamaleon.Fragments.ListaDeClientes;
-import com.example.pasantias.appcamaleon.Fragments.MapsActivity;
 import com.example.pasantias.appcamaleon.Fragments.MenuPrin;
 
 public class MainActivity extends AppCompatActivity
@@ -94,7 +91,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-        MapsActivity fragmentMaps = null;
+
         Fragment fragment = null;
         int id = item.getItemId();
         if (id == R.id.nav_ing_pedido) {

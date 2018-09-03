@@ -37,6 +37,7 @@ public class UbicacionCliente extends Fragment implements OnMapReadyCallback {
         } else {
             Toast.makeText(getContext(), "No hay datos que presentar", Toast.LENGTH_SHORT).show();
         }
+
         return rootView;
     }
 
