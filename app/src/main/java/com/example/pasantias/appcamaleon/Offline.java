@@ -85,7 +85,7 @@ public class Offline extends Fragment {
         btOfflineDownClientes = (Button) rootView.findViewById(R.id.bt_offline_down_clientes);
         btOfflineDownProductos = (Button) rootView.findViewById(R.id.bt_offline_down_productos);
         btOfflineActualizarStock = (Button) rootView.findViewById(R.id.bt_offline_actualizar_stock);
-        //btOfflineActualizarPrecios = (Button) findViewById(R.id.bt_offline_actualizar_precios);
+
         pbarOffline = (ProgressBar) rootView.findViewById(R.id.pbar_offline);
 
         tvPbarPorcentaje = (TextView) rootView.findViewById(R.id.tv_pbar_porcentaje);
