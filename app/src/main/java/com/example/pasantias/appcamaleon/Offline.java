@@ -292,11 +292,13 @@ public class Offline extends Fragment {
                 final ClienteMin clienteMin = new ClienteMin();
                 final String[] id = new String[1];
                 final String[] nombre = new String[1];
+                final String[] ruc = new String[1];
+                final String[] direccion = new String[1];
+                final String[] telefono = new String[1];
                 final String[] latitud = new String[1];
                 final String[] longitud = new String[1];
-                final String[] direccion = new String[1];
-                final String[] ruc = new String[1];
-                final String[] telefono = new String[1];
+                final String[] fechaVisita = new String[1];
+                final int[] estadoVisita = {0};
                 final int[] cont = {0};
                 final String[] fechaUpdateDbEmpresaClientes = new  String[1];
 
@@ -344,6 +346,8 @@ public class Offline extends Fragment {
                                         telefono[0] = jsonObjectUno[0].getString("telefono");
                                         latitud[0] = jsonObjectUno[0].getString("latitud");
                                         longitud[0] = jsonObjectUno[0].getString("longitud");
+                                        //fechaVisita[0] = jsonObjectUno[0].getString("fechavisita");;
+                                        estadoVisita[0] = jsonObjectUno[0].getInt("id_estado"); ;
                                         clienteMin.setIdCliente(id[0]);
                                         clienteMin.setNameCliente(nombre[0]);
                                         clienteMin.setRucCliente(ruc[0]);
@@ -351,6 +355,8 @@ public class Offline extends Fragment {
                                         clienteMin.setTelfCliente(telefono[0]);
                                         clienteMin.setLattCliente(latitud[0]);
                                         clienteMin.setLongCliente(longitud[0]);
+                                        //clienteMin.setFechaVisita(fechaVisita[0]);
+                                        clienteMin.setEstadoVisita(estadoVisita[0]);
 
                                         appDatabase.clienteMinDao().insertOne(clienteMin);
                                         //cont[0] = cont[0] + 1;

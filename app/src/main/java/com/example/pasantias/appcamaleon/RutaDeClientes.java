@@ -144,7 +144,7 @@ public class RutaDeClientes extends Fragment implements OnMapReadyCallback {
         final String[] longitud = new String[1];
         final String[] direccion = new String[1];
         final String[] telefono = new String[1];
-        //final String[] estadoVisita = new String[1];
+        final int[] estadoVisita = {0};
 
         final LatLng guayaquil = new LatLng(-2.16753, -79.89369);
         mMap.addMarker(new MarkerOptions().position(guayaquil).title("Marker in Innova"));
@@ -189,27 +189,27 @@ public class RutaDeClientes extends Fragment implements OnMapReadyCallback {
                                 nombre[0] = jsonObjectUno[0].getString("nombre");
                                 direccion[0] = jsonObjectUno[0].getString("direccion");
                                 telefono[0] = jsonObjectUno[0].getString("telefono");
-                                //estadoVisita[0] = String.valueOf(jsonObjectUno[0].getInt("estado"));
+                                estadoVisita[0] = jsonObjectUno[0].getInt("id_estado");
                                 clienteMin.setIdCliente(id[0]);
                                 clienteMin.setLattCliente(latitud[0]);
                                 clienteMin.setLongCliente(longitud[0]);
                                 clienteMin.setNameCliente(nombre[0]);
                                 clienteMin.setDirCliente(direccion[0]);
                                 clienteMin.setTelfCliente(telefono[0]);
-                                //clienteMin.setEstadoVisita(Integer.parseInt(estadoVisita[0]));
+                                clienteMin.setEstadoVisita(estadoVisita[0]);
 
                                 double lat = Double.parseDouble(clienteMin.getLattCliente());
                                 double lng = Double.parseDouble(clienteMin.getLongCliente());
                                 LatLng mark = new LatLng(lat,lng);
                                 Log.d("Latitud:", String.valueOf(lat));
                                 Log.d("Longitud:", String.valueOf(lng));
-                                mMap.addMarker(marcaCliente.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
+                               // mMap.addMarker(marcaCliente.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
 
-                               /* if (estadoVisita[0].equals(1)) {
+                               if (estadoVisita[0] == 2) {
                                     mMap.addMarker(marcaClienteVisitado.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
                                 } else {
                                     mMap.addMarker(marcaCliente.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
-                                }*/
+                                }
                                 //clienteMins.add(clienteMin);
                                 Log.d("detalle ruta :",id[0] );
                             }
@@ -237,7 +237,7 @@ public class RutaDeClientes extends Fragment implements OnMapReadyCallback {
 
         final MarkerOptions marcaCliente = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.visita_150)).anchor(0.0f,1.0f);
 
-        new AsyncTask<List<ClienteMin>, Void, List<ClienteMin>>() {
+         new  AsyncTask<List<ClienteMin>, Void, List<ClienteMin>>() {
             @Override
             protected List<ClienteMin> doInBackground(List<ClienteMin>... lists) {
                 return appDatabase.clienteMinDao().getAll();
@@ -256,7 +256,7 @@ public class RutaDeClientes extends Fragment implements OnMapReadyCallback {
                     //Log.d("Latitud:", String.valueOf(lat));
                     //Log.d("Longitud:", String.valueOf(lng));
                     LatLng mark = new LatLng(Double.parseDouble(clienteMin.getLattCliente()),Double.parseDouble(clienteMin.getLongCliente()));
-                    if (clienteMin.getEstadoVisita() == 1) {
+                    if (clienteMin.getEstadoVisita() == 2) {
                         mMap.addMarker(marcaClienteVisitado.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
                     } else {
                         mMap.addMarker(marcaCliente.position(mark).title(clienteMin.getNameCliente() + " " + clienteMin.getTelfCliente() + " "  + clienteMin.getDirCliente() ));
