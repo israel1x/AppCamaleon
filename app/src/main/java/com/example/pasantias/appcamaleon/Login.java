@@ -170,7 +170,7 @@ public class Login extends AppCompatActivity {
             @Override
             protected Void doInBackground(Usuario... usuarios) {
                 appDatabase.usuarioDao().insert(usuario);
-                Log.d("Se gguardo", "XXXXXXX X");
+                Log.d("Se guardo", "datos del usuario");
                 return null;
             }
 
@@ -203,7 +203,7 @@ public class Login extends AppCompatActivity {
         }.execute(id);
     }
 
-    public boolean isInternetAvailable() {
+    public boolean isInternetAvailableEveryWhere() {
         try {
             InetAddress ipAddr = InetAddress.getByName("innova.com");
 

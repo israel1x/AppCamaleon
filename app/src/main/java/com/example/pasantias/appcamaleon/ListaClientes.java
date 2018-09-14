@@ -70,7 +70,7 @@ public class ListaClientes extends Fragment implements Filterable {
         View rootView = inflater.inflate(R.layout.activity_lista_clientes,container,false);
 
         appDatabase = AppDatabase.getAppDatabase(getContext());
-        svListaClientes =  rootView.findViewById(R.id.sv_listaClientes);
+        //svListaClientes =  rootView.findViewById(R.id.sv_listaClientes);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datosAplicacion", MODE_PRIVATE);
         int modoTrabajo = sharedPreferences.getInt("modoDeTrabajo", 0);
@@ -180,7 +180,7 @@ public class ListaClientes extends Fragment implements Filterable {
 
 
 
-        svListaClientes.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+       /* svListaClientes.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Toast.makeText(getContext(), query, Toast.LENGTH_LONG).show();
@@ -196,14 +196,14 @@ public class ListaClientes extends Fragment implements Filterable {
                 //sectionLinearLayout.filterChildren(obj -> ((Cliente) obj).name.toLowerCase().contains(s.toString().toLowerCase()));
                 return false;
             }
-        });
+        });*/
 
         return rootView;
     }
 
 
 
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
 
@@ -230,7 +230,7 @@ public class ListaClientes extends Fragment implements Filterable {
             getClienteMinsLocales(clienteMins,sectionLinearLayout);
         }
 
-    }
+    }*/
 
     public boolean comprobarSalidaInternet() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
