@@ -25,6 +25,12 @@ public interface ClienteMinDao {
     @Query("SELECT id, name, lattitud, longitud, estadovisita FROM clientemin")
     List<ClienteMin> findForRutaClientes();
 
+    @Query("SELECT * FROM clientemin LIMIT :limite OFFSET :offset")
+    List<ClienteMin> getClienteMinOffset(String limite,String offset);
+
+    @Query("SELECT * FROM clientemin WHERE name LIKE :string COLLATE NOCASE LIMIT :limite OFFSET :offset")
+    List<ClienteMin> getClienteMinOffsetString(String limite,String offset,String string);
+
     @Query("SELECT COUNT(*) from clientemin")
     int countUsers();
 

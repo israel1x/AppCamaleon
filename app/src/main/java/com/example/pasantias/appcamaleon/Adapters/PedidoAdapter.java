@@ -2,6 +2,7 @@ package com.example.pasantias.appcamaleon.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.example.pasantias.appcamaleon.DataBase.Pedido;
 import com.example.pasantias.appcamaleon.Pojos.Item;
 import com.example.pasantias.appcamaleon.R;
+import com.example.pasantias.appcamaleon.Util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
         holder.cellN.setText(String.valueOf(position+1));
         holder.cellNombre.setText(pedido.getNombreCliente());
         holder.cellFecha.setText(pedido.getFecha());
-        holder.cellEstado.setText(String.valueOf(pedido.getEstadoPedido()));
+        holder.cellEstado.setText(Util.Constantes.estadoPedido(pedido.getEstadoPedido()));
 
         holder.rowTable.setBackgroundColor(position % 2 == 0 ? Color.LTGRAY : Color.WHITE);
 
@@ -62,7 +64,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
         private TextView cellNombre;
         private TextView cellFecha;
         private TextView cellEstado;
-        private LinearLayout rowTable;
+        private CardView rowTable;
 
         public PedidoViewHolder(View itemView) {
             super(itemView);
@@ -70,7 +72,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
             cellNombre = (TextView) itemView.findViewById(R.id.cellNombre);
             cellFecha = (TextView) itemView.findViewById(R.id.cellFecha);
             cellEstado = (TextView) itemView.findViewById(R.id.cellEstado);
-            rowTable = (LinearLayout) itemView.findViewById(R.id.rowTable);
+            rowTable = (CardView) itemView.findViewById(R.id.rowTable);
         }
     }
 }

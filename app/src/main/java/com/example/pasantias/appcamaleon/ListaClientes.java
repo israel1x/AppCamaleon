@@ -106,8 +106,8 @@ public class ListaClientes extends Fragment implements Filterable {
 
                 Log.d("Clientes leidos DB",clienteMins.toString());
             }
-        } else if (estadoDescargas == 0) {
-            Toast.makeText(getContext(), "Primero descarge sus clientes de hoy, para poder visualizarlos" , Toast.LENGTH_SHORT).show();
+        //} else if (estadoDescargas == 0) {
+       //     Toast.makeText(getContext(), "Primero descarge sus clientes de hoy, para poder visualizarlos" , Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "Cargando clientes de hoy" , Toast.LENGTH_SHORT).show();
             getClienteMinsLocales(clienteMins,sectionLinearLayout);

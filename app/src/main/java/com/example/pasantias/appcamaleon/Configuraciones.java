@@ -16,6 +16,8 @@ public class Configuraciones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuraciones);
 
+
+
         swModotrabajo = (Switch) findViewById(R.id.sw_modotrabajo);
 
         SharedPreferences sharedPreferences = getSharedPreferences("datosAplicacion", MODE_PRIVATE);

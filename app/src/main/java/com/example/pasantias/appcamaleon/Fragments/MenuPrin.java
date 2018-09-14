@@ -23,7 +23,9 @@ import com.example.pasantias.appcamaleon.ListaPedidos;
 import com.example.pasantias.appcamaleon.MainActivity;
 import com.example.pasantias.appcamaleon.Offline;
 import com.example.pasantias.appcamaleon.R;
+import com.example.pasantias.appcamaleon.RutaClientesPedido;
 import com.example.pasantias.appcamaleon.RutaDeClientes;
+import com.example.pasantias.appcamaleon.Util.Util;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -86,6 +88,7 @@ public class MenuPrin extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -120,8 +123,9 @@ public class MenuPrin extends Fragment {
         btIngPedidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), IngresarPedido.class);
-                startActivity(intent);
+               // Intent intent = new Intent(getContext(), IngresarPedido.class);
+               // startActivity(intent);
+                callFragment(R.id.fr_mainContent,new RutaClientesPedido());
                 Toast.makeText(getContext(),"Ingresar pedido",Toast.LENGTH_SHORT ).show();
 
             }
@@ -226,6 +230,14 @@ public class MenuPrin extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    public void callFragment(int containerViewId,Fragment fragment){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(containerViewId,fragment);
+        fragmentTransaction.addToBackStack("");
+        fragmentTransaction.commit();
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

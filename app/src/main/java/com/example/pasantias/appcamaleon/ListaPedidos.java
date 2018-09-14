@@ -16,11 +16,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pasantias.appcamaleon.Adapters.PedidoAdapter;
 import com.example.pasantias.appcamaleon.DataBase.AppDatabase;
 import com.example.pasantias.appcamaleon.Util.FileUploadNotification;
+import com.example.pasantias.appcamaleon.Util.ServicioEnvioPedidosPendientes;
 import com.example.pasantias.appcamaleon.Util.ServioEnvioPedidos;
 
 public class ListaPedidos extends AppCompatActivity {
@@ -31,14 +33,38 @@ public class ListaPedidos extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PedidoAdapter pedidoAdapter;
 
+    private Intent intent;
+    private TextView cellN,cellEstado;//servicioa activo/inactivo
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pedidos);
         appDatabase = AppDatabase.getAppDatabase(getApplication());
 
+        //inicio de implementacion de servicio
+        intent = new Intent(getApplicationContext(), ServicioEnvioPedidosPendientes.class);
+
+        cellN= (TextView) findViewById(R.id.cellN);
+
+        cellN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopService(intent);
+            }
+        });
+        cellEstado = (TextView) findViewById(R.id.cellEstado);
+
+        cellEstado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService(intent);
+            }
+        });
+        //fin de implementacoon de servicio
+
         recyclerView = (RecyclerView) findViewById(R.id.tableLayoutPedido);
-        pedidoAdapter=new PedidoAdapter(this);
+        pedidoAdapter = new PedidoAdapter(this);
         recyclerView.setAdapter(pedidoAdapter);
         recyclerView.setHasFixedSize(true);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);

@@ -1,9 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".DetalleCliente">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:gravity="center_horizontal|center_vertical"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:text="Información"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="Nombre"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textInfoNombre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="right"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="Usuario Nombre"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="Tipo de Negocio"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textInfoNegocio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="right"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="Tienda"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="Dirección"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textInfoDireccion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="right"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="Av. Avenida 9"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="Estado"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textInfoEstado"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="right"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="pediente"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:gravity="center_horizontal|center_vertical"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:text="Acción"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textAccionComentar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:background="@drawable/border_bottom"
+                android:text="Comentar visita"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/textAccionPedido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:background="@drawable/border_bottom"
+                android:text="Nuevo Pedido"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

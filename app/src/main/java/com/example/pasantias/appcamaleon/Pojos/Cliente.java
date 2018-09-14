@@ -14,6 +14,8 @@ public class Cliente implements Filterable{
     public Double latC;
     public Double lngC;
 
+    public int estado;
+
     public Cliente() {
     }
 
@@ -39,6 +41,17 @@ public class Cliente implements Filterable{
         this.telefono = telefono;
         this.latC = latC;
         this.lngC = lngC;
+    }
+
+    public Cliente(int id_cliente,String ruc, String nombre, String direccion, String telefono, Double latC, Double lngC,int estado) {
+        this.id_cliente=id_cliente;
+        this.ruc = ruc;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.latC = latC;
+        this.lngC = lngC;
+        this.estado=estado;
     }
 
     public Cliente(Cliente cliente) {
@@ -106,6 +119,14 @@ public class Cliente implements Filterable{
 
     public void setLngC(Double lngC) {
         this.lngC = lngC;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.pasantias.appcamaleon.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,7 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoAdapter.It
         holder.cellCantidad.setText(item.getCantidad().toString());
         holder.cellSubtotal.setText(String.valueOf(item.getCantidad() * item.getProducto().getProductoPrecio()));
 
-        holder.rowTable.setBackgroundColor(position % 2 == 0 ? Color.LTGRAY : Color.WHITE);
+       // holder.rowTable.setBackgroundColor(position % 2 == 0 ? Color.LTGRAY : Color.WHITE);
 
     }
 
@@ -63,7 +64,7 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoAdapter.It
         private TextView cellPrecio;
         private TextView cellCantidad;
         private TextView cellSubtotal;
-        private LinearLayout rowTable;
+        private CardView rowTable;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -72,7 +73,7 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoAdapter.It
             cellPrecio = (TextView) itemView.findViewById(R.id.cellPrecio);
             cellCantidad = (TextView) itemView.findViewById(R.id.cellCantidad);
             cellSubtotal = (TextView) itemView.findViewById(R.id.cellSubtotal);
-            rowTable = (LinearLayout) itemView.findViewById(R.id.rowTable);
+            rowTable = (CardView) itemView.findViewById(R.id.rowTable);
         }
     }
 }

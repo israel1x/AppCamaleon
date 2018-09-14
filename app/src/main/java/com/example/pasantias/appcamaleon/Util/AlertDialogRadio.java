@@ -8,15 +8,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
-public class AlertDialogComentarVisita extends DialogFragment{
+public class AlertDialogRadio extends DialogFragment{
     public String[] comentarios;
 
-    public AlertDialogComentarVisita() {
+    public AlertDialogRadio() {
 
     }
 
     @SuppressLint("ValidFragment")
-    public AlertDialogComentarVisita(String[] opciones) {
+    public AlertDialogRadio(String[] opciones) {
     this.comentarios=opciones;
     }
 
@@ -68,7 +68,7 @@ public class AlertDialogComentarVisita extends DialogFragment{
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
 
         /** Setting a title for the window */
-        b.setTitle("Choose your version");
+        b.setTitle("Comentario");
 
         /** Setting items to the alert dialog */
         b.setSingleChoiceItems(comentarios, position, null);

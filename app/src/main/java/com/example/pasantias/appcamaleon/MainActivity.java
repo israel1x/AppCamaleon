@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import com.example.pasantias.appcamaleon.Fragments.ListaDeClientes;
 import com.example.pasantias.appcamaleon.Fragments.MapsActivity;
 import com.example.pasantias.appcamaleon.Fragments.MenuPrin;
+import com.example.pasantias.appcamaleon.Util.Util;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MenuPrin.OnFragmentInteractionListener {
@@ -53,6 +54,16 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fr_mainContent,fragment);
         fragmentTransaction.commit();
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("fragment");
+            if (value != null) {
+                setFragment(value);
+            }
+        }
+
     }
 
     @Override
@@ -98,8 +109,10 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         int id = item.getItemId();
         if (id == R.id.nav_ing_pedido) {
-            Intent intent = new Intent(MainActivity.this, IngresarPedido.class);
-            startActivity(intent);
+           // Intent intent = new Intent(MainActivity.this, IngresarPedido.class);
+          //  startActivity(intent);
+            item.setChecked(true);
+            fragment = new RutaClientesPedido();
 
         } else if (id == R.id.nav_offline) {
             item.setChecked(true);
@@ -128,6 +141,22 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void callFragment(int containerViewId,Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(containerViewId,fragment);
+        fragmentTransaction.addToBackStack("");
+        fragmentTransaction.commit();
+    }
+
+    public void setFragment(String mParam1){
+        switch (mParam1){
+            case Util.Constantes.FRAGRUTACLIENTE:
+                callFragment(R.id.fr_mainContent,new RutaClientesPedido());
+
+        }
     }
 
     @Override
